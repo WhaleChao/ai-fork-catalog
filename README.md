@@ -99,4 +99,4 @@
 
 每日台北時間 10:17 搜尋千星以上、可辨識開源授權的專案；新 Fork 每天最多 3 個，使用來源網路去重。全部既有公開 Fork 每日嘗試同步預設分支；衝突不強制覆寫。
 
-[檢視最近執行紀錄](https://github.com/WhaleChao/ai-fork-catalog/actions) · [機器可讀狀態](data/report.json) · [人工調整摘要與分類](data/overrides.json)
+[操作與授權](SETUP.md) · [檢視最近執行紀錄](https://github.com/WhaleChao/ai-fork-catalog/actions) · [機器可讀狀態](data/report.json) · [人工調整摘要與分類](data/overrides.json)
