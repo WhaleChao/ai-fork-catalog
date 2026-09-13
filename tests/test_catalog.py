@@ -50,7 +50,8 @@ class CatalogTests(unittest.TestCase):
             {"full_name": "WhaleChao/second", "source": {"full_name": "example/second"}, "created_at": "2026-09-13T16:20:00Z"},
             {"full_name": "WhaleChao/bootstrap", "source": {"full_name": "example/bootstrap"}, "created_at": "2026-09-13T16:25:00Z"},
         ]
-        self.assertEqual(catalog.remaining_daily_budget(forks, [{"source": "example/bootstrap"}], now), 1)
+        self.assertEqual(catalog.remaining_daily_budget(forks, [{"source": "example/bootstrap"}], "2026-09-13", now), 0)
+        self.assertEqual(catalog.remaining_daily_budget(forks, [{"source": "example/bootstrap"}], "2026-09-14", now), 1)
 
     def test_source_validation_and_activity_exception(self):
         candidate = repo("example/fast-asr", "Fast speech transcription", ["speech-to-text"])

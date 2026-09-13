@@ -163,10 +163,12 @@ def source_root(repo: dict[str, Any]) -> str:
     return (repo.get("source") or repo).get("full_name", repo["full_name"]).lower()
 
 
-def remaining_daily_budget(forks: list[dict[str, Any]], seeds: list[dict[str, str]], now: dt.datetime | None = None) -> int:
+def remaining_daily_budget(
+    forks: list[dict[str, Any]], seeds: list[dict[str, str]], bootstrap_day: str | None, now: dt.datetime | None = None
+) -> int:
     taipei = dt.timezone(dt.timedelta(hours=8))
     today = (now or dt.datetime.now(dt.timezone.utc)).astimezone(taipei).date()
-    bootstrap_roots = {item["source"].lower() for item in seeds}
+    bootstrap_roots = {item["source"].lower() for item in seeds} if today.isoformat() == bootstrap_day else set()
     added_today = {
         source_root(fork)
         for fork in forks
@@ -435,7 +437,7 @@ def main() -> int:
             except APIError as exc:
                 errors.append(f"核對 {name}：HTTP {exc.status} {exc}")
     elif mode == "daily":
-        budget = remaining_daily_budget(forks, seeds)
+        budget = remaining_daily_budget(forks, seeds, state.get("bootstrap_day"))
         candidates, discovery_errors = discover(api, roots, budget) if budget else ([], [])
         errors.extend(discovery_errors)
     if args.mode == "preview":
@@ -459,6 +461,7 @@ def main() -> int:
         state["bootstrap_complete"] = True
     if mode == "bootstrap":
         state["bootstrap_created"] = sorted(set(state.get("bootstrap_created", []) + created))
+        state.setdefault("bootstrap_day", (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=8)).date().isoformat())
     # Always refresh the current fork list after asynchronous creation.
     forks = api.owned_forks()
     statuses = sync_forks(api, forks)
