@@ -74,12 +74,18 @@ class CatalogTests(unittest.TestCase):
             repo("example/translator", "Offline machine translation", ["machine-translation"], 3000),
             repo("example/agent", "Agent orchestration framework", ["agent-framework"], 2000),
             repo("example/irrelevant", "A general dashboard", ["mcp-server"], 9000),
+            repo("example/tuner", "Unified Efficient Fine-Tuning of LLMs", ["quantization"], 8000),
+            repo("example/browser-tool", "Browser extension for translation based on ChatGPT API", ["translation"], 7000),
+            repo("example/userscript", "Bilingual translation extension and Greasemonkey script", ["translation"], 6000),
         ]
         selected, errors = catalog.discover(FakeAPI(items), {"example/agent"}, 3)
         self.assertFalse(errors)
         self.assertEqual(len(selected), 3)
         self.assertNotIn("example/agent", [item[1]["full_name"] for item in selected])
         self.assertNotIn("example/irrelevant", [item[1]["full_name"] for item in selected])
+        self.assertNotIn("example/tuner", [item[1]["full_name"] for item in selected])
+        self.assertNotIn("example/browser-tool", [item[1]["full_name"] for item in selected])
+        self.assertNotIn("example/userscript", [item[1]["full_name"] for item in selected])
 
     def test_catalog_summary_escapes_table_separator(self):
         entry = {

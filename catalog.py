@@ -50,13 +50,21 @@ CATEGORY_TOPICS = {
     "other": "personal-reference",
 }
 PATTERNS = {
-    "inference": re.compile(r"llm|language model|inference|quantiz|kv.?cache|mlx|vram|gpu|model serving|transformer", re.I),
+    "inference": re.compile(r"\binference\b|quantiz|kv.?cache|\bmlx\b|model serving|llm serving|llm runtime|memory efficien|model load|token generation|throughput|low.?memory", re.I),
     "transcription": re.compile(r"speech.?to.?text|transcri|whisper|\basr\b|speaker diariz|voice activity|audio model", re.I),
     "translation": re.compile(r"translat|subtit|dubbing|machine translation", re.I),
-    "agent": re.compile(r"\bagent\b|\bagents\b|\bmcp\b|model context protocol|harness", re.I),
+    "agent": re.compile(r"agent framework|agent runtime|agent sdk|agent library|agent orchestrat|agent workflow|multi.?agent|\bmcp server\b|model context protocol|agent harness", re.I),
 }
 EXCLUDE_PATTERN = re.compile(
     r"\bawesome\b|curated list|reading list|tutorial|course|book|papers|benchmark collection",
+    re.I,
+)
+APP_ONLY_PATTERN = re.compile(
+    r"browser extension|chrome extension|translation extension|translator extension|greasemonkey|userscript|desktop application|desktop app|web application|web app|mobile app|translator app",
+    re.I,
+)
+TRANSLATION_IMPLEMENTATION_PATTERN = re.compile(
+    r"engine|server|library|framework|toolkit|model|pipeline|offline|local|subtitle|document|\bpdf\b|\bapi\b|\bsdk\b|command.?line",
     re.I,
 )
 MANUAL_ACTIVITY_EXCEPTIONS = {"SYSTRAN/faster-whisper"}
@@ -206,11 +214,14 @@ def valid_source(repo: dict[str, Any], *, allow_old: bool = False) -> tuple[bool
 
 
 def category_match(repo: dict[str, Any], category: str) -> bool:
-    text = " ".join(filter(None, [repo.get("name"), repo.get("description")]))
+    description = repo.get("description") or ""
+    text = " ".join(filter(None, [repo.get("name"), description]))
     topics = set(repo.get("topics") or [])
-    if EXCLUDE_PATTERN.search(text):
+    if EXCLUDE_PATTERN.search(text) or APP_ONLY_PATTERN.search(description):
         return False
-    return bool(PATTERNS[category].search(text)) and bool(topics.intersection(TOPIC_QUERIES[category]))
+    if category == "translation" and not TRANSLATION_IMPLEMENTATION_PATTERN.search(description):
+        return False
+    return bool(PATTERNS[category].search(description)) and bool(topics.intersection(TOPIC_QUERIES[category]))
 
 
 def classify(repo: dict[str, Any], override: dict[str, Any] | None = None) -> str:
