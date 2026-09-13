@@ -27,7 +27,7 @@ concurrency:
 jobs:
   catalog:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
       FORK_PAT: ${{ secrets.FORK_PAT }}
       GITHUB_TOKEN: ${{ github.token }}

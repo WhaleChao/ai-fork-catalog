@@ -277,13 +277,16 @@ def fork_one(api: GitHub, source: dict[str, Any], existing_roots: set[str]) -> t
 
 def sync_forks(api: GitHub, forks: list[dict[str, Any]]) -> dict[str, str]:
     result: dict[str, str] = {}
-    for fork in forks:
+    for index, fork in enumerate(forks, 1):
         name = fork["full_name"]
         try:
             response = api.request("POST", f"/repos/{name}/merge-upstream", {"branch": fork["default_branch"]})
-            result[name] = response.get("message", "已同步")
+            message = response.get("message", "")
+            result[name] = "已是最新" if "not behind" in message.lower() else "已更新" if "successfully" in message.lower() else (message or "已同步")
         except APIError as exc:
-            result[name] = f"需處理：HTTP {exc.status} {exc}"
+            result[name] = "需處理：合併衝突" if exc.status == 409 else f"需處理：HTTP {exc.status} {exc}"
+        if index % 10 == 0 or index == len(forks):
+            print(f"已檢查同步：{index}/{len(forks)}", flush=True)
     return result
 
 
@@ -322,7 +325,7 @@ def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str
         "",
         "整理可供 MAGI 研究的開源技術，涵蓋推論效能、記憶體、逐字稿、翻譯與 Agent／MCP 架構。Fork 代表技術收藏，採用建議不代表已整合。",
         "",
-        f"最近檢查（UTC）：{report['checked_at']}　｜　Fork：{len(entries)}　｜　首次新增：{report.get('created', 0)}　｜　本次同步異常：{report.get('sync_issues', 0)}",
+        f"最近檢查（UTC）：{report['checked_at']}　｜　Fork：{len(entries)}　｜　本次新增：{report.get('created', 0)}　｜　本次同步異常：{report.get('sync_issues', 0)}",
         "",
         "摘要沿用原專案語言；星數與授權以來源倉庫為準。私有 MAGI 的實作路徑、設定與資料不在此公開目錄中。",
         "",
@@ -358,7 +361,7 @@ def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str
 
 def update_metadata(api: GitHub, forks: list[dict[str, Any]], overrides: dict[str, Any], state: dict[str, Any], errors: list[str]) -> None:
     generated = state.setdefault("generated_descriptions", {})
-    for fork in forks:
+    for index, fork in enumerate(forks, 1):
         root = fork.get("source") or fork.get("parent") or fork
         upstream = fork.get("parent") or root
         override = overrides.get(root["full_name"], overrides.get(upstream["full_name"], overrides.get(fork["full_name"], {})))
@@ -373,13 +376,16 @@ def update_metadata(api: GitHub, forks: list[dict[str, Any]], overrides: dict[st
                 generated[fork["full_name"]] = summary
             except APIError as exc:
                 errors.append(f"更新簡介 {fork['full_name']}：HTTP {exc.status} {exc}")
-        topic = CATEGORY_TOPICS[category]
-        topics = list(fork.get("topics") or [])
-        if topic not in topics:
+        topic = "mcp" if category == "agent" and "mcp" in (fork["name"] + " " + (summary or "")).lower() else CATEGORY_TOPICS[category]
+        topics = set(fork.get("topics") or [])
+        desired_topics = (topics - set(CATEGORY_TOPICS.values()) - {"mcp"}) | {topic}
+        if desired_topics != topics:
             try:
-                api.request("PUT", f"/repos/{fork['full_name']}/topics", {"names": sorted(set(topics + [topic]))[:20]})
+                api.request("PUT", f"/repos/{fork['full_name']}/topics", {"names": sorted(desired_topics)[:20]})
             except APIError as exc:
                 errors.append(f"更新分類 {fork['full_name']}：HTTP {exc.status} {exc}")
+        if index % 10 == 0 or index == len(forks):
+            print(f"已整理簡介與分類：{index}/{len(forks)}", flush=True)
 
 
 def main() -> int:
@@ -426,8 +432,9 @@ def main() -> int:
         }, ensure_ascii=False, indent=2))
         return 1 if errors else 0
     created: list[str] = []
-    for category, source in candidates:
+    for index, (category, source) in enumerate(candidates, 1):
         fork, status = fork_one(api, source, roots)
+        print(f"首次／每日 Fork：{index}/{len(candidates)} {source['full_name']} → {status}", flush=True)
         if fork:
             created.append(fork["full_name"])
             forks.append(fork)
@@ -435,6 +442,8 @@ def main() -> int:
             errors.append(f"建立 {source['full_name']}：{status}")
     if mode == "bootstrap" and not errors:
         state["bootstrap_complete"] = True
+    if mode == "bootstrap":
+        state["bootstrap_created"] = sorted(set(state.get("bootstrap_created", []) + created))
     # Always refresh the current fork list after asynchronous creation.
     forks = api.owned_forks()
     statuses = sync_forks(api, forks)
@@ -447,6 +456,7 @@ def main() -> int:
         "owned_public_forks": len(forks),
         "created": len(created),
         "created_repositories": created,
+        "bootstrap_created_total": len(state.get("bootstrap_created", [])),
         "sync_issues": sync_issues,
         "issues": errors + [f"同步 {name}：{value}" for name, value in statuses.items() if value.startswith("需處理：")],
     }
@@ -454,7 +464,9 @@ def main() -> int:
     write_json(DATA / "state.json", state)
     (ROOT / "README.md").write_text(render_catalog(entries, report), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))
-    return 1 if errors or sync_issues else 0
+    # A fork with local commits can stay conflicted for many runs; report it
+    # without making every scheduled workflow appear broken.
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":

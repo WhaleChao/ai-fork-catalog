@@ -6,7 +6,7 @@
 
 1. 在 GitHub 建立**有到期日**的 Personal Access Token (classic)，只勾選 `public_repo`，不要勾選 `repo`。排程需要跨倉庫建立 fork、更新簡介與同步；管理倉庫自己的 `GITHUB_TOKEN` 不具備這些跨倉庫權限。[GitHub token 說明](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 2. 到此倉庫的 Settings → Secrets and variables → Actions，新增 repository secret `FORK_PAT`，貼入 token。不要把 token 寫入檔案、Issue、PR 或 workflow log。
-3. 到 Actions → MAGI Fork Catalog，先選 `preview` 檢查候選，再選 `bootstrap` 執行首次批次。首次批次已由執行者完成時，只需使用 `daily` 驗證排程。
+3. 首次 30 個 fork 已於 2026-09-13 建立。到 Actions → MAGI Fork Catalog 選 `preview` 查看候選，再選 `daily` 驗證後續排程；`bootstrap` 仍可安全重跑，但不會重複建立同來源 fork。
 4. 如有專案摘要或分類需要更正，編輯 `data/overrides.json`。現有的個人化 fork 簡介不會被覆寫。
 
 ## 模式
@@ -17,5 +17,7 @@
 - `refresh`：只同步現有 fork 並重建目錄。
 
 同步使用 GitHub 的 `merge-upstream` API，不強制推送；衝突或 API 失敗會寫入 `data/report.json`。摘要沿用原專案語言，公開目錄不含私有 MAGI 倉庫的實作細節。AGPL／GPL 項目標為架構參考，真正整合程式碼前另行檢查授權。
+
+目前 `llama-cpp-turboquant` 與 `project-golem` 的預設分支有上游合併衝突；自動化會持續記錄，需在各 fork 手動解決，並不會覆寫你的提交。
 
 排程若長期未執行，檢查 Actions 是否因 GitHub 的[公開倉庫閒置規則](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)而停用，以及 `FORK_PAT` 是否已到期。

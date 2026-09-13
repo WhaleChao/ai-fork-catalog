@@ -29,6 +29,15 @@ class FakeAPI:
         return {"items": [item for item in self.items if topic in item["topics"]], "incomplete_results": False}
 
 
+class RecordingAPI:
+    def __init__(self):
+        self.calls = []
+
+    def request(self, method, path, payload):
+        self.calls.append((method, path, payload))
+        return {}
+
+
 class CatalogTests(unittest.TestCase):
     def test_source_network_root_prevents_duplicate_fork(self):
         owned = {"full_name": "WhaleChao/llama-cpp-turboquant", "source": {"full_name": "ggml-org/llama.cpp"}}
@@ -66,6 +75,18 @@ class CatalogTests(unittest.TestCase):
         }
         markdown = catalog.render_catalog([entry], {"checked_at": "2026-09-13T00:00:00Z", "created": 0, "sync_issues": 0})
         self.assertIn("Agents ／ tools", markdown)
+
+    def test_personal_description_is_not_overwritten(self):
+        api = RecordingAPI()
+        source = repo("example/mcp", "Generic upstream text", ["mcp-server"])
+        fork = {
+            "full_name": "WhaleChao/mcp", "name": "mcp", "description": "My own detailed description",
+            "topics": [], "parent": {"full_name": "example/mcp", "description": "Generic upstream text"},
+            "source": source,
+        }
+        catalog.update_metadata(api, [fork], {"example/mcp": {"category": "agent", "summary": "Better summary"}}, {}, [])
+        self.assertNotIn("PATCH", [call[0] for call in api.calls])
+        self.assertIn("PUT", [call[0] for call in api.calls])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-09-13T04:16:00+00:00",
+  "mode": "refresh",
+  "owned_public_forks": 64,
+  "created": 0,
+  "created_repositories": [],
+  "bootstrap_created_total": 30,
+  "sync_issues": 2,
+  "issues": [
+    "同步 WhaleChao/llama-cpp-turboquant：需處理：合併衝突",
+    "同步 WhaleChao/project-golem：需處理：合併衝突"
+  ]
+}

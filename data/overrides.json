@@ -43,5 +43,10 @@
   "jamesob/local-llm": {"category":"inference","summary":"Practical notes and examples for running language models locally.","fit":"本機模型部署","platform":"跨平台待驗證","advice":"架構參考"},
   "dtwang/line-desktop-mcp": {"category":"agent","summary":"Windows MCP tools for reading and managing LINE Desktop conversations.","fit":"MCP 桌面整合","platform":"Windows","advice":"架構參考"},
   "bensonmaxai/line-desktop-mcp": {"category":"agent","summary":"Windows MCP tools for reading and managing LINE Desktop conversations.","fit":"MCP 桌面整合","platform":"Windows","advice":"架構參考"},
-  "unclecode/crawl4ai": {"category":"agent","summary":"Open-source web crawler that extracts LLM-ready content.","fit":"Agent 網頁擷取","platform":"跨平台待驗證","advice":"架構參考"}
+  "unclecode/crawl4ai": {"category":"agent","summary":"Open-source web crawler that extracts LLM-ready content.","fit":"Agent 網頁擷取","platform":"跨平台待驗證","advice":"架構參考"},
+  "alibaba/open-code-review": {"category":"agent","summary":"Hybrid deterministic and LLM-agent code review with line-level findings.","fit":"Agent 程式審查","platform":"跨平台待驗證","advice":"架構參考"},
+  "ai-twinkle/rlhf-book-zh-tw": {"category":"other","summary":"《RLHF Book》繁體中文翻譯與章節互動實驗。","fit":"模型訓練參考","platform":"文件","advice":"架構參考"},
+  "mitsuhiko/pi-ds4": {"category":"inference","summary":"Run a DeepSeek GGUF model locally on Apple Metal from Pi.","fit":"Apple 裝置本機模型","platform":"Apple Silicon","advice":"架構參考"},
+  "nftechie/stonkfly": {"category":"agent","summary":"Simulation with experimental memory and guarded trading-agent actions.","fit":"Agent 記憶與受控動作","platform":"待評估","advice":"架構參考"},
+  "miuuyy/codex-chatgpt-web": {"category":"agent","summary":"Connects ChatGPT Web as a model source for Codex with tool streaming.","fit":"Agent 模型介面","platform":"跨平台待驗證","advice":"架構參考"}
 }
