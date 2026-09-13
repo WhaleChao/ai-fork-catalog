@@ -43,6 +43,15 @@ class CatalogTests(unittest.TestCase):
         owned = {"full_name": "WhaleChao/llama-cpp-turboquant", "source": {"full_name": "ggml-org/llama.cpp"}}
         self.assertEqual(catalog.source_root(owned), "ggml-org/llama.cpp")
 
+    def test_daily_budget_survives_same_day_rerun(self):
+        now = dt.datetime(2026, 9, 13, 16, 30, tzinfo=dt.timezone.utc)  # 00:30 Taipei next day
+        forks = [
+            {"full_name": "WhaleChao/first", "source": {"full_name": "example/first"}, "created_at": "2026-09-13T16:10:00Z"},
+            {"full_name": "WhaleChao/second", "source": {"full_name": "example/second"}, "created_at": "2026-09-13T16:20:00Z"},
+            {"full_name": "WhaleChao/bootstrap", "source": {"full_name": "example/bootstrap"}, "created_at": "2026-09-13T16:25:00Z"},
+        ]
+        self.assertEqual(catalog.remaining_daily_budget(forks, [{"source": "example/bootstrap"}], now), 1)
+
     def test_source_validation_and_activity_exception(self):
         candidate = repo("example/fast-asr", "Fast speech transcription", ["speech-to-text"])
         self.assertTrue(catalog.valid_source(candidate)[0])

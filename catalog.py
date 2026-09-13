@@ -163,6 +163,20 @@ def source_root(repo: dict[str, Any]) -> str:
     return (repo.get("source") or repo).get("full_name", repo["full_name"]).lower()
 
 
+def remaining_daily_budget(forks: list[dict[str, Any]], seeds: list[dict[str, str]], now: dt.datetime | None = None) -> int:
+    taipei = dt.timezone(dt.timedelta(hours=8))
+    today = (now or dt.datetime.now(dt.timezone.utc)).astimezone(taipei).date()
+    bootstrap_roots = {item["source"].lower() for item in seeds}
+    added_today = {
+        source_root(fork)
+        for fork in forks
+        if fork.get("created_at")
+        and dt.datetime.fromisoformat(fork["created_at"].replace("Z", "+00:00")).astimezone(taipei).date() == today
+        and source_root(fork) not in bootstrap_roots
+    }
+    return max(0, MAX_DAILY - len(added_today))
+
+
 def valid_source(repo: dict[str, Any], *, allow_old: bool = False) -> tuple[bool, str]:
     if repo.get("fork") or repo.get("archived") or repo.get("disabled") or repo.get("private"):
         return False, "非公開原始專案或已封存"
@@ -421,7 +435,8 @@ def main() -> int:
             except APIError as exc:
                 errors.append(f"核對 {name}：HTTP {exc.status} {exc}")
     elif mode == "daily":
-        candidates, discovery_errors = discover(api, roots, MAX_DAILY)
+        budget = remaining_daily_budget(forks, seeds)
+        candidates, discovery_errors = discover(api, roots, budget) if budget else ([], [])
         errors.extend(discovery_errors)
     if args.mode == "preview":
         print(json.dumps({
