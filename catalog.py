@@ -60,6 +60,15 @@ EXCLUDE_PATTERN = re.compile(
     re.I,
 )
 MANUAL_ACTIVITY_EXCEPTIONS = {"SYSTRAN/faster-whisper"}
+OPEN_SOURCE_LICENSES = {
+    "0BSD", "AFL-3.0", "AGPL-3.0", "Apache-2.0", "Artistic-2.0", "BSD-2-Clause",
+    "BSD-3-Clause", "BSD-3-Clause-Clear", "BSL-1.0", "CC0-1.0",
+    "CDDL-1.0", "CDDL-1.1", "CPL-1.0", "ECL-2.0", "EPL-1.0",
+    "EPL-2.0", "EUPL-1.1", "EUPL-1.2", "GPL-2.0", "GPL-3.0",
+    "ISC", "LGPL-2.1", "LGPL-3.0", "MIT", "MIT-0", "MPL-2.0", "MS-PL",
+    "NCSA", "OFL-1.1", "OSL-3.0", "PostgreSQL", "Unlicense",
+    "UPL-1.0", "Zlib",
+}
 
 
 def read_json(path: Path, default: Any) -> Any:
@@ -185,8 +194,8 @@ def valid_source(repo: dict[str, Any], *, allow_old: bool = False) -> tuple[bool
     if repo.get("stargazers_count", 0) < MIN_STARS:
         return False, "未達千星"
     license_id = (repo.get("license") or {}).get("spdx_id")
-    if not license_id or license_id == "NOASSERTION":
-        return False, "GitHub 未辨識開源授權"
+    if license_id not in OPEN_SOURCE_LICENSES:
+        return False, "GitHub 未辨識或非開源授權"
     pushed = repo.get("pushed_at")
     if not pushed:
         return False, "缺少最近更新日期"

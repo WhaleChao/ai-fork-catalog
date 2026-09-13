@@ -58,6 +58,10 @@ class CatalogTests(unittest.TestCase):
         self.assertTrue(catalog.valid_source(candidate)[0])
         candidate["license"] = None
         self.assertFalse(catalog.valid_source(candidate)[0])
+        candidate["license"] = {"spdx_id": "CC-BY-NC-4.0"}
+        self.assertFalse(catalog.valid_source(candidate)[0])
+        candidate["license"] = {"spdx_id": "AGPL-3.0"}
+        self.assertTrue(catalog.valid_source(candidate)[0])
         candidate["license"] = {"spdx_id": "MIT"}
         candidate["pushed_at"] = "2025-01-01T00:00:00Z"
         self.assertFalse(catalog.valid_source(candidate)[0])
