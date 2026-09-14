@@ -1,13 +1,21 @@
 {
-  "checked_at": "2026-09-13T04:45:48+00:00",
-  "mode": "refresh",
-  "owned_public_forks": 64,
-  "created": 0,
-  "created_repositories": [],
+  "checked_at": "2026-09-14T07:55:19+00:00",
+  "mode": "daily",
+  "owned_public_forks": 67,
+  "created": 1,
+  "created_repositories": [
+    "WhaleChao/Handy"
+  ],
   "bootstrap_created_total": 30,
-  "sync_issues": 2,
+  "sync_issues": 8,
   "issues": [
+    "同步 WhaleChao/agent-framework：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/issue-triage.yml` without `workflow` scope",
+    "同步 WhaleChao/codex：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/rust-release-provisioned-macos.yml` without `workflow` scope",
+    "同步 WhaleChao/hermes-agent：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/tests-os.yml` without `workflow` scope",
     "同步 WhaleChao/llama-cpp-turboquant：需處理：合併衝突",
-    "同步 WhaleChao/project-golem：需處理：合併衝突"
+    "同步 WhaleChao/LMCache：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/test.yml` without `workflow` scope",
+    "同步 WhaleChao/mlx：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/update_bypass_list.yml` without `workflow` scope",
+    "同步 WhaleChao/project-golem：需處理：合併衝突",
+    "同步 WhaleChao/whisper.cpp：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/build-self-hosted.yml` without `workflow` scope"
   ]
 }

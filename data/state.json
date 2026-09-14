@@ -48,7 +48,8 @@
     "WhaleChao/whisper.cpp": "Portable C/C++ implementation of Whisper speech recognition.",
     "WhaleChao/WhisperLiveKit": "Local real-time transcription with streaming ASR and speaker diarization.",
     "WhaleChao/whisperX": "Whisper transcription with word-level timestamps and diarization.",
-    "WhaleChao/stonkfly": "Simulation with experimental memory and guarded trading-agent actions."
+    "WhaleChao/stonkfly": "Simulation with experimental memory and guarded trading-agent actions.",
+    "WhaleChao/PaddleOCR": "Turn any PDF or image document into structured data for your AI. A powerful, lightweight OCR toolkit that bridges the gap between images/PDFs and LLMs…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
