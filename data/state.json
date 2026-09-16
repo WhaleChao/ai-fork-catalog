@@ -50,7 +50,9 @@
     "WhaleChao/whisperX": "Whisper transcription with word-level timestamps and diarization.",
     "WhaleChao/stonkfly": "Simulation with experimental memory and guarded trading-agent actions.",
     "WhaleChao/PaddleOCR": "Turn any PDF or image document into structured data for your AI. A powerful, lightweight OCR toolkit that bridges the gap between images/PDFs and LLMs…",
-    "WhaleChao/ruflo": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features a…"
+    "WhaleChao/ruflo": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features a…",
+    "WhaleChao/CowAgent": "Open-source super AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-model, …",
+    "WhaleChao/meetily": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 1…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
