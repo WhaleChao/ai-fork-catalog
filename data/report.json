@@ -1,21 +1,22 @@
 {
-  "checked_at": "2026-09-19T07:22:38+00:00",
+  "checked_at": "2026-09-20T07:46:34+00:00",
   "mode": "daily",
-  "owned_public_forks": 82,
-  "created": 3,
+  "owned_public_forks": 86,
+  "created": 2,
   "created_repositories": [
-    "WhaleChao/Translumo",
-    "WhaleChao/AIHawk",
-    "WhaleChao/flashinfer"
+    "WhaleChao/python-sdk",
+    "WhaleChao/kserve"
   ],
   "bootstrap_created_total": 30,
-  "sync_issues": 30,
+  "sync_issues": 33,
   "issues": [
     "同步 WhaleChao/adk-python：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/continuous-integration.yml` without `workflow` scope",
     "同步 WhaleChao/agent-framework：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/codeql-analysis.yml` without `workflow` scope",
     "同步 WhaleChao/camofox-browser：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/agenthook-notify.yml` without `workflow` scope",
+    "同步 WhaleChao/codebase-memory-mcp：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/_memwaste.yml` without `workflow` scope",
     "同步 WhaleChao/codex：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/r2-release.yml` without `workflow` scope",
     "同步 WhaleChao/codex-security：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/native-unix.yml` without `workflow` scope",
+    "同步 WhaleChao/CowAgent：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/test.yml` without `workflow` scope",
     "同步 WhaleChao/crewAI：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/first-contributor-welcome.yml` without `workflow` scope",
     "同步 WhaleChao/fastmcp：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/marvin-test-failure.yml` without `workflow` scope",
     "同步 WhaleChao/FunASR：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/test-punctuation-docs.yml` without `workflow` scope",
@@ -39,6 +40,7 @@
     "同步 WhaleChao/project-golem：需處理：合併衝突",
     "同步 WhaleChao/pydantic-ai：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/bots.yml` without `workflow` scope",
     "同步 WhaleChao/sglang：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/_npu-single-node-test-stage.yml` without `workflow` scope",
+    "同步 WhaleChao/sherpa-onnx：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/release-dart-package.yaml` without `workflow` scope",
     "同步 WhaleChao/vllm：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/buf.yml` without `workflow` scope",
     "同步 WhaleChao/whisper.cpp：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/build-android.yml` without `workflow` scope"
   ]
