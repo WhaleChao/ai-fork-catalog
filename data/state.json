@@ -54,7 +54,8 @@
     "WhaleChao/CowAgent": "Open-source super AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-model, …",
     "WhaleChao/meetily": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 1…",
     "WhaleChao/sherpa-onnx": "Speech-to-text, text-to-speech, speaker diarization, speech enhancement, source separation, and VAD using next-gen Kaldi with onnxruntime without Inte…",
-    "WhaleChao/codebase-memory-mcp": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-…"
+    "WhaleChao/codebase-memory-mcp": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-…",
+    "WhaleChao/voice-pro": "Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 & F5-TTS, CosyVoice), with Whisper audi…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
