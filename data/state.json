@@ -57,7 +57,9 @@
     "WhaleChao/codebase-memory-mcp": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-…",
     "WhaleChao/voice-pro": "Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 & F5-TTS, CosyVoice), with Whisper audi…",
     "WhaleChao/SenseVoice": "Open-source SenseVoiceSmall model for Mandarin, Cantonese, English, Japanese, and Korean ASR, language ID, emotion recognition, and audio event detect…",
-    "WhaleChao/Douyin_TikTok_Download_API": "🚀 Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP server, CLI and web console for posts, profiles, comment…"
+    "WhaleChao/Douyin_TikTok_Download_API": "🚀 抖音、TikTok 数据采集与无水印视频下载 API，自托管，支持 MCP 调用与 Docker 一键部署。／ Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP …",
+    "WhaleChao/laya": "Non-autoregressive System 1 decision engine. Typed choice, score and yes/no decisions over any text in a single forward pass, in 100+ languages, with …",
+    "WhaleChao/mcp-for-beginners": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, Typ…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
