@@ -61,7 +61,9 @@
     "WhaleChao/laya": "Non-autoregressive System 1 decision engine. Typed choice, score and yes/no decisions over any text in a single forward pass, in 100+ languages, with …",
     "WhaleChao/mcp-for-beginners": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, Typ…",
     "WhaleChao/beyondtranslate-ce": "BeyondTranslate (formerly Biyi) is a fast, native-experience translation app for macOS, Windows and Linux, built with Flutter and Rust. Capture text f…",
-    "WhaleChao/unstructured": "Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured …"
+    "WhaleChao/unstructured": "Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured …",
+    "WhaleChao/ai-berkshire": "AI 时代的伯克希尔：基于 Claude Code / Codex 的价值投资研究框架。巴菲特·芒格·段永平·李录四大师方法论 + 多Agent并行研究。／ AI-era Berkshire: a value investing research framework built for Claude…",
+    "WhaleChao/openmed": "Local-first healthcare AI: clinical NER & HIPAA PII de-identification that runs 100% on-device. 2,200+ medical models, 21 languages, Apple MLX + Pytho…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
