@@ -1,19 +1,20 @@
 {
-  "checked_at": "2026-09-27T08:11:08+00:00",
+  "checked_at": "2026-09-28T08:44:41+00:00",
   "mode": "daily",
-  "owned_public_forks": 109,
+  "owned_public_forks": 112,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/subtitle-translator-electron",
-    "WhaleChao/ai-berkshire",
-    "WhaleChao/openmed"
+    "WhaleChao/cc-haha",
+    "WhaleChao/shimmy",
+    "WhaleChao/whisper-diarization"
   ],
   "bootstrap_created_total": 30,
-  "sync_issues": 47,
+  "sync_issues": 48,
   "issues": [
     "同步 WhaleChao/adk-python：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/continuous-integration.yml` without `workflow` scope",
     "同步 WhaleChao/agent-framework：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/codeql-analysis.yml` without `workflow` scope",
     "同步 WhaleChao/AIHawk：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/ci.yml` without `workflow` scope",
+    "同步 WhaleChao/ax：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/go.yml` without `workflow` scope",
     "同步 WhaleChao/beyondtranslate-ce：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/ci.yml` without `workflow` scope",
     "同步 WhaleChao/camofox-browser：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/agenthook-notify.yml` without `workflow` scope",
     "同步 WhaleChao/codebase-memory-mcp：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/_memwaste.yml` without `workflow` scope",
@@ -48,7 +49,7 @@
     "同步 WhaleChao/open-code-review：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/action-contract.yml` without `workflow` scope",
     "同步 WhaleChao/OpenHands：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/desktop-linux.yml` without `workflow` scope",
     "同步 WhaleChao/openvino：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/agentic_workflows_check.yml` without `workflow` scope",
-    "同步 WhaleChao/openwhispr：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/mobile-ci.yml` without `workflow` scope",
+    "同步 WhaleChao/openwhispr：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/build-and-notarize.yml` without `workflow` scope",
     "同步 WhaleChao/PaddleOCR：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/test_gpu.yml` without `workflow` scope",
     "同步 WhaleChao/project-golem：需處理：合併衝突",
     "同步 WhaleChao/pydantic-ai：需處理：HTTP 422 refusing to allow a Personal Access Token to create or update workflow `.github/workflows/benchmark.yml` without `workflow` scope",

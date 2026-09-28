@@ -63,7 +63,8 @@
     "WhaleChao/beyondtranslate-ce": "BeyondTranslate (formerly Biyi) is a fast, native-experience translation app for macOS, Windows and Linux, built with Flutter and Rust. Capture text f…",
     "WhaleChao/unstructured": "Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured …",
     "WhaleChao/ai-berkshire": "AI 时代的伯克希尔：基于 Claude Code / Codex 的价值投资研究框架。巴菲特·芒格·段永平·李录四大师方法论 + 多Agent并行研究。／ AI-era Berkshire: a value investing research framework built for Claude…",
-    "WhaleChao/openmed": "Local-first healthcare AI: clinical NER & HIPAA PII de-identification that runs 100% on-device. 2,200+ medical models, 21 languages, Apple MLX + Pytho…"
+    "WhaleChao/openmed": "Local-first healthcare AI: clinical NER & HIPAA PII de-identification that runs 100% on-device. 2,200+ medical models, 21 languages, Apple MLX + Pytho…",
+    "WhaleChao/cc-haha": "Local-first cross-platform desktop workspace for Claude Code / agents: multi-agent, Git worktrees, code diffs, skill marketplace, multi-model, Compute…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
