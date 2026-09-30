@@ -51,7 +51,7 @@
     "WhaleChao/stonkfly": "Simulation with experimental memory and guarded trading-agent actions.",
     "WhaleChao/PaddleOCR": "Turn any PDF or image document into structured data for your AI. A powerful, lightweight OCR toolkit that bridges the gap between images/PDFs and LLMs…",
     "WhaleChao/ruflo": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features a…",
-    "WhaleChao/CowAgent": "Open-source super AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-model, …",
+    "WhaleChao/CowAgent": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-mode…",
     "WhaleChao/meetily": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 1…",
     "WhaleChao/sherpa-onnx": "Speech-to-text, text-to-speech, speaker diarization, speech enhancement, source separation, and VAD using next-gen Kaldi with onnxruntime without Inte…",
     "WhaleChao/codebase-memory-mcp": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-…",
@@ -65,7 +65,8 @@
     "WhaleChao/ai-berkshire": "AI 时代的伯克希尔：基于 Claude Code / Codex 的价值投资研究框架。巴菲特·芒格·段永平·李录四大师方法论 + 多Agent并行研究。／ AI-era Berkshire: a value investing research framework built for Claude…",
     "WhaleChao/openmed": "Local-first healthcare AI: clinical NER & HIPAA PII de-identification that runs 100% on-device. 2,200+ medical models, 21 languages, Apple MLX + Pytho…",
     "WhaleChao/cc-haha": "Local-first cross-platform desktop workspace for Claude Code / agents: multi-agent, Git worktrees, code diffs, skill marketplace, multi-model, Compute…",
-    "WhaleChao/vexa": "Open-source meeting transcription API for Google Meet, Microsoft Teams & Zoom. Auto-join bots, real-time WebSocket transcripts, MCP server for AI agen…"
+    "WhaleChao/vexa": "Open-source meeting transcription API for Google Meet, Microsoft Teams & Zoom. Auto-join bots, real-time WebSocket transcripts, MCP server for AI agen…",
+    "WhaleChao/omnigent": "Omnigent is an open-source AI agent framework and meta-harness: orchestrate Claude Code, Codex, Cursor, Pi, and custom agents — swap harnesses without…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
