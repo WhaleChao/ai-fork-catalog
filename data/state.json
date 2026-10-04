@@ -68,7 +68,10 @@
     "WhaleChao/vexa": "Open-source meeting transcription API for Google Meet, Microsoft Teams & Zoom. Auto-join bots, real-time WebSocket transcripts, MCP server for AI agen…",
     "WhaleChao/omnigent": "Omnigent is an open-source AI agent framework and meta-harness: orchestrate Claude Code, Codex, Cursor, Pi, and custom agents — swap harnesses without…",
     "WhaleChao/PotPlayer_ChatGPT_Translate": "[support ollama/other model]【兼容ollama和其他模型】将任何具有OpenAI API调用方法的模型集成到PotPlayer中。它使你在观看视频时能够实时翻译字幕，从而打破语言障碍，提升你的观看体验。 This real-time subtitle translatio…",
-    "WhaleChao/zed-globalization": "Zed 编辑器汉化版 / 中文版 / 多语言版 — AI 驱动全自动翻译构建，支持简繁中文/日语/韩语 ／ Zed Editor Localized with AI-powered translation pipeline"
+    "WhaleChao/zed-globalization": "Zed 编辑器汉化版 / 中文版 / 多语言版 — AI 驱动全自动翻译构建，支持简繁中文/日语/韩语 ／ Zed Editor Localized with AI-powered translation pipeline",
+    "WhaleChao/apify-mcp-server": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thou…",
+    "WhaleChao/linguist": "Translate web pages, highlighted text, Netflix subtitles, private messages, speak the translated text, and save important translations to your persona…",
+    "WhaleChao/transcribe.cpp": "ggml speech-to-text inference for 16+ model families"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
