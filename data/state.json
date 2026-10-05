@@ -71,7 +71,8 @@
     "WhaleChao/zed-globalization": "Zed 编辑器汉化版 / 中文版 / 多语言版 — AI 驱动全自动翻译构建，支持简繁中文/日语/韩语 ／ Zed Editor Localized with AI-powered translation pipeline",
     "WhaleChao/apify-mcp-server": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thou…",
     "WhaleChao/linguist": "Translate web pages, highlighted text, Netflix subtitles, private messages, speak the translated text, and save important translations to your persona…",
-    "WhaleChao/transcribe.cpp": "ggml speech-to-text inference for 16+ model families"
+    "WhaleChao/transcribe.cpp": "ggml speech-to-text inference for 16+ model families",
+    "WhaleChao/Auto-Synced-Translated-Dubs": "Automatically translates the text of a video based on a subtitle file, and then uses AI voice services to create a new dubbed & translated audio track…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
