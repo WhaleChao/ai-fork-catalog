@@ -72,7 +72,8 @@
     "WhaleChao/apify-mcp-server": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thou…",
     "WhaleChao/linguist": "Translate web pages, highlighted text, Netflix subtitles, private messages, speak the translated text, and save important translations to your persona…",
     "WhaleChao/transcribe.cpp": "ggml speech-to-text inference for 16+ model families",
-    "WhaleChao/Auto-Synced-Translated-Dubs": "Automatically translates the text of a video based on a subtitle file, and then uses AI voice services to create a new dubbed & translated audio track…"
+    "WhaleChao/Auto-Synced-Translated-Dubs": "Automatically translates the text of a video based on a subtitle file, and then uses AI voice services to create a new dubbed & translated audio track…",
+    "WhaleChao/Edge0": "Run 35B MoE models in ~2.5 GB of RAM. Weights stream from SSD; a trained router predicts loads a step ahead. Mac, iPhone, Android, Windows supported"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
