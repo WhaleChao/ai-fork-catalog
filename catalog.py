@@ -324,7 +324,7 @@ def token_permission_issues(scopes: set[str] | None) -> list[str]:
     if not scopes.intersection({"public_repo", "repo"}):
         issues.append("FORK_PAT 缺少 public_repo 權限，無法建立、整理或同步公開 fork。")
     if "workflow" not in scopes:
-        issues.append("FORK_PAT 缺少 workflow 權限，無法同步上游的 .github/workflows 檔案；請在原 token 勾選 workflow，或更新倉庫的 FORK_PAT secret。")
+        issues.append("FORK_PAT 缺少 workflow 權限，無法同步上游的 .github/workflows 檔案；GitHub classic token 網頁會連帶啟用含私有倉庫存取的 repo，須確認接受後再更新權限，詳見 SETUP.md。重新產生金鑰後也需更新 FORK_PAT secret。")
     return issues
 
 
@@ -367,7 +367,7 @@ def write_step_summary(report: dict[str, Any]) -> None:
         lines.append("### 需要修正金鑰權限")
         lines.append("")
         lines.extend(f"- {issue}" for issue in report["token_permission_issues"])
-        lines.extend(["", "專用 classic PAT 需要 `public_repo` + `workflow`，以及到期日。金鑰不得貼入 log 或對話。", ""])
+        lines.extend(["", "Token 須設到期日。GitHub classic token 網頁勾選 `workflow` 會連帶授予 `repo`（包含私有倉庫），啟用前需由帳戶擁有者確認；程式只處理公開 fork。金鑰不得貼入 log 或對話。", ""])
     other_issues = [issue for issue in report["issues"] if issue not in report["token_permission_issues"]]
     if other_issues:
         lines.extend(["<details><summary>逐項結果</summary>", ""])
