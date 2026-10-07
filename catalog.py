@@ -102,6 +102,9 @@ class GitHub:
         self.token = token
         self.last_search = 0.0
         self.last_write = 0.0
+        # GitHub exposes classic PAT/OAuth scopes in response headers. An absent
+        # header (for example a fine-grained token) means unknown, not no access.
+        self.oauth_scopes: set[str] | None = None
 
     def request(self, method: str, path: str, payload: Any = None) -> Any:
         if path.startswith("http"):
@@ -133,6 +136,9 @@ class GitHub:
             req = urllib.request.Request(url, data=body, headers=headers, method=method)
             try:
                 with urllib.request.urlopen(req, timeout=35) as response:
+                    scopes = response.headers.get("X-OAuth-Scopes")
+                    if scopes is not None:
+                        self.oauth_scopes = {scope.strip() for scope in scopes.split(",") if scope.strip()}
                     raw = response.read()
                     return json.loads(raw) if raw else None
             except urllib.error.HTTPError as exc:
@@ -311,8 +317,21 @@ def fork_one(api: GitHub, source: dict[str, Any], existing_roots: set[str]) -> t
     return None, "GitHub 已接受建立，但 59 秒內無法驗證；下次重跑會再次檢查"
 
 
-def sync_forks(api: GitHub, forks: list[dict[str, Any]]) -> dict[str, str]:
+def token_permission_issues(scopes: set[str] | None) -> list[str]:
+    if scopes is None:
+        return []
+    issues = []
+    if not scopes.intersection({"public_repo", "repo"}):
+        issues.append("FORK_PAT 缺少 public_repo 權限，無法建立、整理或同步公開 fork。")
+    if "workflow" not in scopes:
+        issues.append("FORK_PAT 缺少 workflow 權限，無法同步上游的 .github/workflows 檔案；GitHub classic token 網頁會連帶啟用含私有倉庫存取的 repo，須確認接受後再更新權限，詳見 SETUP.md。重新產生金鑰後也需更新 FORK_PAT secret。")
+    return issues
+
+
+def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str | None = None) -> dict[str, str]:
     result: dict[str, str] = {}
+    if blocked_reason:
+        return {fork["full_name"]: f"略過：{blocked_reason}" for fork in forks}
     for index, fork in enumerate(forks, 1):
         name = fork["full_name"]
         try:
@@ -324,6 +343,51 @@ def sync_forks(api: GitHub, forks: list[dict[str, Any]]) -> dict[str, str]:
         if index % 10 == 0 or index == len(forks):
             print(f"已檢查同步：{index}/{len(forks)}", flush=True)
     return result
+
+
+def sync_problem_counts(statuses: dict[str, str]) -> tuple[int, int]:
+    conflicts = sum(value == "需處理：合併衝突" for value in statuses.values())
+    failures = sum(value.startswith("需處理：") and value != "需處理：合併衝突" for value in statuses.values())
+    return conflicts, failures
+
+
+def write_step_summary(report: dict[str, Any]) -> None:
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    owned_forks = report["owned_public_forks"]
+    fork_count = owned_forks if owned_forks is not None else "尚未讀取"
+    lines = [
+        "## MAGI Fork Catalog",
+        "",
+        f"公開 fork：{fork_count}；新增：{report['created']}；合併衝突：{report['sync_conflicts']}；同步 API 異常：{report['sync_errors']}；略過同步：{report['sync_skipped']}。",
+        "",
+    ]
+    if report["token_permission_issues"]:
+        lines.append("### 需要修正金鑰權限")
+        lines.append("")
+        lines.extend(f"- {issue}" for issue in report["token_permission_issues"])
+        lines.extend(["", "Token 須設到期日。GitHub classic token 網頁勾選 `workflow` 會連帶授予 `repo`（包含私有倉庫），啟用前需由帳戶擁有者確認；程式只處理公開 fork。金鑰不得貼入 log 或對話。", ""])
+    other_issues = [issue for issue in report["issues"] if issue not in report["token_permission_issues"]]
+    if other_issues:
+        lines.extend(["<details><summary>逐項結果</summary>", ""])
+        lines.extend(f"- {issue}" for issue in other_issues)
+        lines.extend(["", "</details>", ""])
+    Path(path).write_text("\n".join(lines), encoding="utf-8")
+
+
+def fail_preflight(mode: str, issues: list[str]) -> int:
+    report = {
+        "checked_at": iso_now(), "mode": mode, "owned_public_forks": None,
+        "created": 0, "created_repositories": [], "sync_issues": 0,
+        "sync_conflicts": 0, "sync_errors": 0, "sync_skipped": 0,
+        "token_permission_issues": issues, "issues": issues,
+        "preflight_failed": True, "ok": False,
+    }
+    write_json(DATA / "report.json", report)
+    write_step_summary(report)
+    print("\n".join(issues), file=sys.stderr)
+    return 2
 
 
 def clean_summary(value: str | None) -> str:
@@ -361,11 +425,13 @@ def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str
         "",
         "整理可供 MAGI 研究的開源技術，涵蓋推論效能、記憶體、逐字稿、翻譯與 Agent／MCP 架構。Fork 代表技術收藏，採用建議不代表已整合。",
         "",
-        f"最近檢查（UTC）：{report['checked_at']}　｜　Fork：{len(entries)}　｜　本次新增：{report.get('created', 0)}　｜　本次同步異常：{report.get('sync_issues', 0)}",
+        f"最近檢查（UTC）：{report['checked_at']}　｜　Fork：{len(entries)}　｜　本次新增：{report.get('created', 0)}　｜　本次同步異常：{report.get('sync_issues', 0)}　｜　略過同步：{report.get('sync_skipped', 0)}",
         "",
         "摘要沿用原專案語言；星數與授權以來源倉庫為準。私有 MAGI 的實作路徑、設定與資料不在此公開目錄中。",
         "",
     ]
+    for issue in report.get("token_permission_issues", []):
+        lines.extend([f"> **需要修正：** {issue}", ""])
     for category, label in CATEGORY_LABELS.items():
         group = sorted((e for e in entries if e["category"] == category), key=lambda e: (-e["stars"], e["fork"].lower()))
         lines.extend([f"## {label}（{len(group)}）", ""])
@@ -431,13 +497,24 @@ def main() -> int:
     args = parser.parse_args()
     token = os.environ.get("FORK_PAT") or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
     if args.mode != "preview" and not (os.environ.get("FORK_PAT") or os.environ.get("GH_TOKEN")):
-        print("FORK_PAT（或本機 GH_TOKEN）未設定，拒絕跨倉庫寫入。", file=sys.stderr)
-        return 2
+        return fail_preflight(args.mode, ["FORK_PAT（或本機 GH_TOKEN）未設定，拒絕跨倉庫寫入。"])
     api = GitHub(token)
     seeds = read_json(DATA / "seed.json", [])
     overrides = read_json(DATA / "overrides.json", {})
     state = read_json(DATA / "state.json", {"bootstrap_complete": False, "generated_descriptions": {}})
     errors: list[str] = []
+    permission_issues: list[str] = []
+    if args.mode != "preview":
+        try:
+            identity = api.request("GET", "/user")
+        except APIError as exc:
+            return fail_preflight(args.mode, [f"FORK_PAT 驗證失敗：HTTP {exc.status} {exc}"])
+        if identity.get("login", "").lower() != OWNER.lower():
+            return fail_preflight(args.mode, [f"金鑰帳戶必須是 {OWNER}，拒絕跨倉庫寫入。"])
+        permission_issues = token_permission_issues(api.oauth_scopes)
+        if any("缺少 public_repo" in issue for issue in permission_issues):
+            return fail_preflight(args.mode, permission_issues)
+        errors.extend(permission_issues)
     forks = api.owned_forks()
     roots = {source_root(fork) for fork in forks}
     candidates: list[tuple[str, dict[str, Any]]] = []
@@ -484,10 +561,12 @@ def main() -> int:
         state.setdefault("bootstrap_day", (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=8)).date().isoformat())
     # Always refresh the current fork list after asynchronous creation.
     forks = api.owned_forks()
-    statuses = sync_forks(api, forks)
+    sync_blocked = "缺少 workflow 權限（請更新 FORK_PAT）" if permission_issues else None
+    statuses = sync_forks(api, forks, blocked_reason=sync_blocked)
     update_metadata(api, forks, overrides, state, errors)
     entries = [catalog_entry(fork, overrides, statuses) for fork in forks]
     sync_issues = sum(value.startswith("需處理：") for value in statuses.values())
+    sync_conflicts, sync_errors = sync_problem_counts(statuses)
     report = {
         "checked_at": iso_now(),
         "mode": mode,
@@ -496,15 +575,22 @@ def main() -> int:
         "created_repositories": created,
         "bootstrap_created_total": len(state.get("bootstrap_created", [])),
         "sync_issues": sync_issues,
-        "issues": errors + [f"同步 {name}：{value}" for name, value in statuses.items() if value.startswith("需處理：")],
+        "sync_conflicts": sync_conflicts,
+        "sync_errors": sync_errors,
+        "sync_skipped": sum(value.startswith("略過：") for value in statuses.values()),
+        "token_permission_issues": permission_issues,
+        # A shared token problem is reported once instead of once per fork.
+        "issues": errors + ([f"同步 {name}：{value}" for name, value in statuses.items() if value.startswith("需處理：")] if not sync_blocked else []),
+        "ok": not errors and sync_errors == 0,
     }
     write_json(DATA / "report.json", report)
     write_json(DATA / "state.json", state)
     (ROOT / "README.md").write_text(render_catalog(entries, report), encoding="utf-8")
+    write_step_summary(report)
     print(json.dumps(report, ensure_ascii=False, indent=2))
     # A fork with local commits can stay conflicted for many runs; report it
     # without making every scheduled workflow appear broken.
-    return 1 if errors else 0
+    return 1 if errors or sync_errors else 0
 
 
 if __name__ == "__main__":
