@@ -1,18 +1,19 @@
 {
-  "checked_at": "2026-10-07T02:39:08+00:00",
-  "mode": "refresh",
-  "owned_public_forks": 140,
+  "checked_at": "2026-10-07T22:01:03+00:00",
+  "mode": "daily",
+  "owned_public_forks": null,
   "created": 0,
   "created_repositories": [],
-  "bootstrap_created_total": 30,
-  "sync_issues": 2,
-  "sync_conflicts": 2,
+  "sync_issues": 0,
+  "sync_conflicts": 0,
   "sync_errors": 0,
   "sync_skipped": 0,
-  "token_permission_issues": [],
-  "issues": [
-    "同步 WhaleChao/llama-cpp-turboquant：需處理：合併衝突",
-    "同步 WhaleChao/project-golem：需處理：合併衝突"
+  "token_permission_issues": [
+    "FORK_PAT 驗證失敗：HTTP 401 Bad credentials"
   ],
-  "ok": true
+  "issues": [
+    "FORK_PAT 驗證失敗：HTTP 401 Bad credentials"
+  ],
+  "preflight_failed": true,
+  "ok": false
 }
