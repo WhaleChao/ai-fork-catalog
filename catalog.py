@@ -355,10 +355,12 @@ def write_step_summary(report: dict[str, Any]) -> None:
     path = os.environ.get("GITHUB_STEP_SUMMARY")
     if not path:
         return
+    owned_forks = report["owned_public_forks"]
+    fork_count = owned_forks if owned_forks is not None else "尚未讀取"
     lines = [
         "## MAGI Fork Catalog",
         "",
-        f"公開 fork：{report['owned_public_forks']}；新增：{report['created']}；合併衝突：{report['sync_conflicts']}；同步 API 異常：{report['sync_errors']}；略過同步：{report['sync_skipped']}。",
+        f"公開 fork：{fork_count}；新增：{report['created']}；合併衝突：{report['sync_conflicts']}；同步 API 異常：{report['sync_errors']}；略過同步：{report['sync_skipped']}。",
         "",
     ]
     if report["token_permission_issues"]:
@@ -376,7 +378,7 @@ def write_step_summary(report: dict[str, Any]) -> None:
 
 def fail_preflight(mode: str, issues: list[str]) -> int:
     report = {
-        "checked_at": iso_now(), "mode": mode, "owned_public_forks": "尚未讀取",
+        "checked_at": iso_now(), "mode": mode, "owned_public_forks": None,
         "created": 0, "created_repositories": [], "sync_issues": 0,
         "sync_conflicts": 0, "sync_errors": 0, "sync_skipped": 0,
         "token_permission_issues": issues, "issues": issues,
