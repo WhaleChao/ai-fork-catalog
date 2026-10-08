@@ -1,9 +1,13 @@
 {
-  "checked_at": "2026-10-08T03:45:09+00:00",
-  "mode": "refresh",
-  "owned_public_forks": 140,
-  "created": 0,
-  "created_repositories": [],
+  "checked_at": "2026-10-08T09:00:32+00:00",
+  "mode": "daily",
+  "owned_public_forks": 143,
+  "created": 3,
+  "created_repositories": [
+    "WhaleChao/MOSS-Transcribe-Diarize",
+    "WhaleChao/Index-Translate",
+    "WhaleChao/open-multi-agent"
+  ],
   "bootstrap_created_total": 30,
   "sync_issues": 0,
   "sync_conflicts": 0,
