@@ -1,19 +1,15 @@
 {
-  "checked_at": "2026-10-08T03:23:27+00:00",
+  "checked_at": "2026-10-08T03:45:09+00:00",
   "mode": "refresh",
   "owned_public_forks": 140,
   "created": 0,
   "created_repositories": [],
   "bootstrap_created_total": 30,
-  "sync_issues": 3,
-  "sync_conflicts": 3,
+  "sync_issues": 0,
+  "sync_conflicts": 0,
   "sync_errors": 0,
   "sync_skipped": 0,
   "token_permission_issues": [],
-  "issues": [
-    "同步 WhaleChao/AIHawk：需處理：合併衝突",
-    "同步 WhaleChao/llama-cpp-turboquant：需處理：合併衝突",
-    "同步 WhaleChao/project-golem：需處理：合併衝突"
-  ],
+  "issues": [],
   "ok": true
 }
