@@ -107,5 +107,10 @@
     "WhaleChao/fastmcp",
     "WhaleChao/harness-sdk"
   ],
-  "bootstrap_day": "2026-09-13"
+  "bootstrap_day": "2026-09-13",
+  "reference_actions_forks": [
+    "WhaleChao/Index-Translate",
+    "WhaleChao/MOSS-Transcribe-Diarize",
+    "WhaleChao/open-multi-agent"
+  ]
 }
