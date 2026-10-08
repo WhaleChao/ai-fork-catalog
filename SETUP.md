@@ -20,6 +20,16 @@
 
 ## 排除同步錯誤
 
+### 參考 fork 的 CI 與郵件
+
+同步分支會觸發 fork 繼承的上游 Actions。原作者的 Secrets、發佈權限或 runner 在 fork 中往往不可用，可能造成大量失敗通知；這與 `merge-upstream` API 成功是兩件事。
+
+`data/actions-policy.json` 明列需要停用繼承 Actions 的參考 fork。同步這些 fork 前，程式先停用倉庫 Actions 並再次讀取驗證；防護失敗時不更新該分支，原因會寫入報告與 Summary。程式不刪除 workflow 檔案或提交，因此仍可正常取得上游程式碼。
+
+啟用 `disable_new_fork_actions` 後，此自動化之後新增的 fork 也納入相同防護；名稱存於 `data/state.json` 的 `reference_actions_forks`。既有 fork 只有明列者會受影響。`keep_actions` 可保留正在開發的 fork，預設保留 `codex-chatgpt-web`；目錄倉庫本身永遠排除。若要使用 CI，先加入 `keep_actions`，再至該 fork 的 Settings → Actions → General 重新啟用 Actions。
+
+`preview` 只列出防護名單，仍不修改設定。停用 Actions 不會自動取消已排隊或執行中的工作；首次處理需另行取消，既有通知可能仍在陸續送達。帳戶通知保持原設定，自己開發專案的失敗通知不會被一併關閉。
+
 - `without workflow scope`／`workflows scope may be required`：到 [classic tokens](https://github.com/settings/tokens) 編輯 `FORK_PAT` 對應的專用 token。確認接受網頁連帶啟用的 `repo` 權限後，加上 `workflow` 並儲存。若重新產生金鑰，原值會失效，**還需將新值貼入 [Actions secret `FORK_PAT`](https://github.com/WhaleChao/ai-fork-catalog/settings/secrets/actions/FORK_PAT)**；只更新 token 頁面不會自動更新 secret。完成後手動執行 `refresh`，不會新增 fork，也不占每日 3 個名額。
 - `合併衝突`：fork 有自己的修改且與上游衝突，需個別處理；自動化不會強制覆寫。
 - HTTP 401：token 已失效或到期，需更新 `FORK_PAT`。

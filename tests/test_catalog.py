@@ -46,6 +46,41 @@ class RecordingAPI:
 
 
 class CatalogTests(unittest.TestCase):
+    def test_actions_guard_disables_and_verifies_before_sync(self):
+        api = mock.Mock()
+        api.request.side_effect = [{"enabled": True}, None, {"enabled": False}, {"message": "Successfully merged upstream"}]
+        fork = {"full_name": "WhaleChao/tool", "default_branch": "main", "fork": True, "private": False}
+        actions = {}
+        with contextlib.redirect_stdout(io.StringIO()):
+            statuses = catalog.sync_forks(api, [fork], actions_targets={"whalechao/tool"}, actions_statuses=actions)
+        path = "/repos/WhaleChao/tool/actions/permissions"
+        self.assertEqual(api.request.call_args_list, [mock.call("GET", path), mock.call("PUT", path, {"enabled": False}), mock.call("GET", path), mock.call("POST", "/repos/WhaleChao/tool/merge-upstream", {"branch": "main"})])
+        self.assertEqual(statuses["WhaleChao/tool"], "已更新")
+        self.assertIn("本次停用", actions["WhaleChao/tool"])
+
+    def test_actions_guard_failure_prevents_sync_push(self):
+        for responses in ([catalog.APIError(403, "forbidden")], [{"enabled": True}, None, {"enabled": True}]):
+            api = mock.Mock()
+            api.request.side_effect = responses
+            fork = {"full_name": "WhaleChao/tool", "default_branch": "main", "fork": True}
+            with contextlib.redirect_stdout(io.StringIO()):
+                statuses = catalog.sync_forks(api, [fork], actions_targets={"whalechao/tool"})
+            self.assertEqual(catalog.sync_problem_counts(statuses), (0, 1))
+            self.assertFalse(any(call.args[0] == "POST" for call in api.request.call_args_list))
+
+    def test_actions_guard_rerun_and_keep_policy(self):
+        policy = {"disable_inherited_actions": ["WhaleChao/tool", "WhaleChao/ai-fork-catalog", "other/tool"], "keep_actions": ["WhaleChao/development"]}
+        state = {"reference_actions_forks": ["WhaleChao/new", "WhaleChao/Development"]}
+        self.assertEqual(catalog.reference_actions_targets(policy, state), {"whalechao/tool", "whalechao/new"})
+        api = mock.Mock()
+        api.request.side_effect = [{"enabled": False}, {"message": "not behind"}]
+        fork = {"full_name": "WhaleChao/tool", "default_branch": "main", "fork": True}
+        with contextlib.redirect_stdout(io.StringIO()):
+            catalog.sync_forks(api, [fork], actions_targets={"whalechao/tool"})
+        self.assertFalse(any(call.args[0] == "PUT" for call in api.request.call_args_list))
+        with self.assertRaises(catalog.APIError):
+            catalog.disable_reference_actions(api, dict(fork, private=True))
+
     def test_classic_scope_preflight_accepts_public_and_normalized_repo(self):
         self.assertEqual(catalog.token_permission_issues({"public_repo", "workflow"}), [])
         self.assertEqual(catalog.token_permission_issues({"repo", "workflow"}), [])

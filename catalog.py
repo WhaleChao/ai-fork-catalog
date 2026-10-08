@@ -328,13 +328,49 @@ def token_permission_issues(scopes: set[str] | None) -> list[str]:
     return issues
 
 
-def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str | None = None) -> dict[str, str]:
+def reference_actions_targets(policy: dict[str, Any], state: dict[str, Any]) -> set[str]:
+    managed = set(policy.get("disable_inherited_actions", [])) | set(state.get("reference_actions_forks", []))
+    keep = {name.lower() for name in policy.get("keep_actions", [])}
+    keep.add(f"{OWNER}/{CATALOG_REPO}".lower())
+    return {name.lower() for name in managed if name.lower().startswith(f"{OWNER}/".lower()) and name.lower() not in keep}
+
+
+def disable_reference_actions(api: GitHub, fork: dict[str, Any]) -> str:
+    name = fork["full_name"]
+    if not fork.get("fork") or fork.get("private") or name.split("/", 1)[0].lower() != OWNER.lower():
+        raise APIError(400, "Actions 防護只允許帳戶擁有的公開 fork")
+    path = f"/repos/{name}/actions/permissions"
+    settings = api.request("GET", path)
+    if settings.get("enabled") is False:
+        return "已停用繼承的 Actions"
+    if settings.get("enabled") is not True:
+        raise APIError(502, "無法確認 Actions 是否啟用")
+    api.request("PUT", path, {"enabled": False})
+    if api.request("GET", path).get("enabled") is not False:
+        raise APIError(502, "停用 Actions 後驗證失敗")
+    return "本次停用繼承的 Actions"
+
+
+def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str | None = None,
+               actions_targets: set[str] | None = None, actions_statuses: dict[str, str] | None = None) -> dict[str, str]:
     result: dict[str, str] = {}
     if blocked_reason:
         return {fork["full_name"]: f"略過：{blocked_reason}" for fork in forks}
     for index, fork in enumerate(forks, 1):
         name = fork["full_name"]
         try:
+            if name.lower() in (actions_targets or set()):
+                # A sync push can start upstream CI, publishing and scheduled
+                # workflows. Verify the reference fork cannot run them first.
+                try:
+                    guard = disable_reference_actions(api, fork)
+                    if actions_statuses is not None:
+                        actions_statuses[name] = guard
+                except APIError as exc:
+                    result[name] = f"需處理：Actions 防護失敗，未同步：HTTP {exc.status} {exc}"
+                    if actions_statuses is not None:
+                        actions_statuses[name] = result[name]
+                    continue
             response = api.request("POST", f"/repos/{name}/merge-upstream", {"branch": fork["default_branch"]})
             message = response.get("message", "")
             result[name] = "已是最新" if "not behind" in message.lower() else "已更新" if "successfully" in message.lower() else (message or "已同步")
@@ -368,6 +404,10 @@ def write_step_summary(report: dict[str, Any]) -> None:
         lines.append("")
         lines.extend(f"- {issue}" for issue in report["token_permission_issues"])
         lines.extend(["", "Token 須設到期日。GitHub classic token 網頁勾選 `workflow` 會連帶授予 `repo`（包含私有倉庫），啟用前需由帳戶擁有者確認；程式只處理公開 fork。金鑰不得貼入 log 或對話。", ""])
+    if report.get("reference_actions"):
+        lines.extend(["### 參考 fork 的 Actions 防護", ""])
+        lines.extend(f"- {name}：{status}" for name, status in report["reference_actions"].items())
+        lines.append("")
     other_issues = [issue for issue in report["issues"] if issue not in report["token_permission_issues"]]
     if other_issues:
         lines.extend(["<details><summary>逐項結果</summary>", ""])
@@ -502,6 +542,7 @@ def main() -> int:
     seeds = read_json(DATA / "seed.json", [])
     overrides = read_json(DATA / "overrides.json", {})
     state = read_json(DATA / "state.json", {"bootstrap_complete": False, "generated_descriptions": {}})
+    actions_policy = read_json(DATA / "actions-policy.json", {})
     errors: list[str] = []
     permission_issues: list[str] = []
     if args.mode != "preview":
@@ -542,6 +583,8 @@ def main() -> int:
             "mode": mode,
             "existing_forks": len(forks),
             "candidates": [{"source": repo["full_name"], "category": category, "stars": repo["stargazers_count"]} for category, repo in candidates],
+            "reference_actions_targets": sorted(reference_actions_targets(actions_policy, state)),
+            "new_fork_actions_disabled": actions_policy.get("disable_new_fork_actions", False),
             "errors": errors,
         }, ensure_ascii=False, indent=2))
         return 1 if errors else 0
@@ -554,6 +597,8 @@ def main() -> int:
             forks.append(fork)
         else:
             errors.append(f"建立 {source['full_name']}：{status}")
+    if actions_policy.get("disable_new_fork_actions", False):
+        state["reference_actions_forks"] = sorted(set(state.get("reference_actions_forks", [])) | set(created))
     if mode == "bootstrap" and not errors:
         state["bootstrap_complete"] = True
     if mode == "bootstrap":
@@ -562,7 +607,10 @@ def main() -> int:
     # Always refresh the current fork list after asynchronous creation.
     forks = api.owned_forks()
     sync_blocked = "缺少 workflow 權限（請更新 FORK_PAT）" if permission_issues else None
-    statuses = sync_forks(api, forks, blocked_reason=sync_blocked)
+    actions_statuses: dict[str, str] = {}
+    statuses = sync_forks(api, forks, blocked_reason=sync_blocked,
+                          actions_targets=reference_actions_targets(actions_policy, state),
+                          actions_statuses=actions_statuses)
     update_metadata(api, forks, overrides, state, errors)
     entries = [catalog_entry(fork, overrides, statuses) for fork in forks]
     sync_issues = sum(value.startswith("需處理：") for value in statuses.values())
@@ -579,6 +627,7 @@ def main() -> int:
         "sync_errors": sync_errors,
         "sync_skipped": sum(value.startswith("略過：") for value in statuses.values()),
         "token_permission_issues": permission_issues,
+        "reference_actions": actions_statuses,
         # A shared token problem is reported once instead of once per fork.
         "issues": errors + ([f"同步 {name}：{value}" for name, value in statuses.items() if value.startswith("需處理：")] if not sync_blocked else []),
         "ok": not errors and sync_errors == 0,
