@@ -26,6 +26,6 @@
 
 執行會先檢查 classic token 的權限。缺少 `workflow` 時仍可建立與整理 fork，但會略過整批同步，集中留下單一權限修正提示。真正的同步 API 失敗會讓 Actions 顯示失敗；已知合併衝突只列入報告。每次執行的 Summary 會區分 API 異常、合併衝突及略過同步。
 
-目前 `llama-cpp-turboquant` 與 `project-golem` 的預設分支有上游合併衝突；自動化會持續記錄，需在各 fork 手動解決，並不會覆寫你的提交。
+衝突名單以當次 `data/report.json` 與 Actions Summary 為準。若帳戶擁有者明確要求覆寫，先建立保留原提交的備份分支，再將 fork 的預設分支對齊直接上游的同名分支；日常自動化仍不會強制覆寫提交。
 
 排程若長期未執行，檢查 Actions 是否因 GitHub 的[公開倉庫閒置規則](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)而停用，以及 `FORK_PAT` 是否已到期。
