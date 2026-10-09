@@ -111,6 +111,7 @@
   "reference_actions_forks": [
     "WhaleChao/Index-Translate",
     "WhaleChao/MOSS-Transcribe-Diarize",
+    "WhaleChao/PI-Desktop",
     "WhaleChao/open-multi-agent"
   ]
 }
