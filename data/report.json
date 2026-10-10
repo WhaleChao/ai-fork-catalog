@@ -1,10 +1,12 @@
 {
-  "checked_at": "2026-10-09T09:05:20+00:00",
+  "checked_at": "2026-10-10T08:33:11+00:00",
   "mode": "daily",
-  "owned_public_forks": 146,
-  "created": 1,
+  "owned_public_forks": 149,
+  "created": 3,
   "created_repositories": [
-    "WhaleChao/PI-Desktop"
+    "WhaleChao/MobileBuildMCP",
+    "WhaleChao/claude-code-local",
+    "WhaleChao/typewhisper-mac"
   ],
   "bootstrap_created_total": 30,
   "sync_issues": 0,
@@ -18,6 +20,7 @@
     "WhaleChao/AIHawk": "已停用繼承的 Actions",
     "WhaleChao/beyondtranslate-ce": "已停用繼承的 Actions",
     "WhaleChao/camofox-browser": "已停用繼承的 Actions",
+    "WhaleChao/claude-code-local": "本次停用繼承的 Actions",
     "WhaleChao/codebase-memory-mcp": "已停用繼承的 Actions",
     "WhaleChao/codex": "已停用繼承的 Actions",
     "WhaleChao/codex-security": "已停用繼承的 Actions",
@@ -36,6 +39,7 @@
     "WhaleChao/llama-cpp-turboquant": "已停用繼承的 Actions",
     "WhaleChao/mike": "已停用繼承的 Actions",
     "WhaleChao/MinerU": "已停用繼承的 Actions",
+    "WhaleChao/MobileBuildMCP": "本次停用繼承的 Actions",
     "WhaleChao/MOSS-Transcribe-Diarize": "已停用繼承的 Actions",
     "WhaleChao/noScribe": "已停用繼承的 Actions",
     "WhaleChao/omlx": "已停用繼承的 Actions",
@@ -45,13 +49,14 @@
     "WhaleChao/OpenHands": "已停用繼承的 Actions",
     "WhaleChao/openmed": "已停用繼承的 Actions",
     "WhaleChao/openvino": "已停用繼承的 Actions",
-    "WhaleChao/PI-Desktop": "本次停用繼承的 Actions",
+    "WhaleChao/PI-Desktop": "已停用繼承的 Actions",
     "WhaleChao/pydantic-ai": "已停用繼承的 Actions",
     "WhaleChao/rtk": "已停用繼承的 Actions",
     "WhaleChao/ruflo": "已停用繼承的 Actions",
     "WhaleChao/sglang": "已停用繼承的 Actions",
     "WhaleChao/sherpa-onnx": "已停用繼承的 Actions",
     "WhaleChao/skills": "已停用繼承的 Actions",
+    "WhaleChao/typewhisper-mac": "本次停用繼承的 Actions",
     "WhaleChao/video-autopilot-kit": "已停用繼承的 Actions",
     "WhaleChao/Yuedu-reader": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
