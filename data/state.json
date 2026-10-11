@@ -75,7 +75,9 @@
     "WhaleChao/Auto-Synced-Translated-Dubs": "Automatically translates the text of a video based on a subtitle file, and then uses AI voice services to create a new dubbed & translated audio track…",
     "WhaleChao/Edge0": "Run 35B MoE models in ~2.5 GB of RAM. Weights stream from SSD; a trained router predicts loads a step ahead. Mac, iPhone, Android, Windows supported",
     "WhaleChao/claude-code-local": "Run Claude Code 100% on-device with local AI on Apple Silicon. MLX-native Anthropic-API server. 6 fighters incl. Muse-Glimmer 30B (now multimodal — re…",
-    "WhaleChao/typewhisper-mac": "Local speech-to-text for macOS on-device AI, fully private, optional cloud"
+    "WhaleChao/typewhisper-mac": "Local speech-to-text for macOS on-device AI, fully private, optional cloud",
+    "WhaleChao/ghidra-mcp": "Ghidra MCP Server — 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch …",
+    "WhaleChao/spiceai": "Add a real-time analytics node to your operational database. Spice is a portable, accelerated SQL query, search, and LLM-inference engine in Rust for …"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -116,7 +118,10 @@
     "WhaleChao/MobileBuildMCP",
     "WhaleChao/PI-Desktop",
     "WhaleChao/claude-code-local",
+    "WhaleChao/dsnote",
+    "WhaleChao/ghidra-mcp",
     "WhaleChao/open-multi-agent",
+    "WhaleChao/spiceai",
     "WhaleChao/typewhisper-mac"
   ]
 }
