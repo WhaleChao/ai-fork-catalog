@@ -77,7 +77,9 @@
     "WhaleChao/claude-code-local": "Run Claude Code 100% on-device with local AI on Apple Silicon. MLX-native Anthropic-API server. 6 fighters incl. Muse-Glimmer 30B (now multimodal — re…",
     "WhaleChao/typewhisper-mac": "Local speech-to-text for macOS on-device AI, fully private, optional cloud",
     "WhaleChao/ghidra-mcp": "Ghidra MCP Server — 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch …",
-    "WhaleChao/spiceai": "Add a real-time analytics node to your operational database. Spice is a portable, accelerated SQL query, search, and LLM-inference engine in Rust for …"
+    "WhaleChao/spiceai": "Add a real-time analytics node to your operational database. Spice is a portable, accelerated SQL query, search, and LLM-inference engine in Rust for …",
+    "WhaleChao/Fun-ASR": "Fun-ASR speech recognition models, with native Hugging Face Transformers support for Fun-ASR-Nano and separate FunASR, vLLM and llama.cpp deployment p…",
+    "WhaleChao/ouroboros": "Agent OS: the agent gets smarter on its own. We just hold the line: Interview-gated, staged evaluation, budgeted evolution loop. MCP server, 14 runtim…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -113,14 +115,17 @@
   ],
   "bootstrap_day": "2026-09-13",
   "reference_actions_forks": [
+    "WhaleChao/Fun-ASR",
     "WhaleChao/Index-Translate",
     "WhaleChao/MOSS-Transcribe-Diarize",
     "WhaleChao/MobileBuildMCP",
     "WhaleChao/PI-Desktop",
+    "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
     "WhaleChao/dsnote",
     "WhaleChao/ghidra-mcp",
     "WhaleChao/open-multi-agent",
+    "WhaleChao/ouroboros",
     "WhaleChao/spiceai",
     "WhaleChao/typewhisper-mac"
   ]
