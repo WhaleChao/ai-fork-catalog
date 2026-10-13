@@ -1,17 +1,17 @@
 {
-  "checked_at": "2026-10-12T09:14:00+00:00",
+  "checked_at": "2026-10-13T09:29:06+00:00",
   "mode": "daily",
-  "owned_public_forks": 155,
+  "owned_public_forks": 159,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/Fun-ASR",
-    "WhaleChao/ouroboros",
-    "WhaleChao/chitu"
+    "WhaleChao/overlay-translator",
+    "WhaleChao/open-seo-mcp-skills",
+    "WhaleChao/neural-compressor"
   ],
   "bootstrap_created_total": 30,
-  "sync_issues": 0,
-  "sync_conflicts": 0,
-  "sync_errors": 0,
+  "sync_issues": 2,
+  "sync_conflicts": 1,
+  "sync_errors": 1,
   "sync_skipped": 0,
   "token_permission_issues": [],
   "reference_actions": {
@@ -20,7 +20,7 @@
     "WhaleChao/AIHawk": "已停用繼承的 Actions",
     "WhaleChao/beyondtranslate-ce": "已停用繼承的 Actions",
     "WhaleChao/camofox-browser": "已停用繼承的 Actions",
-    "WhaleChao/chitu": "本次停用繼承的 Actions",
+    "WhaleChao/chitu": "已停用繼承的 Actions",
     "WhaleChao/claude-code-local": "已停用繼承的 Actions",
     "WhaleChao/codebase-memory-mcp": "已停用繼承的 Actions",
     "WhaleChao/codex": "已停用繼承的 Actions",
@@ -30,7 +30,7 @@
     "WhaleChao/fastmcp": "已停用繼承的 Actions",
     "WhaleChao/flashinfer": "已停用繼承的 Actions",
     "WhaleChao/FluidAudio": "已停用繼承的 Actions",
-    "WhaleChao/Fun-ASR": "本次停用繼承的 Actions",
+    "WhaleChao/Fun-ASR": "已停用繼承的 Actions",
     "WhaleChao/FunASR": "已停用繼承的 Actions",
     "WhaleChao/ghidra-mcp": "已停用繼承的 Actions",
     "WhaleChao/gpustack": "已停用繼承的 Actions",
@@ -45,15 +45,18 @@
     "WhaleChao/MinerU": "已停用繼承的 Actions",
     "WhaleChao/MobileBuildMCP": "已停用繼承的 Actions",
     "WhaleChao/MOSS-Transcribe-Diarize": "已停用繼承的 Actions",
+    "WhaleChao/neural-compressor": "本次停用繼承的 Actions",
     "WhaleChao/noScribe": "已停用繼承的 Actions",
     "WhaleChao/omlx": "已停用繼承的 Actions",
     "WhaleChao/omnigent": "已停用繼承的 Actions",
     "WhaleChao/open-code-review": "已停用繼承的 Actions",
     "WhaleChao/open-multi-agent": "已停用繼承的 Actions",
+    "WhaleChao/open-seo-mcp-skills": "本次停用繼承的 Actions",
     "WhaleChao/OpenHands": "已停用繼承的 Actions",
     "WhaleChao/openmed": "已停用繼承的 Actions",
     "WhaleChao/openvino": "已停用繼承的 Actions",
-    "WhaleChao/ouroboros": "本次停用繼承的 Actions",
+    "WhaleChao/ouroboros": "已停用繼承的 Actions",
+    "WhaleChao/overlay-translator": "需處理：Actions 防護失敗，未同步：HTTP 502 停用 Actions 後驗證失敗",
     "WhaleChao/PI-Desktop": "已停用繼承的 Actions",
     "WhaleChao/pydantic-ai": "已停用繼承的 Actions",
     "WhaleChao/rtk": "已停用繼承的 Actions",
@@ -67,6 +70,9 @@
     "WhaleChao/Yuedu-reader": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
-  "issues": [],
-  "ok": true
+  "issues": [
+    "同步 WhaleChao/legal-skills-open：需處理：合併衝突",
+    "同步 WhaleChao/overlay-translator：需處理：Actions 防護失敗，未同步：HTTP 502 停用 Actions 後驗證失敗"
+  ],
+  "ok": false
 }
