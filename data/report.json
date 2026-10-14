@@ -1,17 +1,16 @@
 {
-  "checked_at": "2026-10-13T09:29:06+00:00",
+  "checked_at": "2026-10-14T07:40:41+00:00",
   "mode": "daily",
-  "owned_public_forks": 159,
-  "created": 3,
+  "owned_public_forks": 162,
+  "created": 2,
   "created_repositories": [
-    "WhaleChao/overlay-translator",
-    "WhaleChao/open-seo-mcp-skills",
-    "WhaleChao/neural-compressor"
+    "WhaleChao/nightingale",
+    "WhaleChao/mflux"
   ],
   "bootstrap_created_total": 30,
-  "sync_issues": 2,
+  "sync_issues": 1,
   "sync_conflicts": 1,
-  "sync_errors": 1,
+  "sync_errors": 0,
   "sync_skipped": 0,
   "token_permission_issues": [],
   "reference_actions": {
@@ -41,22 +40,24 @@
     "WhaleChao/laya": "已停用繼承的 Actions",
     "WhaleChao/laya-mlx": "已停用繼承的 Actions",
     "WhaleChao/llama-cpp-turboquant": "已停用繼承的 Actions",
+    "WhaleChao/mflux": "本次停用繼承的 Actions",
     "WhaleChao/mike": "已停用繼承的 Actions",
     "WhaleChao/MinerU": "已停用繼承的 Actions",
     "WhaleChao/MobileBuildMCP": "已停用繼承的 Actions",
     "WhaleChao/MOSS-Transcribe-Diarize": "已停用繼承的 Actions",
-    "WhaleChao/neural-compressor": "本次停用繼承的 Actions",
+    "WhaleChao/neural-compressor": "已停用繼承的 Actions",
+    "WhaleChao/nightingale": "本次停用繼承的 Actions",
     "WhaleChao/noScribe": "已停用繼承的 Actions",
     "WhaleChao/omlx": "已停用繼承的 Actions",
     "WhaleChao/omnigent": "已停用繼承的 Actions",
     "WhaleChao/open-code-review": "已停用繼承的 Actions",
     "WhaleChao/open-multi-agent": "已停用繼承的 Actions",
-    "WhaleChao/open-seo-mcp-skills": "本次停用繼承的 Actions",
+    "WhaleChao/open-seo-mcp-skills": "已停用繼承的 Actions",
     "WhaleChao/OpenHands": "已停用繼承的 Actions",
     "WhaleChao/openmed": "已停用繼承的 Actions",
     "WhaleChao/openvino": "已停用繼承的 Actions",
     "WhaleChao/ouroboros": "已停用繼承的 Actions",
-    "WhaleChao/overlay-translator": "需處理：Actions 防護失敗，未同步：HTTP 502 停用 Actions 後驗證失敗",
+    "WhaleChao/overlay-translator": "已停用繼承的 Actions",
     "WhaleChao/PI-Desktop": "已停用繼承的 Actions",
     "WhaleChao/pydantic-ai": "已停用繼承的 Actions",
     "WhaleChao/rtk": "已停用繼承的 Actions",
@@ -71,8 +72,7 @@
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
   "issues": [
-    "同步 WhaleChao/legal-skills-open：需處理：合併衝突",
-    "同步 WhaleChao/overlay-translator：需處理：Actions 防護失敗，未同步：HTTP 502 停用 Actions 後驗證失敗"
+    "同步 WhaleChao/legal-skills-open：需處理：合併衝突"
   ],
-  "ok": false
+  "ok": true
 }
