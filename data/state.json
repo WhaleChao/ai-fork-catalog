@@ -82,7 +82,9 @@
     "WhaleChao/ouroboros": "Agent OS: the agent gets smarter on its own. We just hold the line: Interview-gated, staged evaluation, budgeted evolution loop. MCP server, 14 runtim…",
     "WhaleChao/neural-compressor": "SOTA low-bit LLM quantization (INT8/FP8/MXFP8/INT4/MXFP4/NVFP4) & sparsity; leading model compression techniques on PyTorch, TensorFlow, and ONNX Runt…",
     "WhaleChao/open-seo-mcp-skills": "Free SEO MCP server + open-source SEO and GEO skills for Claude: keyword research, rank tracking, audits, backlinks, AI visibility on your real GSC/GA…",
-    "WhaleChao/overlay-translator": "无需 ROOT 的开源 Android 屏幕实时翻译工具，适合游戏、视觉小说和漫画。支持端侧与云端 OCR、离线 LLM、多种翻译服务和文字朗读（TTS），译文可直接显示在画面上。Open-source no-root Android real-time screen translator for …"
+    "WhaleChao/overlay-translator": "无需 ROOT 的开源 Android 屏幕实时翻译工具，适合游戏、视觉小说和漫画。支持端侧与云端 OCR、离线 LLM、多种翻译服务和文字朗读（TTS），译文可直接显示在画面上。Open-source no-root Android real-time screen translator for …",
+    "WhaleChao/minutes": "Open-source, local-first Granola/Otter alternative that Claude Code, Codex, Cursor, and any MCP client can query. Meetings, calls, and voice memos tra…",
+    "WhaleChao/tradingview-mcp": "TradingView MCP server — real-time market data, technical analysis, screeners & backtesting for Claude, ChatGPT, Cursor & any MCP client. Stocks, cryp…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -125,9 +127,11 @@
     "WhaleChao/PI-Desktop",
     "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
+    "WhaleChao/distributed-llama",
     "WhaleChao/dsnote",
     "WhaleChao/ghidra-mcp",
     "WhaleChao/mflux",
+    "WhaleChao/minutes",
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
     "WhaleChao/open-multi-agent",
@@ -135,6 +139,7 @@
     "WhaleChao/ouroboros",
     "WhaleChao/overlay-translator",
     "WhaleChao/spiceai",
+    "WhaleChao/tradingview-mcp",
     "WhaleChao/typewhisper-mac"
   ]
 }
