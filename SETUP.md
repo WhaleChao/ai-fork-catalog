@@ -19,10 +19,10 @@
 
 ## 模式
 
-- `preview`：只讀取 GitHub，列出尚未 fork 的首批來源；不建立 fork、不同步、不寫入任何檔案。
+- `preview`：只讀取 GitHub，列出尚未 fork 的首批來源及原創公開專案分類；不建立 fork、不同步、不寫入任何檔案。
 - `bootstrap`：按 `data/seed.json` 處理首次 30 個來源，重跑時以來源 fork 網路去重；之後同步並重建目錄。
 - `daily`：依主題、千星、授權、活躍度及用途條件搜尋，每日最多新增 3 個，然後同步並重建目錄。
-- `refresh`：只同步現有 fork 並重建目錄。
+- `refresh`：同步現有 fork、整理全部原創公開專案並重建目錄，不新增 fork。
 
 同步使用 GitHub 的 `merge-upstream` API，不強制推送；衝突或 API 失敗會寫入 `data/report.json`。摘要沿用原專案語言，公開目錄不含私有 MAGI 倉庫的實作細節。AGPL／GPL 項目標為架構參考，真正整合程式碼前另行檢查授權。
 
