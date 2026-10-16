@@ -346,20 +346,56 @@ def disable_reference_actions(api: GitHub, fork: dict[str, Any]) -> str:
     if settings.get("enabled") is not True:
         raise APIError(502, "無法確認 Actions 是否啟用")
     api.request("PUT", path, {"enabled": False})
-    if api.request("GET", path).get("enabled") is not False:
-        raise APIError(502, "停用 Actions 後驗證失敗")
-    return "本次停用繼承的 Actions"
+    # Settings reads can briefly return the old value after a successful PUT.
+    # Retry reads only; never sync until the disabled state is confirmed.
+    for delay in (0, 1, 2, 4):
+        if delay:
+            time.sleep(delay)
+        if api.request("GET", path).get("enabled") is False:
+            return "本次停用繼承的 Actions"
+    raise APIError(502, "停用 Actions 後驗證失敗")
+
+
+def fork_ahead_of_parent(api: GitHub, fork: dict[str, Any]) -> int:
+    name = fork["full_name"]
+    parent = fork.get("parent") or {}
+    if (not fork.get("fork") or fork.get("private")
+            or name.split("/", 1)[0].lower() != OWNER.lower()
+            or not parent.get("full_name") or not parent.get("default_branch")):
+        raise APIError(400, "無法分類為帳戶擁有的公開 fork")
+    base = urllib.parse.quote(f"{parent['full_name'].split('/')[0]}:{parent['default_branch']}", safe="")
+    head = urllib.parse.quote(fork["default_branch"], safe="")
+    comparison = api.request("GET", f"/repos/{name}/compare/{base}...{head}")
+    ahead = comparison.get("ahead_by")
+    if type(ahead) is not int or ahead < 0:
+        raise APIError(502, "無法確認 fork 是否含有獨立提交")
+    return ahead
 
 
 def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str | None = None,
-               actions_targets: set[str] | None = None, actions_statuses: dict[str, str] | None = None) -> dict[str, str]:
+               actions_targets: set[str] | None = None, actions_statuses: dict[str, str] | None = None,
+               guard_mirror_forks: bool = False, keep_actions: set[str] | None = None) -> dict[str, str]:
     result: dict[str, str] = {}
     if blocked_reason:
         return {fork["full_name"]: f"略過：{blocked_reason}" for fork in forks}
+    protected = {name.lower() for name in (keep_actions or set())}
+    protected.add(f"{OWNER}/{CATALOG_REPO}".lower())
     for index, fork in enumerate(forks, 1):
         name = fork["full_name"]
         try:
-            if name.lower() in (actions_targets or set()):
+            guard = name.lower() in (actions_targets or set()) and name.lower() not in protected
+            if guard_mirror_forks and not guard and name.lower() not in protected:
+                try:
+                    ahead = fork_ahead_of_parent(api, fork)
+                    guard = ahead == 0
+                    if ahead and actions_statuses is not None:
+                        actions_statuses[name] = f"保留 Actions：含 {ahead} 個獨立提交"
+                except APIError as exc:
+                    result[name] = f"需處理：Actions 分類失敗，未同步：HTTP {exc.status} {exc}"
+                    if actions_statuses is not None:
+                        actions_statuses[name] = result[name]
+                    continue
+            if guard:
                 # A sync push can start upstream CI, publishing and scheduled
                 # workflows. Verify the reference fork cannot run them first.
                 try:
@@ -585,6 +621,7 @@ def main() -> int:
             "candidates": [{"source": repo["full_name"], "category": category, "stars": repo["stargazers_count"]} for category, repo in candidates],
             "reference_actions_targets": sorted(reference_actions_targets(actions_policy, state)),
             "new_fork_actions_disabled": actions_policy.get("disable_new_fork_actions", False),
+            "mirror_fork_actions_disabled": actions_policy.get("disable_mirror_fork_actions", False),
             "errors": errors,
         }, ensure_ascii=False, indent=2))
         return 1 if errors else 0
@@ -610,7 +647,9 @@ def main() -> int:
     actions_statuses: dict[str, str] = {}
     statuses = sync_forks(api, forks, blocked_reason=sync_blocked,
                           actions_targets=reference_actions_targets(actions_policy, state),
-                          actions_statuses=actions_statuses)
+                          actions_statuses=actions_statuses,
+                          guard_mirror_forks=actions_policy.get("disable_mirror_fork_actions", False),
+                          keep_actions=set(actions_policy.get("keep_actions", [])))
     update_metadata(api, forks, overrides, state, errors)
     entries = [catalog_entry(fork, overrides, statuses) for fork in forks]
     sync_issues = sum(value.startswith("需處理：") for value in statuses.values())

@@ -1,5 +1,6 @@
 {
   "disable_new_fork_actions": true,
+  "disable_mirror_fork_actions": true,
   "disable_inherited_actions": [
     "WhaleChao/AIHawk",
     "WhaleChao/CowAgent",
@@ -42,6 +43,7 @@
   ],
   "keep_actions": [
     "WhaleChao/codex-chatgpt-web",
+    "WhaleChao/legal-skills-open",
     "WhaleChao/ai-fork-catalog"
   ]
 }

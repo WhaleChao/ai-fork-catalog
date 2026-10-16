@@ -59,14 +59,66 @@ class CatalogTests(unittest.TestCase):
         self.assertIn("本次停用", actions["WhaleChao/tool"])
 
     def test_actions_guard_failure_prevents_sync_push(self):
-        for responses in ([catalog.APIError(403, "forbidden")], [{"enabled": True}, None, {"enabled": True}]):
+        for responses in ([catalog.APIError(403, "forbidden")], [{"enabled": True}, None] + [{"enabled": True}] * 4):
             api = mock.Mock()
             api.request.side_effect = responses
             fork = {"full_name": "WhaleChao/tool", "default_branch": "main", "fork": True}
-            with contextlib.redirect_stdout(io.StringIO()):
+            with mock.patch.object(catalog.time, "sleep"), contextlib.redirect_stdout(io.StringIO()):
                 statuses = catalog.sync_forks(api, [fork], actions_targets={"whalechao/tool"})
             self.assertEqual(catalog.sync_problem_counts(statuses), (0, 1))
             self.assertFalse(any(call.args[0] == "POST" for call in api.request.call_args_list))
+
+    def test_actions_guard_waits_for_setting_to_propagate(self):
+        api = mock.Mock()
+        api.request.side_effect = [{"enabled": True}, None, {"enabled": True}, {"enabled": False}]
+        fork = {"full_name": "WhaleChao/tool", "fork": True}
+        with mock.patch.object(catalog.time, "sleep") as sleep:
+            self.assertEqual(catalog.disable_reference_actions(api, fork), "本次停用繼承的 Actions")
+        sleep.assert_called_once_with(1)
+        self.assertEqual(sum(call.args[0] == "PUT" for call in api.request.call_args_list), 1)
+
+    def test_existing_unlisted_mirror_is_guarded_before_sync(self):
+        api = mock.Mock()
+        api.request.side_effect = [{"ahead_by": 0}, {"enabled": True}, None, {"enabled": False}, {"message": "not behind"}]
+        fork = {"full_name": "WhaleChao/old-reference", "default_branch": "main", "fork": True,
+                "parent": {"full_name": "upstream/tool", "default_branch": "main"}}
+        actions = {}
+        with contextlib.redirect_stdout(io.StringIO()):
+            catalog.sync_forks(api, [fork], guard_mirror_forks=True, actions_statuses=actions)
+        methods = [call.args[0] for call in api.request.call_args_list]
+        self.assertEqual(methods, ["GET", "GET", "PUT", "GET", "POST"])
+        self.assertIn("本次停用", actions[fork["full_name"]])
+
+    def test_own_commits_and_explicit_keep_preserve_actions(self):
+        fork = {"full_name": "WhaleChao/development", "default_branch": "main", "fork": True,
+                "parent": {"full_name": "upstream/tool", "default_branch": "main"}}
+        api = mock.Mock()
+        api.request.side_effect = [{"ahead_by": 65}, {"message": "not behind"}]
+        actions = {}
+        with contextlib.redirect_stdout(io.StringIO()):
+            catalog.sync_forks(api, [fork], guard_mirror_forks=True, actions_statuses=actions)
+        self.assertIn("65 個獨立提交", actions[fork["full_name"]])
+        self.assertFalse(any("/actions/permissions" in call.args[1] for call in api.request.call_args_list))
+        api.reset_mock()
+        api.request.side_effect = [{"message": "not behind"}]
+        with contextlib.redirect_stdout(io.StringIO()):
+            catalog.sync_forks(api, [fork], actions_targets={"whalechao/development"}, guard_mirror_forks=True,
+                               keep_actions={"WhaleChao/development"})
+        self.assertEqual([call.args[0] for call in api.request.call_args_list], ["POST"])
+
+    def test_unclassified_fork_is_not_synced(self):
+        fork = {"full_name": "WhaleChao/tool", "default_branch": "main", "fork": True,
+                "parent": {"full_name": "upstream/tool", "default_branch": "main"}}
+        for response in [catalog.APIError(503, "unavailable"), {}, {"ahead_by": True}]:
+            api = mock.Mock()
+            if isinstance(response, Exception):
+                api.request.side_effect = response
+            else:
+                api.request.return_value = response
+            with contextlib.redirect_stdout(io.StringIO()):
+                statuses = catalog.sync_forks(api, [fork], guard_mirror_forks=True)
+            self.assertEqual(catalog.sync_problem_counts(statuses), (0, 1))
+            self.assertFalse(any(call.args[0] != "GET" for call in api.request.call_args_list))
 
     def test_actions_guard_rerun_and_keep_policy(self):
         policy = {"disable_inherited_actions": ["WhaleChao/tool", "WhaleChao/ai-fork-catalog", "other/tool"], "keep_actions": ["WhaleChao/development"]}
