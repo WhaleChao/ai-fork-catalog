@@ -1,4 +1,5 @@
 import datetime as dt
+import base64
 import contextlib
 import io
 import json
@@ -62,6 +63,110 @@ def daily_environment(root, api):
 
 
 class CatalogTests(unittest.TestCase):
+    def test_owned_projects_filters_private_forks_and_other_owners_across_pages(self):
+        api = catalog.GitHub("private-test-token")
+        project = {"full_name": "WhaleChao/own", "fork": False, "private": False}
+        fork = {"full_name": "WhaleChao/reference", "fork": True, "private": False}
+        private = {"full_name": "WhaleChao/private", "fork": False, "private": True}
+        other = {"full_name": "another/project", "fork": False, "private": False}
+        with mock.patch.object(api, "request", side_effect=[[fork] * 99 + [project], [private, other]]) as request:
+            self.assertEqual(api.owned_projects(), [project])
+        self.assertEqual(request.call_count, 2)
+        self.assertIn("page=2", request.call_args.args[1])
+
+    def test_project_readme_refresh_and_manual_description_preservation(self):
+        automatic = {"full_name": "WhaleChao/automatic", "description": "Previous generated description"}
+        manual = {"full_name": "WhaleChao/manual", "description": "My own description"}
+        empty = {"full_name": "WhaleChao/empty", "description": None, "size": 0}
+        readme = "# Heading\n\n[![Build](badge.svg)](https://example.com)\n\n離線文件工具，提供 **PDF** 編輯及文字整理。\n\n## Installation\n"
+        api = mock.Mock()
+        api.request.side_effect = [{"encoding": "base64", "content": base64.b64encode(readme.encode()).decode()}, catalog.APIError(404, "Not Found")]
+        errors = []
+        catalog.prepare_projects(api, [automatic, manual, empty], {}, errors,
+                                 {automatic["full_name"]: automatic["description"], manual["full_name"]: "Old generated text"})
+        self.assertEqual(errors, [])
+        self.assertEqual(automatic["catalog_summary"], "離線文件工具，提供 PDF 編輯及文字整理。")
+        self.assertNotIn("catalog_summary", manual)
+        self.assertIn("空倉庫", empty["catalog_summary"])
+        self.assertEqual(api.request.call_count, 2)
+        self.assertTrue(all(call.args[0] == "GET" for call in api.request.call_args_list))
+
+    def test_original_projects_only_update_metadata_and_keep_personal_text(self):
+        manual = dict(repo("WhaleChao/manual", "My own detailed website description", []), topics=["custom-topic"])
+        empty = repo("WhaleChao/editor", "", [])
+        empty["catalog_summary"] = "A local PDF editor for documents."
+        archived = dict(repo("WhaleChao/archive", "Archived project", []), archived=True)
+        api = RecordingAPI()
+        errors = []
+        catalog.update_project_metadata(api, [manual, empty, archived], {}, {}, errors)
+        self.assertEqual(errors, [])
+        patches = [call for call in api.calls if call[0] == "PATCH"]
+        self.assertEqual(patches, [("PATCH", "/repos/WhaleChao/editor", {"description": empty["catalog_summary"]})])
+        self.assertTrue(all(path.endswith("/topics") or method == "PATCH" for method, path, payload in api.calls))
+        self.assertFalse(any("archive" in path for method, path, payload in api.calls))
+        manual_topics = next(payload["names"] for method, path, payload in api.calls if path == "/repos/WhaleChao/manual/topics")
+        self.assertIn("custom-topic", manual_topics)
+        self.assertIn("personal-project", manual_topics)
+
+    def test_refresh_organizes_all_public_projects_and_syncs_manual_fork_only(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            data = root / "data"
+            data.mkdir()
+            catalog.write_json(data / "catalog-policy.json", {"include_owned_projects": True})
+            catalog.write_json(data / "actions-policy.json", {"disable_mirror_fork_actions": True})
+            source = dict(repo("example/manual-reference", "A manually selected tool", [], stars=10), default_branch="main")
+            fork = dict(source, full_name="WhaleChao/manual-reference", fork=True, default_branch="main", parent=source, source=source)
+            project = repo("WhaleChao/own-website", "My personal website", [])
+            api = mock.Mock()
+            api.oauth_scopes = {"public_repo", "workflow"}
+            api.owned_forks.return_value = [fork]
+            api.owned_projects.return_value = [project]
+
+            def request(method, path, payload=None):
+                if path == "/user":
+                    return {"login": "WhaleChao"}
+                if "/compare/" in path:
+                    return {"ahead_by": 0}
+                if path.endswith("/actions/permissions"):
+                    self.assertIn("manual-reference", path)
+                    return {"enabled": False}
+                if path.endswith("/merge-upstream"):
+                    self.assertIn("manual-reference", path)
+                    return {"message": "not behind"}
+                self.assertEqual((method, path), ("PUT", "/repos/WhaleChao/own-website/topics"))
+                return {}
+
+            api.request.side_effect = request
+            with daily_environment(root, api), mock.patch("sys.argv", ["catalog.py", "--mode", "refresh"]):
+                self.assertEqual(catalog.main(), 0)
+            report = catalog.read_json(data / "report.json", {})
+            self.assertEqual(report["owned_public_forks"], 1)
+            self.assertEqual(report["owned_public_projects"], 1)
+            self.assertEqual(report["owned_public_repositories"], 2)
+            markdown = (root / "README.md").read_text(encoding="utf-8")
+            self.assertIn("自行建立的公開專案（1）", markdown)
+            self.assertIn("原創專案，無上游可同步", markdown)
+            self.assertIn("manual-reference", markdown)
+            self.assertIn("own-website", markdown)
+
+    def test_project_preview_is_read_only(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            data = root / "data"
+            data.mkdir()
+            catalog.write_json(data / "catalog-policy.json", {"include_owned_projects": True})
+            api = mock.Mock()
+            api.owned_forks.return_value = []
+            api.owned_projects.return_value = [dict(repo("WhaleChao/own", "", []), size=0)]
+            api.request.side_effect = catalog.APIError(404, "No README")
+            before = list(data.iterdir())
+            with daily_environment(root, api), mock.patch("sys.argv", ["catalog.py", "--mode", "preview"]):
+                self.assertEqual(catalog.main(), 0)
+            self.assertEqual(list(data.iterdir()), before)
+            self.assertFalse((root / "README.md").exists())
+            self.assertTrue(all(call.args[0] == "GET" for call in api.request.call_args_list))
+
     def test_daily_new_forks_guarded_immediately_despite_listing_lag_and_rerun(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

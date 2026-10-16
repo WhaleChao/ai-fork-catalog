@@ -48,5 +48,16 @@
   "ai-twinkle/rlhf-book-zh-tw": {"category":"other","summary":"《RLHF Book》繁體中文翻譯與章節互動實驗。","fit":"模型訓練參考","platform":"文件","advice":"架構參考"},
   "mitsuhiko/pi-ds4": {"category":"inference","summary":"Run a DeepSeek GGUF model locally on Apple Metal from Pi.","fit":"Apple 裝置本機模型","platform":"Apple Silicon","advice":"架構參考"},
   "nftechie/stonkfly": {"category":"agent","summary":"Simulation with experimental memory and guarded trading-agent actions.","fit":"Agent 記憶與受控動作","platform":"待評估","advice":"架構參考"},
-  "miuuyy/codex-chatgpt-web": {"category":"agent","summary":"Connects ChatGPT Web as a model source for Codex with tool streaming.","fit":"Agent 模型介面","platform":"跨平台待驗證","advice":"架構參考"}
+  "miuuyy/codex-chatgpt-web": {"category":"agent","summary":"Connects ChatGPT Web as a model source for Codex with tool streaming.","fit":"Agent 模型介面","platform":"跨平台待驗證","advice":"架構參考"},
+  "WhaleChao/acropdf": {"project_category":"文件與 PDF 工具"},
+  "WhaleChao/ai-fork-catalog": {"project_category":"開發工具"},
+  "WhaleChao/criminal-code-78-1-calculator": {"project_category":"法律工具"},
+  "WhaleChao/happybigbomb": {"project_category":"影像與影音工具"},
+  "WhaleChao/hokkaido-app": {"project_category":"旅遊應用"},
+  "WhaleChao/MAGI-public": {"project_category":"AI 與自動化"},
+  "WhaleChao/mistfall-bell-seasons": {"project_category":"遊戲"},
+  "WhaleChao/OpenDeskTW": {"project_category":"文件與 PDF 工具"},
+  "WhaleChao/StaticWebModule": {"project_category":"開發工具","summary":"用於 GitHub 推送設定的靜態網頁模組初始專案。"},
+  "WhaleChao/Tinnsi": {"project_category":"網站與前端"},
+  "WhaleChao/whalechao.github.io": {"project_category":"網站與前端"}
 }

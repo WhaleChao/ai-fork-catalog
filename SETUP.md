@@ -2,6 +2,14 @@
 
 這個公開倉庫每天台北時間 10:17 搜尋 MAGI 相關技術，最多新增 3 個 fork，並嘗試同步 `WhaleChao` 的全部公開 fork。首次批次固定為 `data/seed.json` 的 30 個來源，只有手動執行 `bootstrap` 才會處理。
 
+## 自行新增的公開專案
+
+每天重新列舉帳戶的全部公開倉庫，手動 fork 的專案不受千星、用途或自動搜尋篩選限制，會自動整理用途、分類並嘗試同步直接上游的預設分支。純鏡像 fork 在同步前套用 Actions 防護；有獨立提交者與 `keep_actions` 名單保留開發用 CI。
+
+`data/catalog-policy.json` 的 `include_owned_projects` 同時啟用原創公開專案目錄：以現有簡介為優先，缺少時取 README 的第一段用途，補上可辨識的說明與分類 topic。自動生成的簡介會隨 README 更新；人工修改過的說明保留。每個原創專案都會明列「無上游可同步」，不呼叫分支同步或修改其 Actions；封存專案只列目錄。沒有 README 的空倉庫標示待補用途，日後加入內容仍會重新評估。
+
+可在 `data/overrides.json` 以倉庫全名覆寫 `summary` 與 `project_category`。原創專案不占每日 3 個新 fork 的自動化名額；每日額度仍會計入當日手動新增的 fork。私有倉庫不列出、不修改，也不公開其內容。
+
 ## 首次啟用
 
 1. 在 GitHub 建立**有到期日**的專用 Personal Access Token (classic)。排程需要跨倉庫建立 fork、更新簡介與同步；上游若修改 `.github/workflows/`，同步還需要 `workflow`，只有 `public_repo` 會被 GitHub 以 HTTP 422 拒絕。**GitHub 目前的 classic token 網頁會在勾選 `workflow` 時，自動勾選並鎖定 `repo`；這包含私有倉庫存取，必須由帳戶擁有者確認後才啟用。** 程式只列舉與修改公開 fork，但 token 本身的權限仍較廣。若不接受此範圍，保留 `public_repo`，自動化會略過同步並回報缺少權限。管理倉庫自己的 `GITHUB_TOKEN` 不具備這些跨倉庫權限。[GitHub token 說明](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) · [workflow scope 說明](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps)

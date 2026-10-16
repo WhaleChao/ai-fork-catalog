@@ -8,6 +8,7 @@ never writes to GitHub or to the checkout.
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
 import json
 import math
@@ -48,6 +49,17 @@ CATEGORY_TOPICS = {
     "translation": "machine-translation",
     "agent": "agent-framework",
     "other": "personal-reference",
+}
+PROJECT_TOPICS = {
+    "AI 與自動化": "ai-automation",
+    "文件與 PDF 工具": "document-tools",
+    "法律工具": "legal-tools",
+    "影像與影音工具": "media-tools",
+    "旅遊應用": "travel-app",
+    "遊戲": "game",
+    "網站與前端": "web-project",
+    "開發工具": "developer-tools",
+    "待補用途": "personal-project",
 }
 PATTERNS = {
     "inference": re.compile(r"\binference\b|quantiz|kv.?cache|\bmlx\b|model serving|llm serving|llm runtime|memory efficien|model load|token generation|throughput|low.?memory", re.I),
@@ -179,6 +191,18 @@ class GitHub:
                 break
             page += 1
         return forks
+
+    def owned_projects(self) -> list[dict[str, Any]]:
+        projects: list[dict[str, Any]] = []
+        page = 1
+        while True:
+            repos = self.request("GET", f"/users/{OWNER}/repos?type=owner&per_page=100&page={page}")
+            projects.extend(repo for repo in repos if not repo.get("fork") and not repo.get("private")
+                            and repo["full_name"].split("/", 1)[0].lower() == OWNER.lower())
+            if len(repos) < 100:
+                break
+            page += 1
+        return projects
 
     def search(self, query: str, page: int = 1) -> dict[str, Any]:
         params = urllib.parse.urlencode({"q": query, "sort": "updated", "order": "desc", "per_page": 100, "page": page})
@@ -435,7 +459,7 @@ def write_step_summary(report: dict[str, Any]) -> None:
     lines = [
         "## MAGI Fork Catalog",
         "",
-        f"公開 fork：{fork_count}；新增：{report['created']}；合併衝突：{report['sync_conflicts']}；同步 API 異常：{report['sync_errors']}；略過同步：{report['sync_skipped']}。",
+        f"公開 fork：{fork_count}；原創專案：{report.get('owned_public_projects', 0)}；新增 fork：{report['created']}；合併衝突：{report['sync_conflicts']}；同步 API 異常：{report['sync_errors']}；略過同步：{report['sync_skipped']}。",
         "",
     ]
     if report["token_permission_issues"]:
@@ -475,6 +499,90 @@ def clean_summary(value: str | None) -> str:
     return text[:150] + "…" if len(text) > 150 else text
 
 
+def readme_summary(markdown: str) -> str:
+    text = re.sub(r"<!--.*?-->", "", markdown, flags=re.S)
+    text = re.sub(r"```.*?```|~~~.*?~~~", "", text, flags=re.S)
+    for paragraph in re.split(r"\n\s*\n", text):
+        lines = [line.strip().lstrip("> ") for line in paragraph.splitlines()]
+        if not lines or any(line.startswith(("#", "|", "![", "[![", "- ", "* ", "<img")) for line in lines):
+            continue
+        value = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", " ".join(lines))
+        value = re.sub(r"<[^>]+>", "", value).replace("**", "").replace("`", "").strip()
+        if len(value) >= 12 and not value.startswith(("http", "---", "===", "!")):
+            return clean_summary(value)
+    return ""
+
+
+def prepare_projects(api: GitHub, projects: list[dict[str, Any]], overrides: dict[str, Any], errors: list[str], generated: dict[str, str] | None = None) -> None:
+    for project in projects:
+        current = project.get("description")
+        if overrides.get(project["full_name"], {}).get("summary") or (current and current != (generated or {}).get(project["full_name"])):
+            continue
+        try:
+            readme = api.request("GET", f"/repos/{project['full_name']}/readme")
+            if readme.get("encoding") == "base64":
+                project["catalog_summary"] = readme_summary(base64.b64decode(readme["content"]).decode("utf-8", errors="replace"))
+        except APIError as exc:
+            if exc.status != 404:
+                errors.append(f"讀取公開專案用途 {project['full_name']}：HTTP {exc.status} {exc}")
+        if not project.get("catalog_summary") and project.get("size") == 0:
+            project["catalog_summary"] = "尚未加入程式或 README 的空倉庫。"
+
+
+def project_category(project: dict[str, Any], override: dict[str, Any]) -> str:
+    if override.get("project_category"):
+        return override["project_category"]
+    text = " ".join(str(project.get(key) or "") for key in ("name", "description", "catalog_summary"))
+    rules = [
+        ("文件與 PDF 工具", r"\bpdf\b|office|文件|document|spreadsheet"),
+        ("法律工具", r"legal|law|criminal|法律|刑法|裁判"),
+        ("影像與影音工具", r"photo|video|image|照片|影片|影像"),
+        ("遊戲", r"game|rpg|godot|遊戲|農場"),
+        ("旅遊應用", r"travel|hokkaido|旅遊|旅行"),
+        ("AI 與自動化", r"\bai\b|agent|mcp|magi|自動化"),
+        ("網站與前端", r"web|website|github\.io|網站|前端"),
+        ("開發工具", r"developer|catalog|開發|目錄"),
+    ]
+    return next((label for label, pattern in rules if re.search(pattern, text, re.I)), "待補用途")
+
+
+def project_entry(project: dict[str, Any], overrides: dict[str, Any]) -> dict[str, Any]:
+    override = overrides.get(project["full_name"], {})
+    return {
+        "kind": "original", "fork": project["full_name"],
+        "project_category": project_category(project, override),
+        "summary": clean_summary(override.get("summary") or project.get("catalog_summary") or project.get("description")) or "待補用途說明（尚無簡介或 README）。",
+        "license": (project.get("license") or {}).get("spdx_id") or "未辨識",
+        "sync": "已封存；僅整理目錄" if project.get("archived") else "原創專案，無上游可同步",
+    }
+
+
+def update_project_metadata(api: GitHub, projects: list[dict[str, Any]], overrides: dict[str, Any], state: dict[str, Any], errors: list[str]) -> None:
+    generated = state.setdefault("generated_project_descriptions", {})
+    for project in projects:
+        if project.get("archived"):
+            continue
+        name = project["full_name"]
+        entry = project_entry(project, overrides)
+        summary = clean_summary(overrides.get(name, {}).get("summary") or project.get("catalog_summary") or project.get("description"))
+        current = project.get("description") or ""
+        try:
+            if summary and summary != current and (not current or current == generated.get(name)):
+                api.request("PATCH", f"/repos/{name}", {"description": summary})
+                generated[name] = summary
+                project["description"] = summary
+            topics = set(project.get("topics") or [])
+            topic = PROJECT_TOPICS.get(entry["project_category"], "personal-project")
+            desired = (topics - set(PROJECT_TOPICS.values())) | {"personal-project", topic}
+            if desired != topics:
+                # Prioritize our labels within GitHub's 20-topic limit.
+                labels = sorted({"personal-project", topic})
+                desired_list = labels + sorted(desired - set(labels))[:20 - len(labels)]
+                api.request("PUT", f"/repos/{name}/topics", {"names": desired_list})
+        except APIError as exc:
+            errors.append(f"整理公開專案 {name}：HTTP {exc.status} {exc}")
+
+
 def catalog_entry(fork: dict[str, Any], overrides: dict[str, Any], statuses: dict[str, str]) -> dict[str, Any]:
     root = fork.get("source") or fork.get("parent") or fork
     upstream = fork.get("parent") or root
@@ -499,12 +607,14 @@ def catalog_entry(fork: dict[str, Any], overrides: dict[str, Any], statuses: dic
 
 
 def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str:
+    projects = [entry for entry in entries if entry.get("kind") == "original"]
+    forks = [entry for entry in entries if entry.get("kind") != "original"]
     lines = [
-        "# MAGI 技術 Fork 目錄",
+        "# MAGI 技術 Fork 與公開專案目錄",
         "",
         "整理可供 MAGI 研究的開源技術，涵蓋推論效能、記憶體、逐字稿、翻譯與 Agent／MCP 架構。Fork 代表技術收藏，採用建議不代表已整合。",
         "",
-        f"最近檢查（UTC）：{report['checked_at']}　｜　Fork：{len(entries)}　｜　本次新增：{report.get('created', 0)}　｜　本次同步異常：{report.get('sync_issues', 0)}　｜　略過同步：{report.get('sync_skipped', 0)}",
+        f"最近檢查（UTC）：{report['checked_at']}　｜　Fork：{len(forks)}　｜　原創專案：{len(projects)}　｜　本次新增 Fork：{report.get('created', 0)}　｜　本次同步異常：{report.get('sync_issues', 0)}　｜　略過同步：{report.get('sync_skipped', 0)}",
         "",
         "摘要沿用原專案語言；星數與授權以來源倉庫為準。私有 MAGI 的實作路徑、設定與資料不在此公開目錄中。",
         "",
@@ -512,7 +622,7 @@ def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str
     for issue in report.get("token_permission_issues", []):
         lines.extend([f"> **需要修正：** {issue}", ""])
     for category, label in CATEGORY_LABELS.items():
-        group = sorted((e for e in entries if e["category"] == category), key=lambda e: (-e["stars"], e["fork"].lower()))
+        group = sorted((e for e in forks if e["category"] == category), key=lambda e: (-e["stars"], e["fork"].lower()))
         lines.extend([f"## {label}（{len(group)}）", ""])
         if not group:
             lines.extend(["尚無項目。", ""])
@@ -529,10 +639,21 @@ def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str
                 f"| {fork_link} · {source_link} | {e['summary']} | {e['fit']} | {e['platform']} | {e['stars']:,} | {e['license']} | {e['advice']} | {status} |"
             )
         lines.append("")
+    if projects:
+        lines.extend([
+            f"## 自行建立的公開專案（{len(projects)}）", "",
+            "每日重新列舉所有公開倉庫；手動新增的 fork 會納入上方分類與同步。以下原創專案沒有上游，整理用途與 topic，不執行分支同步。", "",
+            "| 專案 | 分類 | 一句話用途 | 授權 | 更新狀態 |",
+            "|---|---|---|---|---|",
+        ])
+        for entry in sorted(projects, key=lambda e: (e["project_category"], e["fork"].lower())):
+            link = f"[{entry['fork'].split('/')[-1]}](https://github.com/{entry['fork']})"
+            lines.append(f"| {link} | {clean_summary(entry['project_category'])} | {entry['summary']} | {entry['license']} | {entry['sync']} |")
+        lines.append("")
     lines.extend([
         "## 自動化規則",
         "",
-        "每日台北時間 10:17 搜尋千星以上、可辨識開源授權的專案；新 Fork 每天最多 3 個，使用來源網路去重。全部既有公開 Fork 每日嘗試同步預設分支；衝突不強制覆寫。",
+        "每日台北時間 10:17 搜尋千星以上、可辨識開源授權的專案；新 Fork 每天最多 3 個，使用來源網路去重。全部公開倉庫每日重新整理；公開 Fork（含手動新增）嘗試同步預設分支，原創專案只整理用途與分類。衝突不強制覆寫。",
         "",
         "[操作與授權](SETUP.md) · [檢視最近執行紀錄](https://github.com/WhaleChao/ai-fork-catalog/actions) · [機器可讀狀態](data/report.json) · [人工調整摘要與分類](data/overrides.json)",
         "",
@@ -582,6 +703,7 @@ def main() -> int:
     overrides = read_json(DATA / "overrides.json", {})
     state = read_json(DATA / "state.json", {"bootstrap_complete": False, "generated_descriptions": {}})
     actions_policy = read_json(DATA / "actions-policy.json", {})
+    catalog_policy = read_json(DATA / "catalog-policy.json", {})
     errors: list[str] = []
     permission_issues: list[str] = []
     if args.mode != "preview":
@@ -596,6 +718,8 @@ def main() -> int:
             return fail_preflight(args.mode, permission_issues)
         errors.extend(permission_issues)
     forks = api.owned_forks()
+    projects = api.owned_projects() if catalog_policy.get("include_owned_projects", False) else []
+    prepare_projects(api, projects, overrides, errors, state.get("generated_project_descriptions", {}))
     roots = {source_root(fork) for fork in forks}
     candidates: list[tuple[str, dict[str, Any]]] = []
     mode = args.preview_scope if args.mode == "preview" else args.mode
@@ -621,6 +745,7 @@ def main() -> int:
         print(json.dumps({
             "mode": mode,
             "existing_forks": len(forks),
+            "owned_projects": [project_entry(project, overrides) for project in projects],
             "candidates": [{"source": repo["full_name"], "category": category, "stars": repo["stargazers_count"]} for category, repo in candidates],
             "reference_actions_targets": sorted(reference_actions_targets(actions_policy, state)),
             "new_fork_actions_disabled": actions_policy.get("disable_new_fork_actions", False),
@@ -669,13 +794,16 @@ def main() -> int:
                           guard_mirror_forks=actions_policy.get("disable_mirror_fork_actions", False),
                           keep_actions=set(actions_policy.get("keep_actions", [])))
     update_metadata(api, forks, overrides, state, errors)
-    entries = [catalog_entry(fork, overrides, statuses) for fork in forks]
+    update_project_metadata(api, projects, overrides, state, errors)
+    entries = [catalog_entry(fork, overrides, statuses) for fork in forks] + [project_entry(project, overrides) for project in projects]
     sync_issues = sum(value.startswith("需處理：") for value in statuses.values())
     sync_conflicts, sync_errors = sync_problem_counts(statuses)
     report = {
         "checked_at": iso_now(),
         "mode": mode,
         "owned_public_forks": len(forks),
+        "owned_public_projects": len(projects),
+        "owned_public_repositories": len(forks) + len(projects),
         "created": len(created),
         "created_repositories": created,
         "bootstrap_created_total": len(state.get("bootstrap_created", [])),
