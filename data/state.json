@@ -121,6 +121,7 @@
   "bootstrap_day": "2026-09-13",
   "reference_actions_forks": [
     "WhaleChao/Fun-ASR",
+    "WhaleChao/GPA",
     "WhaleChao/Index-Translate",
     "WhaleChao/MOSS-Transcribe-Diarize",
     "WhaleChao/MobileBuildMCP",
@@ -132,6 +133,7 @@
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ghidra-mcp",
+    "WhaleChao/linkedin-mcp-server",
     "WhaleChao/mflux",
     "WhaleChao/minutes",
     "WhaleChao/mlx-swift",
