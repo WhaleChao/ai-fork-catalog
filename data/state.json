@@ -146,5 +146,11 @@
     "WhaleChao/spiceai",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/typewhisper-mac"
-  ]
+  ],
+  "generated_project_descriptions": {
+    "WhaleChao/cash": "尚未加入程式或 README 的空倉庫。",
+    "WhaleChao/criminal-code-78-1-calculator": "這是一個可直接部署到 GitHub Pages 的靜態網頁，用來試算無期徒刑撤銷假釋後，依刑法第78條之1與115年修正後第79條之1再次報請假釋的可能最早時間。",
+    "WhaleChao/happybigbomb": "把多張照片、影片或 GIF 排成 IG 限時動態、貼文用的組合圖，匯出 PNG、GIF 或 MP4。 所有處理都在使用者的瀏覽器完成，照片不會上傳，也不需要登入。",
+    "WhaleChao/StaticWebModule": "用於 GitHub 推送設定的靜態網頁模組初始專案。"
+  }
 }

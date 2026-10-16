@@ -1,15 +1,14 @@
 {
-  "checked_at": "2026-10-16T22:08:44+00:00",
-  "mode": "daily",
+  "checked_at": "2026-10-16T22:34:06+00:00",
+  "mode": "refresh",
   "owned_public_forks": 171,
-  "created": 2,
-  "created_repositories": [
-    "WhaleChao/GPA",
-    "WhaleChao/linkedin-mcp-server"
-  ],
+  "owned_public_projects": 12,
+  "owned_public_repositories": 183,
+  "created": 0,
+  "created_repositories": [],
   "bootstrap_created_total": 30,
-  "sync_issues": 1,
-  "sync_conflicts": 1,
+  "sync_issues": 0,
+  "sync_conflicts": 0,
   "sync_errors": 0,
   "sync_skipped": 0,
   "token_permission_issues": [],
@@ -135,7 +134,7 @@
     "WhaleChao/PI-Desktop": "已停用繼承的 Actions",
     "WhaleChao/pi-ds4": "已停用繼承的 Actions",
     "WhaleChao/pisuai-open-data": "已停用繼承的 Actions",
-    "WhaleChao/ponytail": "本次停用繼承的 Actions",
+    "WhaleChao/ponytail": "已停用繼承的 Actions",
     "WhaleChao/Portable-Local-Studio": "已停用繼承的 Actions",
     "WhaleChao/PotPlayer_ChatGPT_Translate": "已停用繼承的 Actions",
     "WhaleChao/PowerInfer": "已停用繼承的 Actions",
@@ -184,8 +183,6 @@
     "WhaleChao/zed-globalization": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
-  "issues": [
-    "同步 WhaleChao/legal-skills-open：需處理：合併衝突"
-  ],
+  "issues": [],
   "ok": true
 }
