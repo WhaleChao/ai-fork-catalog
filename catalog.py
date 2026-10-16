@@ -132,6 +132,9 @@ class GitHub:
             headers["Authorization"] = f"Bearer {self.token}"
         if body is not None:
             headers["Content-Type"] = "application/json"
+        if method == "GET" and path.endswith("/actions/permissions"):
+            # GitHub settings responses advertise a 60-second cache lifetime.
+            headers["Cache-Control"] = "no-cache"
         for attempt in range(4):
             req = urllib.request.Request(url, data=body, headers=headers, method=method)
             try:
@@ -348,7 +351,7 @@ def disable_reference_actions(api: GitHub, fork: dict[str, Any]) -> str:
     api.request("PUT", path, {"enabled": False})
     # Settings reads can briefly return the old value after a successful PUT.
     # Retry reads only; never sync until the disabled state is confirmed.
-    for delay in (0, 1, 2, 4):
+    for delay in (0, 2, 4, 8, 16, 32):
         if delay:
             time.sleep(delay)
         if api.request("GET", path).get("enabled") is False:

@@ -59,7 +59,7 @@ class CatalogTests(unittest.TestCase):
         self.assertIn("本次停用", actions["WhaleChao/tool"])
 
     def test_actions_guard_failure_prevents_sync_push(self):
-        for responses in ([catalog.APIError(403, "forbidden")], [{"enabled": True}, None] + [{"enabled": True}] * 4):
+        for responses in ([catalog.APIError(403, "forbidden")], [{"enabled": True}, None] + [{"enabled": True}] * 6):
             api = mock.Mock()
             api.request.side_effect = responses
             fork = {"full_name": "WhaleChao/tool", "default_branch": "main", "fork": True}
@@ -74,8 +74,27 @@ class CatalogTests(unittest.TestCase):
         fork = {"full_name": "WhaleChao/tool", "fork": True}
         with mock.patch.object(catalog.time, "sleep") as sleep:
             self.assertEqual(catalog.disable_reference_actions(api, fork), "本次停用繼承的 Actions")
-        sleep.assert_called_once_with(1)
+        sleep.assert_called_once_with(2)
         self.assertEqual(sum(call.args[0] == "PUT" for call in api.request.call_args_list), 1)
+
+    def test_verification_can_outlast_github_settings_cache(self):
+        api = mock.Mock()
+        api.request.side_effect = [{"enabled": True}, None] + [{"enabled": True}] * 5 + [{"enabled": False}]
+        fork = {"full_name": "WhaleChao/tool", "fork": True}
+        with mock.patch.object(catalog.time, "sleep") as sleep:
+            self.assertEqual(catalog.disable_reference_actions(api, fork), "本次停用繼承的 Actions")
+        self.assertEqual(sum(call.args[0] for call in sleep.call_args_list), 62)
+        self.assertEqual(sum(call.args[0] == "PUT" for call in api.request.call_args_list), 1)
+
+    def test_actions_settings_reads_force_revalidation(self):
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.headers = {}
+        response.read.return_value = b'{"enabled":false}'
+        with mock.patch("urllib.request.urlopen", return_value=response) as urlopen:
+            result = catalog.GitHub("private-test-token").request("GET", "/repos/WhaleChao/tool/actions/permissions")
+        self.assertIs(result["enabled"], False)
+        self.assertEqual(urlopen.call_args.args[0].get_header("Cache-control"), "no-cache")
 
     def test_existing_unlisted_mirror_is_guarded_before_sync(self):
         api = mock.Mock()

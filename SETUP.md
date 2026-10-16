@@ -28,7 +28,7 @@
 
 啟用 `disable_new_fork_actions` 後，此自動化之後新增的 fork 也納入相同防護；名稱存於 `data/state.json` 的 `reference_actions_forks`。`disable_mirror_fork_actions` 同時涵蓋既有純鏡像 fork：同步前與直接上游的預設分支比對，沒有獨立提交者先停用繼承的 Actions；有獨立提交者保留，無法確認時略過同步並回報。明列管理或由自動化建立的參考 fork 仍沿用原本防護。
 
-`keep_actions` 優先於所有防護規則，可保留正在開發的 fork，預設保留 `codex-chatgpt-web`、`legal-skills-open`；目錄倉庫本身永遠排除。非 fork 與私有倉庫不在處理範圍。若要使用 CI，先加入 `keep_actions`，再至該 fork 的 Settings → Actions → General 重新啟用 Actions。成功停用後若短暫讀到舊設定，程式會以最多 7 秒的退避重讀驗證，確認停用前不會同步。
+`keep_actions` 優先於所有防護規則，可保留正在開發的 fork，預設保留 `codex-chatgpt-web`、`legal-skills-open`；目錄倉庫本身永遠排除。非 fork 與私有倉庫不在處理範圍。若要使用 CI，先加入 `keep_actions`，再至該 fork 的 Settings → Actions → General 重新啟用 Actions。GitHub 設定回應可能快取 60 秒；程式要求重新驗證快取，成功停用後若仍短暫讀到舊設定，會以最多 62 秒的退避重讀驗證，確認停用前不會同步。
 
 `preview` 只列出防護名單，仍不修改設定。停用 Actions 不會自動取消已排隊或執行中的工作；首次處理需另行取消，既有通知可能仍在陸續送達。帳戶通知保持原設定，自己開發專案的失敗通知不會被一併關閉。
 
