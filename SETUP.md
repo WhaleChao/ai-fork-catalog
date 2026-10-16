@@ -26,7 +26,9 @@
 
 `data/actions-policy.json` 明列需要停用繼承 Actions 的參考 fork。同步這些 fork 前，程式先停用倉庫 Actions 並再次讀取驗證；防護失敗時不更新該分支，原因會寫入報告與 Summary。程式不刪除 workflow 檔案或提交，因此仍可正常取得上游程式碼。
 
-啟用 `disable_new_fork_actions` 後，此自動化之後新增的 fork 也納入相同防護；名稱存於 `data/state.json` 的 `reference_actions_forks`。`disable_mirror_fork_actions` 同時涵蓋既有純鏡像 fork：同步前與直接上游的預設分支比對，沒有獨立提交者先停用繼承的 Actions；有獨立提交者保留，無法確認時略過同步並回報。明列管理或由自動化建立的參考 fork 仍沿用原本防護。
+啟用 `disable_new_fork_actions` 後，此自動化每確認一個新 fork，就立即將名稱存入 `data/state.json` 的 `reference_actions_forks`，並停用、驗證其 Actions，再處理下一個候選。同步前仍會再次確認防護；若 GitHub 的倉庫清單尚未出現新 fork，仍保留已驗證的新項目，避免漏掉當次防護、同步及報告。中途 API 失敗時，已寫入的防護名單會隨執行結果保存，重跑也會繼續套用。
+
+`disable_mirror_fork_actions` 同時涵蓋既有純鏡像 fork：同步前與直接上游的預設分支比對，沒有獨立提交者先停用繼承的 Actions；有獨立提交者保留，無法確認時略過同步並回報。明列管理或由自動化建立的參考 fork 仍沿用原本防護。
 
 `keep_actions` 優先於所有防護規則，可保留正在開發的 fork，預設保留 `codex-chatgpt-web`、`legal-skills-open`；目錄倉庫本身永遠排除。非 fork 與私有倉庫不在處理範圍。若要使用 CI，先加入 `keep_actions`，再至該 fork 的 Settings → Actions → General 重新啟用 Actions。GitHub 設定回應可能快取 60 秒；程式要求重新驗證快取，成功停用後若仍短暫讀到舊設定，會以最多 62 秒的退避重讀驗證，確認停用前不會同步。
 

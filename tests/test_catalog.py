@@ -45,7 +45,128 @@ class RecordingAPI:
         return {}
 
 
+@contextlib.contextmanager
+def daily_environment(root, api):
+    with contextlib.ExitStack() as stack:
+        stack.enter_context(mock.patch.object(catalog, "ROOT", root))
+        stack.enter_context(mock.patch.object(catalog, "DATA", root / "data"))
+        stack.enter_context(mock.patch.object(catalog, "GitHub", return_value=api))
+        stack.enter_context(mock.patch.object(catalog, "update_metadata"))
+        stack.enter_context(mock.patch.object(catalog.time, "sleep"))
+        stack.enter_context(mock.patch("sys.argv", ["catalog.py", "--mode", "daily"]))
+        stack.enter_context(mock.patch.dict(os.environ, {
+            "FORK_PAT": "private-test-token", "GITHUB_STEP_SUMMARY": str(root / "summary.md"),
+        }))
+        stack.enter_context(contextlib.redirect_stdout(io.StringIO()))
+        yield
+
+
 class CatalogTests(unittest.TestCase):
+    def test_daily_new_forks_guarded_immediately_despite_listing_lag_and_rerun(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            data = root / "data"
+            data.mkdir()
+            catalog.write_json(data / "actions-policy.json", {"disable_new_fork_actions": True})
+            sources = [repo(f"example/tool-{index}", "Agent framework", ["agent-framework"]) for index in range(3)]
+            forks = [dict(source, full_name=f"WhaleChao/{source['name']}", fork=True,
+                          default_branch="main", source=source, created_at=catalog.iso_now()) for source in sources]
+            enabled = {fork["full_name"]: True for fork in forks}
+            created = []
+            merges = []
+            api = mock.Mock()
+            api.oauth_scopes = {"public_repo", "workflow"}
+            # GitHub's listing omits all newly created repos on the first run.
+            api.owned_forks.side_effect = [[], [], forks, forks]
+            api.get_repo.side_effect = lambda name: next(fork for fork in forks if fork["full_name"] == name)
+
+            def request(method, path, payload=None):
+                if path == "/user":
+                    return {"login": "WhaleChao"}
+                if path.endswith("/forks"):
+                    # Each preceding fork must be disabled before another is created.
+                    self.assertTrue(all(enabled[name] is False for name in created))
+                    name = f"WhaleChao/{path.split('/')[-2]}"
+                    created.append(name)
+                    return {"full_name": name}
+                name = "/".join(path.split("/")[2:4])
+                if path.endswith("/actions/permissions"):
+                    saved = catalog.read_json(data / "state.json", {})
+                    self.assertIn(name, saved["reference_actions_forks"])
+                    if method == "PUT":
+                        self.assertEqual(payload, {"enabled": False})
+                        enabled[name] = False
+                        return None
+                    return {"enabled": enabled[name]}
+                self.assertTrue(path.endswith("/merge-upstream"), path)
+                self.assertIs(enabled[name], False)
+                merges.append(name)
+                return {"message": "Successfully merged upstream"}
+
+            api.request.side_effect = request
+            with daily_environment(root, api), mock.patch.object(catalog, "discover", return_value=(list(zip(["agent"] * 3, sources)), [])) as discover:
+                self.assertEqual(catalog.main(), 0)
+                discover.assert_called_once()
+                self.assertEqual(discover.call_args.args[2], 3)
+                report = catalog.read_json(data / "report.json", {})
+                self.assertEqual(report["created_repositories"], created)
+                self.assertEqual(report["owned_public_forks"], 3)
+                self.assertEqual(report["sync_errors"], 0)
+                self.assertEqual(set(report["reference_actions"]), set(created))
+                self.assertTrue(all(status.endswith("停用繼承的 Actions") for status in report["reference_actions"].values()))
+                # Rerunning today retains the saved policy and has no fork budget.
+                self.assertEqual(catalog.main(), 0)
+                discover.assert_called_once()
+            self.assertEqual(len(created), 3)
+            self.assertEqual(len(merges), 6)
+            self.assertEqual(catalog.read_json(data / "report.json", {})["created"], 0)
+            self.assertEqual(set(catalog.read_json(data / "state.json", {})["reference_actions_forks"]), set(created))
+
+    def test_new_fork_guard_failure_or_interruption_retains_protection_registry(self):
+        for failure in ("permissions", "listing"):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                data = root / "data"
+                data.mkdir()
+                catalog.write_json(data / "actions-policy.json", {"disable_new_fork_actions": True})
+                source = repo("example/tool", "Agent framework", ["agent-framework"])
+                fork = dict(source, full_name="WhaleChao/tool", fork=True, default_branch="main", source=source)
+                api = mock.Mock()
+                api.oauth_scopes = {"public_repo", "workflow"}
+                api.owned_forks.side_effect = [[], catalog.APIError(503, "listing unavailable") if failure == "listing" else []]
+                api.get_repo.return_value = fork
+                enabled = True
+
+                def request(method, path, payload=None):
+                    nonlocal enabled
+                    if path == "/user":
+                        return {"login": "WhaleChao"}
+                    if path.endswith("/forks"):
+                        return {"full_name": fork["full_name"]}
+                    self.assertTrue(path.endswith("/actions/permissions"), path)
+                    self.assertIn(fork["full_name"], catalog.read_json(data / "state.json", {})["reference_actions_forks"])
+                    if failure == "permissions":
+                        raise catalog.APIError(403, "forbidden")
+                    if method == "PUT":
+                        enabled = False
+                        return None
+                    return {"enabled": enabled}
+
+                api.request.side_effect = request
+                with daily_environment(root, api), mock.patch.object(catalog, "discover", return_value=([("agent", source)], [])):
+                    if failure == "listing":
+                        with self.assertRaises(catalog.APIError):
+                            catalog.main()
+                        self.assertIs(enabled, False)
+                    else:
+                        self.assertEqual(catalog.main(), 1)
+                        report = catalog.read_json(data / "report.json", {})
+                        self.assertEqual(report["sync_errors"], 1)
+                        self.assertFalse(report["ok"])
+                        self.assertIn("防護失敗，未同步", report["reference_actions"][fork["full_name"]])
+                self.assertEqual(catalog.read_json(data / "state.json", {})["reference_actions_forks"], [fork["full_name"]])
+                self.assertFalse(any("merge-upstream" in call.args[1] for call in api.request.call_args_list))
+
     def test_actions_guard_disables_and_verifies_before_sync(self):
         api = mock.Mock()
         api.request.side_effect = [{"enabled": True}, None, {"enabled": False}, {"message": "Successfully merged upstream"}]

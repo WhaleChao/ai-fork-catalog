@@ -629,16 +629,27 @@ def main() -> int:
         }, ensure_ascii=False, indent=2))
         return 1 if errors else 0
     created: list[str] = []
+    created_forks: list[dict[str, Any]] = []
     for index, (category, source) in enumerate(candidates, 1):
         fork, status = fork_one(api, source, roots)
         print(f"首次／每日 Fork：{index}/{len(candidates)} {source['full_name']} → {status}", flush=True)
         if fork:
             created.append(fork["full_name"])
-            forks.append(fork)
+            created_forks.append(fork)
+            if actions_policy.get("disable_new_fork_actions", False):
+                state["reference_actions_forks"] = sorted(set(state.get("reference_actions_forks", [])) | {fork["full_name"]})
+                # Keep the protection registry even if a later API call fails.
+                write_json(DATA / "state.json", state)
+                if fork["full_name"].lower() in reference_actions_targets(actions_policy, state):
+                    try:
+                        guard = disable_reference_actions(api, fork)
+                        print(f"新 Fork Actions 防護：{fork['full_name']} → {guard}", flush=True)
+                    except APIError as exc:
+                        # The sync pass retries and reports the final outcome;
+                        # it still cannot merge until protection is verified.
+                        print(f"新 Fork Actions 防護待重試：{fork['full_name']} → HTTP {exc.status} {exc}", flush=True)
         else:
             errors.append(f"建立 {source['full_name']}：{status}")
-    if actions_policy.get("disable_new_fork_actions", False):
-        state["reference_actions_forks"] = sorted(set(state.get("reference_actions_forks", [])) | set(created))
     if mode == "bootstrap" and not errors:
         state["bootstrap_complete"] = True
     if mode == "bootstrap":
@@ -646,6 +657,10 @@ def main() -> int:
         state.setdefault("bootstrap_day", (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=8)).date().isoformat())
     # Always refresh the current fork list after asynchronous creation.
     forks = api.owned_forks()
+    # The user-repository listing can lag behind the verified repository API.
+    # Retain every confirmed new fork so it is guarded, synced and reported now.
+    listed = {fork["full_name"].lower() for fork in forks}
+    forks.extend(fork for fork in created_forks if fork["full_name"].lower() not in listed)
     sync_blocked = "缺少 workflow 權限（請更新 FORK_PAT）" if permission_issues else None
     actions_statuses: dict[str, str] = {}
     statuses = sync_forks(api, forks, blocked_reason=sync_blocked,
