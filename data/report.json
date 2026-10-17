@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-16T22:34:06+00:00",
+  "checked_at": "2026-10-17T00:27:23+00:00",
   "mode": "refresh",
   "owned_public_forks": 171,
   "owned_public_projects": 12,
@@ -183,6 +183,8 @@
     "WhaleChao/zed-globalization": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
+  "conflict_recovery": {},
+  "auto_merged_conflicts": 0,
   "issues": [],
   "ok": true
 }
