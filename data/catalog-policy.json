@@ -1,3 +1,4 @@
 {
-  "include_owned_projects": true
+  "include_owned_projects": true,
+  "auto_resolve_conflicts": true
 }

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Discover, fork, sync, and describe public repositories for MAGI research.
 
-Only GitHub's REST API and the Python standard library are used. The preview mode
-never writes to GitHub or to the checkout.
+GitHub's REST API, Git and the Python standard library are used. The preview
+mode never writes to GitHub or to the checkout.
 """
 
 from __future__ import annotations
@@ -21,6 +21,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
+
+from conflict_recovery import ConflictRecovery
 
 
 ROOT = Path(__file__).resolve().parent
@@ -144,7 +146,7 @@ class GitHub:
             headers["Authorization"] = f"Bearer {self.token}"
         if body is not None:
             headers["Content-Type"] = "application/json"
-        if method == "GET" and path.endswith("/actions/permissions"):
+        if method == "GET" and (path.endswith("/actions/permissions") or "/git/ref/" in path):
             # GitHub settings responses advertise a 60-second cache lifetime.
             headers["Cache-Control"] = "no-cache"
         for attempt in range(4):
@@ -401,7 +403,8 @@ def fork_ahead_of_parent(api: GitHub, fork: dict[str, Any]) -> int:
 
 def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str | None = None,
                actions_targets: set[str] | None = None, actions_statuses: dict[str, str] | None = None,
-               guard_mirror_forks: bool = False, keep_actions: set[str] | None = None) -> dict[str, str]:
+               guard_mirror_forks: bool = False, keep_actions: set[str] | None = None,
+               conflict_recovery: ConflictRecovery | None = None) -> dict[str, str]:
     result: dict[str, str] = {}
     if blocked_reason:
         return {fork["full_name"]: f"略過：{blocked_reason}" for fork in forks}
@@ -438,15 +441,28 @@ def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str 
             message = response.get("message", "")
             result[name] = "已是最新" if "not behind" in message.lower() else "已更新" if "successfully" in message.lower() else (message or "已同步")
         except APIError as exc:
-            result[name] = "需處理：合併衝突" if exc.status == 409 else f"需處理：HTTP {exc.status} {exc}"
+            if exc.status == 409 and conflict_recovery:
+                def recheck_actions() -> None:
+                    if guard:
+                        try:
+                            status = disable_reference_actions(api, fork)
+                            if actions_statuses is not None:
+                                actions_statuses[name] = status
+                        except APIError as guard_exc:
+                            if actions_statuses is not None:
+                                actions_statuses[name] = f"需處理：Actions 防護失敗，未推送：HTTP {guard_exc.status} {guard_exc}"
+                            raise
+                result[name] = conflict_recovery.resolve(fork, before_push=recheck_actions)
+            else:
+                result[name] = "需處理：合併衝突" if exc.status == 409 else f"需處理：HTTP {exc.status} {exc}"
         if index % 10 == 0 or index == len(forks):
             print(f"已檢查同步：{index}/{len(forks)}", flush=True)
     return result
 
 
 def sync_problem_counts(statuses: dict[str, str]) -> tuple[int, int]:
-    conflicts = sum(value == "需處理：合併衝突" for value in statuses.values())
-    failures = sum(value.startswith("需處理：") and value != "需處理：合併衝突" for value in statuses.values())
+    conflicts = sum(value.startswith("需處理：合併衝突") for value in statuses.values())
+    failures = sum(value.startswith("需處理：") and not value.startswith("需處理：合併衝突") for value in statuses.values())
     return conflicts, failures
 
 
@@ -470,6 +486,13 @@ def write_step_summary(report: dict[str, Any]) -> None:
     if report.get("reference_actions"):
         lines.extend(["### 參考 fork 的 Actions 防護", ""])
         lines.extend(f"- {name}：{status}" for name, status in report["reference_actions"].items())
+        lines.append("")
+    if report.get("conflict_recovery"):
+        lines.extend(["### 備份與自動合併", ""])
+        for name, recovery in report["conflict_recovery"].items():
+            status = "已合併，衝突保留既有修改" if recovery["status"] == "merged" else f"保留原分支，待處理：{recovery['reason']}"
+            backup = f"；[遠端備份]({recovery['backup_url']})" if recovery.get("backup_url") else "；備份尚未確認，未修改原分支"
+            lines.append(f"- {name}：{status}{backup}")
         lines.append("")
     other_issues = [issue for issue in report["issues"] if issue not in report["token_permission_issues"]]
     if other_issues:
@@ -653,7 +676,7 @@ def render_catalog(entries: list[dict[str, Any]], report: dict[str, Any]) -> str
     lines.extend([
         "## 自動化規則",
         "",
-        "每日台北時間 10:17 搜尋千星以上、可辨識開源授權的專案；新 Fork 每天最多 3 個，使用來源網路去重。全部公開倉庫每日重新整理；公開 Fork（含手動新增）嘗試同步預設分支，原創專案只整理用途與分類。衝突不強制覆寫。",
+        "每日台北時間 10:17 搜尋千星以上、可辨識開源授權的專案；新 Fork 每天最多 3 個，使用來源網路去重。全部公開倉庫每日重新整理；公開 Fork（含手動新增）嘗試同步預設分支，原創專案只整理用途與分類。衝突先建立遠端備份，再合併上游並保留既有衝突段落；無法自動處理者保留原分支並記錄，不強制推送。",
         "",
         "[操作與授權](SETUP.md) · [檢視最近執行紀錄](https://github.com/WhaleChao/ai-fork-catalog/actions) · [機器可讀狀態](data/report.json) · [人工調整摘要與分類](data/overrides.json)",
         "",
@@ -750,6 +773,7 @@ def main() -> int:
             "reference_actions_targets": sorted(reference_actions_targets(actions_policy, state)),
             "new_fork_actions_disabled": actions_policy.get("disable_new_fork_actions", False),
             "mirror_fork_actions_disabled": actions_policy.get("disable_mirror_fork_actions", False),
+            "conflict_recovery_enabled": catalog_policy.get("auto_resolve_conflicts", False),
             "errors": errors,
         }, ensure_ascii=False, indent=2))
         return 1 if errors else 0
@@ -788,11 +812,14 @@ def main() -> int:
     forks.extend(fork for fork in created_forks if fork["full_name"].lower() not in listed)
     sync_blocked = "缺少 workflow 權限（請更新 FORK_PAT）" if permission_issues else None
     actions_statuses: dict[str, str] = {}
+    recovery_reports: dict[str, Any] = {}
+    recovery = (ConflictRecovery(api, state.setdefault("conflict_recovery", {}), recovery_reports, owner=OWNER)
+                if catalog_policy.get("auto_resolve_conflicts", False) else None)
     statuses = sync_forks(api, forks, blocked_reason=sync_blocked,
                           actions_targets=reference_actions_targets(actions_policy, state),
                           actions_statuses=actions_statuses,
                           guard_mirror_forks=actions_policy.get("disable_mirror_fork_actions", False),
-                          keep_actions=set(actions_policy.get("keep_actions", [])))
+                          keep_actions=set(actions_policy.get("keep_actions", [])), conflict_recovery=recovery)
     update_metadata(api, forks, overrides, state, errors)
     update_project_metadata(api, projects, overrides, state, errors)
     entries = [catalog_entry(fork, overrides, statuses) for fork in forks] + [project_entry(project, overrides) for project in projects]
@@ -813,6 +840,8 @@ def main() -> int:
         "sync_skipped": sum(value.startswith("略過：") for value in statuses.values()),
         "token_permission_issues": permission_issues,
         "reference_actions": actions_statuses,
+        "conflict_recovery": recovery_reports,
+        "auto_merged_conflicts": sum(item["status"] == "merged" for item in recovery_reports.values()),
         # A shared token problem is reported once instead of once per fork.
         "issues": errors + ([f"同步 {name}：{value}" for name, value in statuses.items() if value.startswith("需處理：")] if not sync_blocked else []),
         "ok": not errors and sync_errors == 0,

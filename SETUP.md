@@ -24,7 +24,17 @@
 - `daily`：依主題、千星、授權、活躍度及用途條件搜尋，每日最多新增 3 個，然後同步並重建目錄。
 - `refresh`：同步現有 fork、整理全部原創公開專案並重建目錄，不新增 fork。
 
-同步使用 GitHub 的 `merge-upstream` API，不強制推送；衝突或 API 失敗會寫入 `data/report.json`。摘要沿用原專案語言，公開目錄不含私有 MAGI 倉庫的實作細節。AGPL／GPL 項目標為架構參考，真正整合程式碼前另行檢查授權。
+一般同步使用 GitHub 的 `merge-upstream` API，不強制推送；遇到合併衝突時套用下方的備份與保留修改規則。結果或 API 失敗會寫入 `data/report.json`。摘要沿用原專案語言，公開目錄不含私有 MAGI 倉庫的實作細節。AGPL／GPL 項目標為架構參考，真正整合程式碼前另行檢查授權。
+
+## 衝突時自動備份並保留修改
+
+`data/catalog-policy.json` 的 `auto_resolve_conflicts` 預設啟用。同步回報合併衝突時，程式重新確認公開 fork 與直接上游的分支提交，先在 fork 建立 `backup/auto-sync/<原提交完整 SHA>`，確認備份正確才繼續。同一個原提交重跑會沿用相同備份，不重複建立分支。
+
+程式在隔離的 Git 物件倉庫進行三方合併，不執行下載專案的程式、建置、測試或 hooks。一般 UTF-8 文字的衝突段落保留 fork 既有版本，上游未衝突的更新照常合入；兩邊的提交歷史都成為合併提交的祖先。JSON 衝突處理後必須可解析。推送前重新確認原分支未變動，參考 fork 的 Actions 防護也再次驗證；推送不使用 force，若使用者同時更新分支就延期重新計算。
+
+二進位、非 UTF-8、刪除／重新命名、符號連結、沒有單一共同祖先或無法驗證的情況，保留原分支及備份並列入報告。單個衝突檔案上限 2 MiB，每個倉庫最多 1000 個衝突；修復每倉庫最多 3 分鐘，整批最多 15 分鐘，避免阻塞每日同步。相同雙方提交的已知未解衝突不重複嘗試；任一方提交更新後會重試，暫時性網路或時間限制則下次重試。
+
+備份、雙方提交、處理的檔案與原因寫入 `data/report.json`、`data/state.json` 及執行 Summary。成功者恢復每日同步；需要人工處理者不阻止其他專案，也不會單因未解合併衝突而將整批 Actions 標為失敗。自動合併不等同通過各專案的功能測試；開發專案原有 CI 設定保留。
 
 ## 排除同步錯誤
 
@@ -43,7 +53,7 @@
 `preview` 只列出防護名單，仍不修改設定。停用 Actions 不會自動取消已排隊或執行中的工作；首次處理需另行取消，既有通知可能仍在陸續送達。帳戶通知保持原設定，自己開發專案的失敗通知不會被一併關閉。
 
 - `without workflow scope`／`workflows scope may be required`：到 [classic tokens](https://github.com/settings/tokens) 編輯 `FORK_PAT` 對應的專用 token。確認接受網頁連帶啟用的 `repo` 權限後，加上 `workflow` 並儲存。若重新產生金鑰，原值會失效，**還需將新值貼入 [Actions secret `FORK_PAT`](https://github.com/WhaleChao/ai-fork-catalog/settings/secrets/actions/FORK_PAT)**；只更新 token 頁面不會自動更新 secret。完成後手動執行 `refresh`，不會新增 fork，也不占每日 3 個名額。
-- `合併衝突`：fork 有自己的修改且與上游衝突，需個別處理；自動化不會強制覆寫。
+- `合併衝突`：自動備份並嘗試保留既有修改合併；未自動完成者可由 Summary／報告查看備份與原因，不會強制覆寫或讓整批排程失敗。
 - HTTP 401：token 已失效或到期，需更新 `FORK_PAT`。
 
 執行會先檢查 classic token 的權限。缺少 `workflow` 時仍可建立與整理 fork，但會略過整批同步，集中留下單一權限修正提示。真正的同步 API 失敗會讓 Actions 顯示失敗；已知合併衝突只列入報告。每次執行的 Summary 會區分 API 異常、合併衝突及略過同步。

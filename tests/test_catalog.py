@@ -63,6 +63,39 @@ def daily_environment(root, api):
 
 
 class CatalogTests(unittest.TestCase):
+    def test_deferred_auto_merge_is_saved_and_reported_without_failing_daily_workflow(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            data = root / "data"
+            data.mkdir()
+            catalog.write_json(data / "catalog-policy.json", {"auto_resolve_conflicts": True})
+            source = repo("example/tool", "Agent framework", ["agent-framework"])
+            fork = dict(source, full_name="WhaleChao/tool", fork=True, default_branch="main", source=source)
+            api = mock.Mock()
+            api.oauth_scopes = {"repo", "workflow"}
+            api.owned_forks.return_value = [fork]
+            api.request.side_effect = [{"login": "WhaleChao"}, catalog.APIError(409, "conflict")]
+
+            def recovery(api, state, reports, owner):
+                handler = mock.Mock()
+                def resolve(fork, before_push=None):
+                    record = {"status": "deferred", "reason": "二進位檔案衝突", "backup_url": "https://github.com/WhaleChao/tool/tree/backup/auto-sync/abc"}
+                    state[fork["full_name"]] = record
+                    reports[fork["full_name"]] = record
+                    return "需處理：合併衝突（已備份，保留原分支）"
+                handler.resolve.side_effect = resolve
+                return handler
+
+            with daily_environment(root, api), mock.patch("sys.argv", ["catalog.py", "--mode", "refresh"]), mock.patch.object(catalog, "ConflictRecovery", side_effect=recovery):
+                self.assertEqual(catalog.main(), 0)
+            report = catalog.read_json(data / "report.json", {})
+            self.assertEqual((report["sync_conflicts"], report["sync_errors"]), (1, 0))
+            self.assertTrue(report["ok"])
+            self.assertEqual(report["conflict_recovery"][fork["full_name"]]["status"], "deferred")
+            saved = catalog.read_json(data / "state.json", {})
+            self.assertIn(fork["full_name"], saved["conflict_recovery"])
+            self.assertIn("遠端備份", (root / "summary.md").read_text(encoding="utf-8"))
+
     def test_owned_projects_filters_private_forks_and_other_owners_across_pages(self):
         api = catalog.GitHub("private-test-token")
         project = {"full_name": "WhaleChao/own", "fork": False, "private": False}
