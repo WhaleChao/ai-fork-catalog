@@ -84,7 +84,9 @@
     "WhaleChao/open-seo-mcp-skills": "Free SEO MCP server + open-source SEO and GEO skills for Claude: keyword research, rank tracking, audits, backlinks, AI visibility on your real GSC/GA…",
     "WhaleChao/overlay-translator": "无需 ROOT 的开源 Android 屏幕实时翻译工具，适合游戏、视觉小说和漫画。支持端侧与云端 OCR、离线 LLM、多种翻译服务和文字朗读（TTS），译文可直接显示在画面上。Open-source no-root Android real-time screen translator for …",
     "WhaleChao/minutes": "Open-source, local-first Granola/Otter alternative that Claude Code, Codex, Cursor, and any MCP client can query. Meetings, calls, and voice memos tra…",
-    "WhaleChao/tradingview-mcp": "MCP server for market analysis in AI assistants: screeners, multi-timeframe technical analysis, backtests and sentiment for crypto, stocks, forex and …"
+    "WhaleChao/tradingview-mcp": "MCP server for market analysis in AI assistants: screeners, multi-timeframe technical analysis, backtests and sentiment for crypto, stocks, forex and …",
+    "WhaleChao/inference": "Swap GPT for any LLM by changing a single line of code. Xinference lets you run open-source, speech, and multimodal models on cloud, on-prem, or your …",
+    "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -133,16 +135,19 @@
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ghidra-mcp",
+    "WhaleChao/inference",
     "WhaleChao/linkedin-mcp-server",
     "WhaleChao/mflux",
     "WhaleChao/minutes",
     "WhaleChao/mlx-swift",
+    "WhaleChao/muesli",
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
     "WhaleChao/open-multi-agent",
     "WhaleChao/open-seo-mcp-skills",
     "WhaleChao/ouroboros",
     "WhaleChao/overlay-translator",
+    "WhaleChao/radar",
     "WhaleChao/spiceai",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/typewhisper-mac"
