@@ -57,7 +57,7 @@
     "WhaleChao/codebase-memory-mcp": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 162 languages, sub-…",
     "WhaleChao/voice-pro": "Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 & F5-TTS, CosyVoice), with Whisper audi…",
     "WhaleChao/SenseVoice": "Open-source SenseVoiceSmall model for Mandarin, Cantonese, English, Japanese, and Korean ASR, language ID, emotion recognition, and audio event detect…",
-    "WhaleChao/Douyin_TikTok_Download_API": "🚀 抖音、TikTok 数据采集与无水印视频下载 API，自托管，支持 MCP 调用与 Docker 一键部署。／ Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP …",
+    "WhaleChao/Douyin_TikTok_Download_API": "🚀 自托管的抖音、TikTok 数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。／ Self-hosted TikTok & Douyin scraper and no-watermark video downloader — a…",
     "WhaleChao/laya": "Non-autoregressive System 1 decision engine. Typed choice, score and yes/no decisions over any text in a single forward pass, in 100+ languages, with …",
     "WhaleChao/mcp-for-beginners": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, Typ…",
     "WhaleChao/beyondtranslate-ce": "BeyondTranslate (formerly Biyi) is a fast, native-experience translation app for macOS, Windows and Linux, built with Flutter and Rust. Capture text f…",
@@ -86,7 +86,8 @@
     "WhaleChao/minutes": "Open-source, local-first Granola/Otter alternative that Claude Code, Codex, Cursor, and any MCP client can query. Meetings, calls, and voice memos tra…",
     "WhaleChao/tradingview-mcp": "MCP server for market analysis in AI assistants: screeners, multi-timeframe technical analysis, backtests and sentiment for crypto, stocks, forex and …",
     "WhaleChao/inference": "Swap GPT for any LLM by changing a single line of code. Xinference lets you run open-source, speech, and multimodal models on cloud, on-prem, or your …",
-    "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…"
+    "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…",
+    "WhaleChao/buildwithclaude": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -129,6 +130,7 @@
     "WhaleChao/MobileBuildMCP",
     "WhaleChao/PI-Desktop",
     "WhaleChao/Portable-Local-Studio",
+    "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
     "WhaleChao/distributed-llama",
@@ -136,6 +138,7 @@
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ghidra-mcp",
     "WhaleChao/inference",
+    "WhaleChao/kvcached",
     "WhaleChao/linkedin-mcp-server",
     "WhaleChao/mflux",
     "WhaleChao/minutes",
@@ -150,7 +153,8 @@
     "WhaleChao/radar",
     "WhaleChao/spiceai",
     "WhaleChao/tradingview-mcp",
-    "WhaleChao/typewhisper-mac"
+    "WhaleChao/typewhisper-mac",
+    "WhaleChao/whisper-ctranslate2"
   ],
   "generated_project_descriptions": {
     "WhaleChao/cash": "尚未加入程式或 README 的空倉庫。",
