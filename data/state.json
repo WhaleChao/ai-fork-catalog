@@ -87,7 +87,9 @@
     "WhaleChao/tradingview-mcp": "MCP server for market analysis in AI assistants: screeners, multi-timeframe technical analysis, backtests and sentiment for crypto, stocks, forex and …",
     "WhaleChao/inference": "Swap GPT for any LLM by changing a single line of code. Xinference lets you run open-source, speech, and multimodal models on cloud, on-prem, or your …",
     "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…",
-    "WhaleChao/buildwithclaude": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and…"
+    "WhaleChao/buildwithclaude": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and…",
+    "WhaleChao/hyprwhspr": "Native speech-to-text for Linux - Fast, accurate, private, and hackable system-wide dictation",
+    "WhaleChao/xerj": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hy…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -130,6 +132,7 @@
     "WhaleChao/MobileBuildMCP",
     "WhaleChao/PI-Desktop",
     "WhaleChao/Portable-Local-Studio",
+    "WhaleChao/beta9",
     "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
@@ -137,6 +140,7 @@
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ghidra-mcp",
+    "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
     "WhaleChao/kvcached",
     "WhaleChao/linkedin-mcp-server",
@@ -154,7 +158,8 @@
     "WhaleChao/spiceai",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/typewhisper-mac",
-    "WhaleChao/whisper-ctranslate2"
+    "WhaleChao/whisper-ctranslate2",
+    "WhaleChao/xerj"
   ],
   "generated_project_descriptions": {
     "WhaleChao/cash": "尚未加入程式或 README 的空倉庫。",

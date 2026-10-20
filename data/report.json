@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-19T07:50:59+00:00",
+  "checked_at": "2026-10-20T07:36:16+00:00",
   "mode": "daily",
-  "owned_public_forks": 177,
+  "owned_public_forks": 180,
   "owned_public_projects": 12,
-  "owned_public_repositories": 189,
+  "owned_public_repositories": 192,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/kvcached",
-    "WhaleChao/whisper-ctranslate2",
-    "WhaleChao/buildwithclaude"
+    "WhaleChao/hyprwhspr",
+    "WhaleChao/xerj",
+    "WhaleChao/beta9"
   ],
   "bootstrap_created_total": 30,
   "sync_issues": 0,
@@ -31,6 +31,7 @@
     "WhaleChao/awesome-gpt-image-2": "已停用繼承的 Actions",
     "WhaleChao/ax": "已停用繼承的 Actions",
     "WhaleChao/BentoML": "已停用繼承的 Actions",
+    "WhaleChao/beta9": "已停用繼承的 Actions",
     "WhaleChao/beyondtranslate-ce": "已停用繼承的 Actions",
     "WhaleChao/BG_record": "已停用繼承的 Actions",
     "WhaleChao/bitsandbytes": "已停用繼承的 Actions",
@@ -80,6 +81,7 @@
     "WhaleChao/hermes-agent": "已停用繼承的 Actions",
     "WhaleChao/hive": "已停用繼承的 Actions",
     "WhaleChao/HJPLUS_Taiwan_Architect_KB": "已停用繼承的 Actions",
+    "WhaleChao/hyprwhspr": "已停用繼承的 Actions",
     "WhaleChao/Index-Translate": "已停用繼承的 Actions",
     "WhaleChao/inference": "已停用繼承的 Actions",
     "WhaleChao/jcode": "已停用繼承的 Actions",
@@ -189,6 +191,7 @@
     "WhaleChao/WhisperJAV": "已停用繼承的 Actions",
     "WhaleChao/WhisperLiveKit": "已停用繼承的 Actions",
     "WhaleChao/whisperX": "已停用繼承的 Actions",
+    "WhaleChao/xerj": "已停用繼承的 Actions",
     "WhaleChao/Yuedu-reader": "已停用繼承的 Actions",
     "WhaleChao/zed-globalization": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
