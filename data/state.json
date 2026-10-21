@@ -54,10 +54,10 @@
     "WhaleChao/CowAgent": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-mode…",
     "WhaleChao/meetily": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 1…",
     "WhaleChao/sherpa-onnx": "Speech-to-text, text-to-speech, speaker diarization, speech enhancement, source separation, and VAD using next-gen Kaldi with onnxruntime without Inte…",
-    "WhaleChao/codebase-memory-mcp": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 162 languages, sub-…",
+    "WhaleChao/codebase-memory-mcp": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent int…",
     "WhaleChao/voice-pro": "Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 & F5-TTS, CosyVoice), with Whisper audi…",
     "WhaleChao/SenseVoice": "Open-source SenseVoiceSmall model for Mandarin, Cantonese, English, Japanese, and Korean ASR, language ID, emotion recognition, and audio event detect…",
-    "WhaleChao/Douyin_TikTok_Download_API": "🚀 自托管的抖音、TikTok 数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。／ Self-hosted TikTok & Douyin scraper and no-watermark video downloader — a…",
+    "WhaleChao/Douyin_TikTok_Download_API": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。／ Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark video d…",
     "WhaleChao/laya": "Non-autoregressive System 1 decision engine. Typed choice, score and yes/no decisions over any text in a single forward pass, in 100+ languages, with …",
     "WhaleChao/mcp-for-beginners": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, Typ…",
     "WhaleChao/beyondtranslate-ce": "BeyondTranslate (formerly Biyi) is a fast, native-experience translation app for macOS, Windows and Linux, built with Flutter and Rust. Capture text f…",
@@ -89,7 +89,9 @@
     "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…",
     "WhaleChao/buildwithclaude": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and…",
     "WhaleChao/hyprwhspr": "Native speech-to-text for Linux - Fast, accurate, private, and hackable system-wide dictation",
-    "WhaleChao/xerj": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hy…"
+    "WhaleChao/xerj": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hy…",
+    "WhaleChao/dashboard-icons": "3,400+ curated icons and logos for dashboards and AI agents. SVG, PNG and WEBP on a free CDN, plus an MCP server for Claude Code, Codex, ChatGPT, Curs…",
+    "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -136,6 +138,7 @@
     "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
+    "WhaleChao/dashboard-icons",
     "WhaleChao/distributed-llama",
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
@@ -147,6 +150,7 @@
     "WhaleChao/mflux",
     "WhaleChao/minutes",
     "WhaleChao/mlx-swift",
+    "WhaleChao/mlx-swift-examples",
     "WhaleChao/muesli",
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
@@ -157,6 +161,7 @@
     "WhaleChao/radar",
     "WhaleChao/spiceai",
     "WhaleChao/tradingview-mcp",
+    "WhaleChao/transcribe-anything",
     "WhaleChao/typewhisper-mac",
     "WhaleChao/whisper-ctranslate2",
     "WhaleChao/xerj"
