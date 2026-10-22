@@ -91,7 +91,8 @@
     "WhaleChao/hyprwhspr": "Native speech-to-text for Linux - Fast, accurate, private, and hackable system-wide dictation",
     "WhaleChao/xerj": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hy…",
     "WhaleChao/dashboard-icons": "3,400+ curated icons and logos for dashboards and AI agents. SVG, PNG and WEBP on a free CDN, plus an MCP server for Claude Code, Codex, ChatGPT, Curs…",
-    "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …"
+    "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …",
+    "WhaleChao/LazyLLM": "Easiest and laziest way for building multi-agent LLMs applications."
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -130,6 +131,7 @@
     "WhaleChao/Fun-ASR",
     "WhaleChao/GPA",
     "WhaleChao/Index-Translate",
+    "WhaleChao/LazyLLM",
     "WhaleChao/MOSS-Transcribe-Diarize",
     "WhaleChao/MobileBuildMCP",
     "WhaleChao/PI-Desktop",
@@ -152,6 +154,7 @@
     "WhaleChao/mlx-swift",
     "WhaleChao/mlx-swift-examples",
     "WhaleChao/muesli",
+    "WhaleChao/murmure",
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
     "WhaleChao/open-multi-agent",
@@ -160,6 +163,7 @@
     "WhaleChao/overlay-translator",
     "WhaleChao/radar",
     "WhaleChao/spiceai",
+    "WhaleChao/splash",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/transcribe-anything",
     "WhaleChao/typewhisper-mac",
