@@ -92,7 +92,8 @@
     "WhaleChao/xerj": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hy…",
     "WhaleChao/dashboard-icons": "3,400+ curated icons and logos for dashboards and AI agents. SVG, PNG and WEBP on a free CDN, plus an MCP server for Claude Code, Codex, ChatGPT, Curs…",
     "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …",
-    "WhaleChao/LazyLLM": "Easiest and laziest way for building multi-agent LLMs applications."
+    "WhaleChao/LazyLLM": "Easiest and laziest way for building multi-agent LLMs applications.",
+    "WhaleChao/vllm-mlx": "High-performance OpenAI and Anthropic compatible LLM inference server for Apple Silicon. Native MLX, continuous batching, multimodal models, MCP tool …"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -136,6 +137,7 @@
     "WhaleChao/MobileBuildMCP",
     "WhaleChao/PI-Desktop",
     "WhaleChao/Portable-Local-Studio",
+    "WhaleChao/audapolis",
     "WhaleChao/beta9",
     "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
@@ -147,6 +149,7 @@
     "WhaleChao/ghidra-mcp",
     "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
+    "WhaleChao/java-sdk",
     "WhaleChao/kvcached",
     "WhaleChao/linkedin-mcp-server",
     "WhaleChao/mflux",
@@ -167,6 +170,7 @@
     "WhaleChao/tradingview-mcp",
     "WhaleChao/transcribe-anything",
     "WhaleChao/typewhisper-mac",
+    "WhaleChao/vllm-mlx",
     "WhaleChao/whisper-ctranslate2",
     "WhaleChao/xerj"
   ],
