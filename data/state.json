@@ -93,7 +93,8 @@
     "WhaleChao/dashboard-icons": "3,400+ curated icons and logos for dashboards and AI agents. SVG, PNG and WEBP on a free CDN, plus an MCP server for Claude Code, Codex, ChatGPT, Curs…",
     "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …",
     "WhaleChao/LazyLLM": "Easiest and laziest way for building multi-agent LLMs applications.",
-    "WhaleChao/vllm-mlx": "High-performance OpenAI and Anthropic compatible LLM inference server for Apple Silicon. Native MLX, continuous batching, multimodal models, MCP tool …"
+    "WhaleChao/vllm-mlx": "High-performance OpenAI and Anthropic compatible LLM inference server for Apple Silicon. Native MLX, continuous batching, multimodal models, MCP tool …",
+    "WhaleChao/google_workspace_mcp": "Control Gmail, Google Calendar, Docs, Sheets, Slides, Chat, Forms, Tasks, Search & Drive with AI - Comprehensive Google Workspace MCP Server & CLI Too…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -143,10 +144,12 @@
     "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
     "WhaleChao/dashboard-icons",
+    "WhaleChao/davinci-resolve-mcp",
     "WhaleChao/distributed-llama",
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ghidra-mcp",
+    "WhaleChao/google_workspace_mcp",
     "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
     "WhaleChao/java-sdk",
@@ -172,7 +175,8 @@
     "WhaleChao/typewhisper-mac",
     "WhaleChao/vllm-mlx",
     "WhaleChao/whisper-ctranslate2",
-    "WhaleChao/xerj"
+    "WhaleChao/xerj",
+    "WhaleChao/xllm"
   ],
   "generated_project_descriptions": {
     "WhaleChao/cash": "尚未加入程式或 README 的空倉庫。",

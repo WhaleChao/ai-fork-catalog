@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-23T07:35:22+00:00",
+  "checked_at": "2026-10-24T07:23:04+00:00",
   "mode": "daily",
-  "owned_public_forks": 189,
+  "owned_public_forks": 193,
   "owned_public_projects": 12,
-  "owned_public_repositories": 201,
+  "owned_public_repositories": 205,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/vllm-mlx",
-    "WhaleChao/audapolis",
-    "WhaleChao/java-sdk"
+    "WhaleChao/davinci-resolve-mcp",
+    "WhaleChao/xllm",
+    "WhaleChao/google_workspace_mcp"
   ],
   "bootstrap_created_total": 30,
   "sync_issues": 0,
@@ -50,6 +50,7 @@
     "WhaleChao/crewAI": "已停用繼承的 Actions",
     "WhaleChao/CTranslate2": "已停用繼承的 Actions",
     "WhaleChao/dashboard-icons": "已停用繼承的 Actions",
+    "WhaleChao/davinci-resolve-mcp": "已停用繼承的 Actions",
     "WhaleChao/deepl-python": "已停用繼承的 Actions",
     "WhaleChao/distributed-llama": "已停用繼承的 Actions",
     "WhaleChao/django-modeltranslation": "已停用繼承的 Actions",
@@ -74,6 +75,7 @@
     "WhaleChao/ghidra-mcp": "已停用繼承的 Actions",
     "WhaleChao/github-mcp-server": "已停用繼承的 Actions",
     "WhaleChao/google-translate-php": "已停用繼承的 Actions",
+    "WhaleChao/google_workspace_mcp": "已停用繼承的 Actions",
     "WhaleChao/GPA": "已停用繼承的 Actions",
     "WhaleChao/gpustack": "已停用繼承的 Actions",
     "WhaleChao/grok-build": "已停用繼承的 Actions",
@@ -201,8 +203,10 @@
     "WhaleChao/WhisperLiveKit": "已停用繼承的 Actions",
     "WhaleChao/whisperX": "已停用繼承的 Actions",
     "WhaleChao/xerj": "已停用繼承的 Actions",
+    "WhaleChao/xllm": "已停用繼承的 Actions",
     "WhaleChao/Yuedu-reader": "已停用繼承的 Actions",
     "WhaleChao/zed-globalization": "已停用繼承的 Actions",
+    "WhaleChao/ziwei-doushu": "本次停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
   "conflict_recovery": {},
