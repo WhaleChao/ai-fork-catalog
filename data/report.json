@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-24T07:23:04+00:00",
+  "checked_at": "2026-10-25T07:40:47+00:00",
   "mode": "daily",
-  "owned_public_forks": 193,
+  "owned_public_forks": 196,
   "owned_public_projects": 12,
-  "owned_public_repositories": 205,
+  "owned_public_repositories": 208,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/davinci-resolve-mcp",
-    "WhaleChao/xllm",
-    "WhaleChao/google_workspace_mcp"
+    "WhaleChao/AiSOC",
+    "WhaleChao/model-optimization",
+    "WhaleChao/harnessrouter"
   ],
   "bootstrap_created_total": 30,
   "sync_issues": 0,
@@ -22,6 +22,7 @@
     "WhaleChao/ai-berkshire": "已停用繼承的 Actions",
     "WhaleChao/ai-meeting-room": "已停用繼承的 Actions",
     "WhaleChao/AIHawk": "已停用繼承的 Actions",
+    "WhaleChao/AiSOC": "已停用繼承的 Actions",
     "WhaleChao/all-set-tw": "已停用繼承的 Actions",
     "WhaleChao/anti-gambling-trader-tw": "已停用繼承的 Actions",
     "WhaleChao/AnyPS5": "已停用繼承的 Actions",
@@ -81,6 +82,7 @@
     "WhaleChao/grok-build": "已停用繼承的 Actions",
     "WhaleChao/Handy": "已停用繼承的 Actions",
     "WhaleChao/harness-sdk": "已停用繼承的 Actions",
+    "WhaleChao/harnessrouter": "已停用繼承的 Actions",
     "WhaleChao/haystack": "已停用繼承的 Actions",
     "WhaleChao/hermes-agent": "已停用繼承的 Actions",
     "WhaleChao/hive": "已停用繼承的 Actions",
@@ -123,6 +125,7 @@
     "WhaleChao/mlx-swift-examples": "已停用繼承的 Actions",
     "WhaleChao/mlx-vlm": "已停用繼承的 Actions",
     "WhaleChao/MobileBuildMCP": "已停用繼承的 Actions",
+    "WhaleChao/model-optimization": "已停用繼承的 Actions",
     "WhaleChao/moli": "已停用繼承的 Actions",
     "WhaleChao/MOSS-Transcribe-Diarize": "已停用繼承的 Actions",
     "WhaleChao/muesli": "已停用繼承的 Actions",
@@ -206,7 +209,7 @@
     "WhaleChao/xllm": "已停用繼承的 Actions",
     "WhaleChao/Yuedu-reader": "已停用繼承的 Actions",
     "WhaleChao/zed-globalization": "已停用繼承的 Actions",
-    "WhaleChao/ziwei-doushu": "本次停用繼承的 Actions",
+    "WhaleChao/ziwei-doushu": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
   "conflict_recovery": {},

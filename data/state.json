@@ -94,7 +94,9 @@
     "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …",
     "WhaleChao/LazyLLM": "Easiest and laziest way for building multi-agent LLMs applications.",
     "WhaleChao/vllm-mlx": "High-performance OpenAI and Anthropic compatible LLM inference server for Apple Silicon. Native MLX, continuous batching, multimodal models, MCP tool …",
-    "WhaleChao/google_workspace_mcp": "Control Gmail, Google Calendar, Docs, Sheets, Slides, Chat, Forms, Tasks, Search & Drive with AI - Comprehensive Google Workspace MCP Server & CLI Too…"
+    "WhaleChao/google_workspace_mcp": "Control Gmail, Google Calendar, Docs, Sheets, Slides, Chat, Forms, Tasks, Search & Drive with AI - Comprehensive Google Workspace MCP Server & CLI Too…",
+    "WhaleChao/AiSOC": "Open-source AI Security Operations Center: alert fusion, LLM-agent triage, MITRE ATT&CK investigation, and a replayable decision ledger for every agen…",
+    "WhaleChao/harnessrouter": "HarnessRouter Community Edition: the self-hosted, Apache-2.0 edition of the unified interface for agent harnesses. Run Codex, Claude Code, Hermes, PI,…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -130,6 +132,7 @@
   ],
   "bootstrap_day": "2026-09-13",
   "reference_actions_forks": [
+    "WhaleChao/AiSOC",
     "WhaleChao/Fun-ASR",
     "WhaleChao/GPA",
     "WhaleChao/Index-Translate",
@@ -150,6 +153,7 @@
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ghidra-mcp",
     "WhaleChao/google_workspace_mcp",
+    "WhaleChao/harnessrouter",
     "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
     "WhaleChao/java-sdk",
@@ -159,6 +163,7 @@
     "WhaleChao/minutes",
     "WhaleChao/mlx-swift",
     "WhaleChao/mlx-swift-examples",
+    "WhaleChao/model-optimization",
     "WhaleChao/muesli",
     "WhaleChao/murmure",
     "WhaleChao/neural-compressor",
