@@ -89,7 +89,7 @@
     "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…",
     "WhaleChao/buildwithclaude": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and…",
     "WhaleChao/hyprwhspr": "Native speech-to-text for Linux - Fast, accurate, private, and hackable system-wide dictation",
-    "WhaleChao/xerj": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hy…",
+    "WhaleChao/xerj": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybri…",
     "WhaleChao/dashboard-icons": "3,400+ curated icons and logos for dashboards and AI agents. SVG, PNG and WEBP on a free CDN, plus an MCP server for Claude Code, Codex, ChatGPT, Curs…",
     "WhaleChao/transcribe-anything": "Multi-backend whisper app. Blazing fast. Mac-arm optimized. Easy install. Input a local file or url and this service will transcribe it using Whisper …",
     "WhaleChao/LazyLLM": "Easiest and laziest way for building multi-agent LLMs applications.",
@@ -99,7 +99,9 @@
     "WhaleChao/harnessrouter": "HarnessRouter Community Edition: the self-hosted, Apache-2.0 edition of the unified interface for agent harnesses. Run Codex, Claude Code, Hermes, PI,…",
     "WhaleChao/StartLux-Decision": "Open decision models from 0.8B to 27B: a calibrated probability for every option in one pass, and a short thought only when unsure. Engine for vLLM, l…",
     "WhaleChao/TradingAgents-astock": "A股多Agent投研框架 — 适配A股数据源(龙虎榜/游资/解禁等)，7位分析师基于A股规则的辩论决策，基于TradingAgents深度改造，适配大A。A-share multi-agent investment research framework — 7 AI analysts, bull/b…",
-    "WhaleChao/learn-claude-code": "Bash is all you need - A nano claude code–like 「agent harness」, built from 0 to 1"
+    "WhaleChao/learn-claude-code": "Bash is all you need - A nano claude code–like 「agent harness」, built from 0 to 1",
+    "WhaleChao/ffmpeg-skill": "Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, capt…",
+    "WhaleChao/geti": "Build, train, optimize, and run computer vision models locally, from raw images to live inference. Open source, optimized for Intel® XPU (CUDA also su…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -158,6 +160,8 @@
     "WhaleChao/distributed-llama",
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
+    "WhaleChao/ffmpeg-skill",
+    "WhaleChao/geti",
     "WhaleChao/ghidra-mcp",
     "WhaleChao/google_workspace_mcp",
     "WhaleChao/harnessrouter",
@@ -167,6 +171,7 @@
     "WhaleChao/kvcached",
     "WhaleChao/learn-claude-code",
     "WhaleChao/linkedin-mcp-server",
+    "WhaleChao/markdownify-mcp",
     "WhaleChao/mflux",
     "WhaleChao/minutes",
     "WhaleChao/mlx-swift",
