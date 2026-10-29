@@ -101,7 +101,9 @@
     "WhaleChao/TradingAgents-astock": "A股多Agent投研框架 — 适配A股数据源(龙虎榜/游资/解禁等)，7位分析师基于A股规则的辩论决策，基于TradingAgents深度改造，适配大A。A-share multi-agent investment research framework — 7 AI analysts, bull/b…",
     "WhaleChao/learn-claude-code": "Bash is all you need - A nano claude code–like 「agent harness」, built from 0 to 1",
     "WhaleChao/ffmpeg-skill": "Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, capt…",
-    "WhaleChao/geti": "Build, train, optimize, and run computer vision models locally, from raw images to live inference. Open source, optimized for Intel® XPU (CUDA also su…"
+    "WhaleChao/geti": "Build, train, optimize, and run computer vision models locally, from raw images to live inference. Open source, optimized for Intel® XPU (CUDA also su…",
+    "WhaleChao/kordoc": "모두 파싱해버리겠다 — HWP·HWPX·PDF·Office 문서를 Markdown으로. 양식 자동 채우기와 신구대조를 갖춘 CLI·MCP 서버 ／ Convert Korean documents (HWP, HWPX, PDF, Office) to Markdown — CLI …",
+    "WhaleChao/whisper-flow": "Whisper-Flow is a framework designed to enable real-time transcription of audio content using OpenAI’s Whisper model. Rather than processing entire fi…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -168,6 +170,7 @@
     "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
     "WhaleChao/java-sdk",
+    "WhaleChao/kordoc",
     "WhaleChao/kvcached",
     "WhaleChao/learn-claude-code",
     "WhaleChao/linkedin-mcp-server",
@@ -187,6 +190,7 @@
     "WhaleChao/overlay-translator",
     "WhaleChao/radar",
     "WhaleChao/rtp-llm",
+    "WhaleChao/speech-swift",
     "WhaleChao/spiceai",
     "WhaleChao/splash",
     "WhaleChao/tradingview-mcp",
@@ -194,6 +198,7 @@
     "WhaleChao/typewhisper-mac",
     "WhaleChao/vllm-mlx",
     "WhaleChao/whisper-ctranslate2",
+    "WhaleChao/whisper-flow",
     "WhaleChao/xerj",
     "WhaleChao/xllm"
   ],
