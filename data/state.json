@@ -103,7 +103,8 @@
     "WhaleChao/ffmpeg-skill": "Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, capt…",
     "WhaleChao/geti": "Build, train, optimize, and run computer vision models locally, from raw images to live inference. Open source, optimized for Intel® XPU (CUDA also su…",
     "WhaleChao/kordoc": "모두 파싱해버리겠다 — HWP·HWPX·PDF·Office 문서를 Markdown으로. 양식 자동 채우기와 신구대조를 갖춘 CLI·MCP 서버 ／ Convert Korean documents (HWP, HWPX, PDF, Office) to Markdown — CLI …",
-    "WhaleChao/whisper-flow": "Whisper-Flow is a framework designed to enable real-time transcription of audio content using OpenAI’s Whisper model. Rather than processing entire fi…"
+    "WhaleChao/whisper-flow": "Whisper-Flow is a framework designed to enable real-time transcription of audio content using OpenAI’s Whisper model. Rather than processing entire fi…",
+    "WhaleChao/korean-law-mcp": "법제처 국가법령정보를 LLM에서 바로 조회하는 MCP 서버. 법령·판례·조례 검색과 인용 검증 ／ MCP server for Korean law — search statutes, precedents, and ordinances, and verify citations"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -169,8 +170,10 @@
     "WhaleChao/harnessrouter",
     "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
+    "WhaleChao/jadx-ai-mcp",
     "WhaleChao/java-sdk",
     "WhaleChao/kordoc",
+    "WhaleChao/korean-law-mcp",
     "WhaleChao/kvcached",
     "WhaleChao/learn-claude-code",
     "WhaleChao/linkedin-mcp-server",
@@ -184,6 +187,7 @@
     "WhaleChao/murmure",
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
+    "WhaleChao/nncf",
     "WhaleChao/open-multi-agent",
     "WhaleChao/open-seo-mcp-skills",
     "WhaleChao/ouroboros",
@@ -208,5 +212,26 @@
     "WhaleChao/happybigbomb": "把多張照片、影片或 GIF 排成 IG 限時動態、貼文用的組合圖，匯出 PNG、GIF 或 MP4。 所有處理都在使用者的瀏覽器完成，照片不會上傳，也不需要登入。",
     "WhaleChao/StaticWebModule": "用於 GitHub 推送設定的靜態網頁模組初始專案。"
   },
-  "conflict_recovery": {}
+  "conflict_recovery": {
+    "WhaleChao/shimmy": {
+      "checked_at": "2026-10-30T08:42:24.210742+00:00",
+      "original_sha": "d64d0c8e6f5656b83e8d28201541b0f544afe4f3",
+      "upstream_sha": "239bb7457b0af8233f9411446abe062c3e5df453",
+      "upstream": "Michael-A-Kuykendall/shimmy",
+      "branch": "main",
+      "backup_branch": "backup/auto-sync/d64d0c8e6f5656b83e8d28201541b0f544afe4f3",
+      "backup_url": "https://github.com/WhaleChao/shimmy/tree/backup/auto-sync/d64d0c8e6f5656b83e8d28201541b0f544afe4f3",
+      "conflict_files": [
+        "CHANGELOG.md",
+        "src/cache/response_cache.rs"
+      ],
+      "merge_commit": "d3c89a81ac6f7c38710e16e648208cdda38ac145",
+      "resolved_files": [
+        "CHANGELOG.md",
+        "src/cache/response_cache.rs"
+      ],
+      "status": "merged",
+      "commit_url": "https://github.com/WhaleChao/shimmy/commit/d3c89a81ac6f7c38710e16e648208cdda38ac145"
+    }
+  }
 }
