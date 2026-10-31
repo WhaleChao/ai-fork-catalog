@@ -104,7 +104,9 @@
     "WhaleChao/geti": "Build, train, optimize, and run computer vision models locally, from raw images to live inference. Open source, optimized for Intel® XPU (CUDA also su…",
     "WhaleChao/kordoc": "모두 파싱해버리겠다 — HWP·HWPX·PDF·Office 문서를 Markdown으로. 양식 자동 채우기와 신구대조를 갖춘 CLI·MCP 서버 ／ Convert Korean documents (HWP, HWPX, PDF, Office) to Markdown — CLI …",
     "WhaleChao/whisper-flow": "Whisper-Flow is a framework designed to enable real-time transcription of audio content using OpenAI’s Whisper model. Rather than processing entire fi…",
-    "WhaleChao/korean-law-mcp": "법제처 국가법령정보를 LLM에서 바로 조회하는 MCP 서버. 법령·판례·조례 검색과 인용 검증 ／ MCP server for Korean law — search statutes, precedents, and ordinances, and verify citations"
+    "WhaleChao/korean-law-mcp": "법제처 국가법령정보를 LLM에서 바로 조회하는 MCP 서버. 법령·판례·조례 검색과 인용 검증 ／ MCP server for Korean law — search statutes, precedents, and ordinances, and verify citations",
+    "WhaleChao/mlx-engine": "LM Studio Apple MLX engine",
+    "WhaleChao/mobile-mcp": "Mobile MCP: let AI agents drive your iOS and Android apps. MCP server for simulators, emulators and real devices. Works with Claude Code, Codex, Curso…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -180,8 +182,10 @@
     "WhaleChao/markdownify-mcp",
     "WhaleChao/mflux",
     "WhaleChao/minutes",
+    "WhaleChao/mlx-engine",
     "WhaleChao/mlx-swift",
     "WhaleChao/mlx-swift-examples",
+    "WhaleChao/mobile-mcp",
     "WhaleChao/model-optimization",
     "WhaleChao/muesli",
     "WhaleChao/murmure",
@@ -197,6 +201,7 @@
     "WhaleChao/speech-swift",
     "WhaleChao/spiceai",
     "WhaleChao/splash",
+    "WhaleChao/tiny-vllm",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/transcribe-anything",
     "WhaleChao/typewhisper-mac",
