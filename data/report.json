@@ -1,18 +1,18 @@
 {
-  "checked_at": "2026-11-01T09:20:35+00:00",
+  "checked_at": "2026-11-02T09:33:31+00:00",
   "mode": "daily",
-  "owned_public_forks": 217,
+  "owned_public_forks": 220,
   "owned_public_projects": 12,
-  "owned_public_repositories": 229,
+  "owned_public_repositories": 232,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/VidBee",
-    "WhaleChao/crosspaste-desktop",
-    "WhaleChao/finn"
+    "WhaleChao/brightdata-mcp",
+    "WhaleChao/optimum-quanto",
+    "WhaleChao/ripwire"
   ],
   "bootstrap_created_total": 30,
-  "sync_issues": 1,
-  "sync_conflicts": 0,
+  "sync_issues": 2,
+  "sync_conflicts": 1,
   "sync_errors": 1,
   "sync_skipped": 0,
   "token_permission_issues": [],
@@ -38,6 +38,7 @@
     "WhaleChao/BG_record": "已停用繼承的 Actions",
     "WhaleChao/bitsandbytes": "已停用繼承的 Actions",
     "WhaleChao/BotSharp": "已停用繼承的 Actions",
+    "WhaleChao/brightdata-mcp": "已停用繼承的 Actions",
     "WhaleChao/buildwithclaude": "已停用繼承的 Actions",
     "WhaleChao/camofox-browser": "已停用繼承的 Actions",
     "WhaleChao/cc-haha": "已停用繼承的 Actions",
@@ -159,6 +160,7 @@
     "WhaleChao/openwhispr": "已停用繼承的 Actions",
     "WhaleChao/optillm": "已停用繼承的 Actions",
     "WhaleChao/optimum": "已停用繼承的 Actions",
+    "WhaleChao/optimum-quanto": "已停用繼承的 Actions",
     "WhaleChao/ouroboros": "已停用繼承的 Actions",
     "WhaleChao/overlay-translator": "已停用繼承的 Actions",
     "WhaleChao/ownscribe": "已停用繼承的 Actions",
@@ -181,6 +183,7 @@
     "WhaleChao/RealtimeSTT": "已停用繼承的 Actions",
     "WhaleChao/relay": "已停用繼承的 Actions",
     "WhaleChao/replica-skill": "已停用繼承的 Actions",
+    "WhaleChao/ripwire": "已停用繼承的 Actions",
     "WhaleChao/rlhf-book-zh-tw": "已停用繼承的 Actions",
     "WhaleChao/rtk": "已停用繼承的 Actions",
     "WhaleChao/rtp-llm": "已停用繼承的 Actions",
@@ -233,9 +236,24 @@
     "WhaleChao/ziwei-doushu": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
-  "conflict_recovery": {},
+  "conflict_recovery": {
+    "WhaleChao/beyondtranslate-ce": {
+      "checked_at": "2026-11-02T09:29:22.302387+00:00",
+      "original_sha": "bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
+      "upstream_sha": "0c274b91b55c6601876dfd39d7b282f83a46712d",
+      "upstream": "beyondtranslate/beyondtranslate-ce",
+      "branch": "main",
+      "backup_branch": "backup/auto-sync/bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
+      "backup_url": "https://github.com/WhaleChao/beyondtranslate-ce/tree/backup/auto-sync/bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
+      "conflict_files": [],
+      "status": "deferred",
+      "reason": "沒有單一共同祖先，保留原分支供人工檢查",
+      "retryable": false
+    }
+  },
   "auto_merged_conflicts": 0,
   "issues": [
+    "同步 WhaleChao/beyondtranslate-ce：需處理：合併衝突（保留原分支；沒有單一共同祖先，保留原分支供人工檢查）",
     "同步 WhaleChao/zed-globalization：需處理：Actions 分類失敗，未同步：HTTP 404 Not Found"
   ],
   "ok": false

@@ -107,7 +107,8 @@
     "WhaleChao/korean-law-mcp": "법제처 국가법령정보를 LLM에서 바로 조회하는 MCP 서버. 법령·판례·조례 검색과 인용 검증 ／ MCP server for Korean law — search statutes, precedents, and ordinances, and verify citations",
     "WhaleChao/mlx-engine": "LM Studio Apple MLX engine",
     "WhaleChao/mobile-mcp": "Mobile MCP: let AI agents drive your iOS and Android apps. MCP server for simulators, emulators and real devices. Works with Claude Code, Codex, Curso…",
-    "WhaleChao/VidBee": "Download video and audio from 1000+ sites, transcribe locally with speaker labels, and summarize, translate, or chat with your media using your prefer…"
+    "WhaleChao/VidBee": "Download video and audio from 1000+ sites, transcribe locally with speaker labels, and summarize, translate, or chat with your media using your prefer…",
+    "WhaleChao/ripwire": "The ripgrep of AI context: a zero-dependency C++23 CLI + MCP server for coding agents. Find what you want without reading the repo, then check you bui…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -159,6 +160,7 @@
     "WhaleChao/VidBee",
     "WhaleChao/audapolis",
     "WhaleChao/beta9",
+    "WhaleChao/brightdata-mcp",
     "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
     "WhaleChao/claude-code-local",
@@ -198,9 +200,11 @@
     "WhaleChao/nncf",
     "WhaleChao/open-multi-agent",
     "WhaleChao/open-seo-mcp-skills",
+    "WhaleChao/optimum-quanto",
     "WhaleChao/ouroboros",
     "WhaleChao/overlay-translator",
     "WhaleChao/radar",
+    "WhaleChao/ripwire",
     "WhaleChao/rtp-llm",
     "WhaleChao/speech-swift",
     "WhaleChao/spiceai",
@@ -241,6 +245,19 @@
       ],
       "status": "merged",
       "commit_url": "https://github.com/WhaleChao/shimmy/commit/d3c89a81ac6f7c38710e16e648208cdda38ac145"
+    },
+    "WhaleChao/beyondtranslate-ce": {
+      "checked_at": "2026-11-02T09:29:22.302387+00:00",
+      "original_sha": "bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
+      "upstream_sha": "0c274b91b55c6601876dfd39d7b282f83a46712d",
+      "upstream": "beyondtranslate/beyondtranslate-ce",
+      "branch": "main",
+      "backup_branch": "backup/auto-sync/bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
+      "backup_url": "https://github.com/WhaleChao/beyondtranslate-ce/tree/backup/auto-sync/bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
+      "conflict_files": [],
+      "status": "deferred",
+      "reason": "沒有單一共同祖先，保留原分支供人工檢查",
+      "retryable": false
     }
   }
 }
