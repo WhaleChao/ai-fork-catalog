@@ -110,7 +110,8 @@
     "WhaleChao/VidBee": "Download video and audio from 1000+ sites, transcribe locally with speaker labels, and summarize, translate, or chat with your media using your prefer…",
     "WhaleChao/ripwire": "The ripgrep of AI context: a zero-dependency C++23 CLI + MCP server for coding agents. Find what you want without reading the repo, then check you bui…",
     "WhaleChao/AssetOpsBench": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0…",
-    "WhaleChao/mlx-tune": "Fine-tune LLMs on your Mac with Apple Silicon. SFT, DPO, GRPO, Vision, TTS, STT, Embedding, and OCR fine-tuning — natively on MLX. Unsloth-compatible …"
+    "WhaleChao/mlx-tune": "Fine-tune LLMs on your Mac with Apple Silicon. SFT, DPO, GRPO, Vision, TTS, STT, Embedding, and OCR fine-tuning — natively on MLX. Unsloth-compatible …",
+    "WhaleChao/cicada": "知了 Cicada · 任何会议和直播的实时字幕、同声传译、AI 会议纪要，Mac、Windows、Linux、Android 免费开源。Live subtitles, interpreting and meeting notes for any call or stream, on Mac, Wi…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -167,6 +168,7 @@
     "WhaleChao/brightdata-mcp",
     "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
+    "WhaleChao/cicada",
     "WhaleChao/claude-code-local",
     "WhaleChao/crosspaste-desktop",
     "WhaleChao/dashboard-icons",
@@ -216,7 +218,9 @@
     "WhaleChao/speech-swift",
     "WhaleChao/spiceai",
     "WhaleChao/splash",
+    "WhaleChao/time-to-first-token",
     "WhaleChao/tiny-vllm",
+    "WhaleChao/toolhive",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/transcribe-anything",
     "WhaleChao/typewhisper-mac",
@@ -255,7 +259,7 @@
       "commit_url": "https://github.com/WhaleChao/shimmy/commit/d3c89a81ac6f7c38710e16e648208cdda38ac145"
     },
     "WhaleChao/beyondtranslate-ce": {
-      "checked_at": "2026-11-04T09:10:54.390802+00:00",
+      "checked_at": "2026-11-05T09:30:49.175157+00:00",
       "original_sha": "bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
       "upstream_sha": "0c274b91b55c6601876dfd39d7b282f83a46712d",
       "upstream": "beyondtranslate/beyondtranslate-ce",

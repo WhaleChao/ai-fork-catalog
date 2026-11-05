@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-11-04T09:15:19+00:00",
+  "checked_at": "2026-11-05T09:35:13+00:00",
   "mode": "daily",
-  "owned_public_forks": 226,
+  "owned_public_forks": 229,
   "owned_public_projects": 12,
-  "owned_public_repositories": 238,
+  "owned_public_repositories": 241,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/parallax",
-    "WhaleChao/AssetOpsBench",
-    "WhaleChao/mlx-tune"
+    "WhaleChao/cicada",
+    "WhaleChao/toolhive",
+    "WhaleChao/time-to-first-token"
   ],
   "bootstrap_created_total": 30,
   "sync_issues": 2,
@@ -45,6 +45,7 @@
     "WhaleChao/cc-haha": "已停用繼承的 Actions",
     "WhaleChao/chandra": "已停用繼承的 Actions",
     "WhaleChao/chitu": "已停用繼承的 Actions",
+    "WhaleChao/cicada": "已停用繼承的 Actions",
     "WhaleChao/claude-code-local": "已停用繼承的 Actions",
     "WhaleChao/codebase-memory-mcp": "已停用繼承的 Actions",
     "WhaleChao/codex": "已停用繼承的 Actions",
@@ -208,7 +209,9 @@
     "WhaleChao/subtitle-translator-electron": "已停用繼承的 Actions",
     "WhaleChao/taiwan-legal-deid": "已停用繼承的 Actions",
     "WhaleChao/TensorFold": "已停用繼承的 Actions",
+    "WhaleChao/time-to-first-token": "已停用繼承的 Actions",
     "WhaleChao/tiny-vllm": "已停用繼承的 Actions",
+    "WhaleChao/toolhive": "已停用繼承的 Actions",
     "WhaleChao/TradingAgents-astock": "已停用繼承的 Actions",
     "WhaleChao/tradingview-mcp": "已停用繼承的 Actions",
     "WhaleChao/transcribe-anything": "已停用繼承的 Actions",
@@ -244,7 +247,7 @@
   },
   "conflict_recovery": {
     "WhaleChao/beyondtranslate-ce": {
-      "checked_at": "2026-11-04T09:10:54.390802+00:00",
+      "checked_at": "2026-11-05T09:30:49.175157+00:00",
       "original_sha": "bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
       "upstream_sha": "0c274b91b55c6601876dfd39d7b282f83a46712d",
       "upstream": "beyondtranslate/beyondtranslate-ce",
