@@ -437,6 +437,21 @@ class CatalogTests(unittest.TestCase):
         self.assertTrue(all(value.startswith("略過：") for value in statuses.values()))
         self.assertEqual(catalog.sync_problem_counts(statuses), (0, 0))
 
+    def test_stop_sync_forks_make_no_requests_and_are_not_problems(self):
+        api = mock.Mock()
+        api.request.return_value = {"message": "Successfully merged upstream"}
+        forks = [{"full_name": "WhaleChao/Retired", "default_branch": "main"},
+                 {"full_name": "WhaleChao/ok", "default_branch": "main"}]
+        with contextlib.redirect_stdout(io.StringIO()):
+            statuses = catalog.sync_forks(api, forks, stop_sync={"whalechao/retired"},
+                                          actions_targets={"whalechao/retired"}, guard_mirror_forks=False)
+        self.assertEqual(statuses["WhaleChao/Retired"], catalog.STOPPED_SYNC_STATUS)
+        self.assertEqual(statuses["WhaleChao/ok"], "已更新")
+        self.assertFalse(any("Retired" in str(call) for call in api.request.call_args_list))
+        self.assertEqual(catalog.sync_problem_counts(statuses), (0, 0))
+        blocked = catalog.sync_forks(RecordingAPI(), forks, blocked_reason="x", stop_sync={"WhaleChao/Retired"})
+        self.assertEqual(blocked["WhaleChao/Retired"], catalog.STOPPED_SYNC_STATUS)
+
     def test_sync_conflict_is_distinct_from_api_failure(self):
         api = mock.Mock()
         api.request.side_effect = [catalog.APIError(409, "conflict"), catalog.APIError(422, "without workflow scope"), {"message": "Successfully merged upstream"}]

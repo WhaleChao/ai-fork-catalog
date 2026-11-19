@@ -81,6 +81,7 @@ TRANSLATION_IMPLEMENTATION_PATTERN = re.compile(
     r"engine|server|library|framework|toolkit|model|pipeline|offline|local|subtitle|document|\bpdf\b|\bapi\b|\bsdk\b|command.?line",
     re.I,
 )
+STOPPED_SYNC_STATUS = "略過：已停止同步"
 MANUAL_ACTIVITY_EXCEPTIONS = {"SYSTRAN/faster-whisper"}
 OPEN_SOURCE_LICENSES = {
     "0BSD", "AFL-3.0", "AGPL-3.0", "Apache-2.0", "Artistic-2.0", "BSD-2-Clause",
@@ -404,10 +405,16 @@ def fork_ahead_of_parent(api: GitHub, fork: dict[str, Any]) -> int:
 def sync_forks(api: GitHub, forks: list[dict[str, Any]], *, blocked_reason: str | None = None,
                actions_targets: set[str] | None = None, actions_statuses: dict[str, str] | None = None,
                guard_mirror_forks: bool = False, keep_actions: set[str] | None = None,
-               conflict_recovery: ConflictRecovery | None = None) -> dict[str, str]:
+               conflict_recovery: ConflictRecovery | None = None,
+               stop_sync: set[str] | None = None) -> dict[str, str]:
     result: dict[str, str] = {}
+    # Forks the owner retired from syncing: no API calls, kept in the catalog.
+    stopped = {name.lower() for name in (stop_sync or set())}
+    for fork in [fork for fork in forks if fork["full_name"].lower() in stopped]:
+        result[fork["full_name"]] = STOPPED_SYNC_STATUS
+    forks = [fork for fork in forks if fork["full_name"].lower() not in stopped]
     if blocked_reason:
-        return {fork["full_name"]: f"略過：{blocked_reason}" for fork in forks}
+        return result | {fork["full_name"]: f"略過：{blocked_reason}" for fork in forks}
     protected = {name.lower() for name in (keep_actions or set())}
     protected.add(f"{OWNER}/{CATALOG_REPO}".lower())
     for index, fork in enumerate(forks, 1):
@@ -819,7 +826,8 @@ def main() -> int:
                           actions_targets=reference_actions_targets(actions_policy, state),
                           actions_statuses=actions_statuses,
                           guard_mirror_forks=actions_policy.get("disable_mirror_fork_actions", False),
-                          keep_actions=set(actions_policy.get("keep_actions", [])), conflict_recovery=recovery)
+                          keep_actions=set(actions_policy.get("keep_actions", [])), conflict_recovery=recovery,
+                          stop_sync=set(catalog_policy.get("stop_sync", [])))
     update_metadata(api, forks, overrides, state, errors)
     update_project_metadata(api, projects, overrides, state, errors)
     entries = [catalog_entry(fork, overrides, statuses) for fork in forks] + [project_entry(project, overrides) for project in projects]
