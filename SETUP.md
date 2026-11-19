@@ -36,6 +36,10 @@
 
 備份、雙方提交、處理的檔案與原因寫入 `data/report.json`、`data/state.json` 及執行 Summary。成功者恢復每日同步；需要人工處理者不阻止其他專案，也不會單因未解合併衝突而將整批 Actions 標為失敗。自動合併不等同通過各專案的功能測試；開發專案原有 CI 設定保留。
 
+## 停止同步特定 fork
+
+在 `data/catalog-policy.json` 的 `stop_sync` 列出 fork 全名（不分大小寫），該 fork 不再呼叫任何 GitHub API（不同步、不處理衝突、不調整 Actions），仍保留在目錄中並標示「略過：已停止同步」，不計入同步異常。要恢復同步，從清單移除即可。
+
 ## 排除同步錯誤
 
 ### 參考 fork 的 CI 與郵件
