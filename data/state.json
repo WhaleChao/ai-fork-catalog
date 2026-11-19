@@ -2,7 +2,7 @@
   "bootstrap_complete": true,
   "generated_descriptions": {
     "WhaleChao/adk-python": "Python toolkit for building, evaluating and deploying AI agents.",
-    "WhaleChao/agent-framework": "Framework for building and orchestrating Python and .NET agents.",
+    "WhaleChao/agent-framework": "A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET.",
     "WhaleChao/argos-translate": "Offline machine-translation library for Python applications.",
     "WhaleChao/bitsandbytes": "Low-bit quantization components for PyTorch language models.",
     "WhaleChao/camofox-browser": "Headless browser built for AI-agent web automation.",
@@ -52,7 +52,7 @@
     "WhaleChao/PaddleOCR": "Turn any PDF or image document into structured data for your AI. A powerful, lightweight OCR toolkit that bridges the gap between images/PDFs and LLMs…",
     "WhaleChao/ruflo": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features a…",
     "WhaleChao/CowAgent": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-mode…",
-    "WhaleChao/meetily": "Privacy-first AI meeting note taker for Windows and macOS. Free, open source (MIT). On-device Whisper/Parakeet transcription and speaker diarization, …",
+    "WhaleChao/meetily": "Privacy-first AI meeting note taker for Windows, macOS and Linux. Free, open source (MIT). On-device Whisper/Parakeet transcription and speaker diariz…",
     "WhaleChao/sherpa-onnx": "Speech-to-text, text-to-speech, speaker diarization, speech enhancement, source separation, and VAD using next-gen Kaldi with onnxruntime without Inte…",
     "WhaleChao/codebase-memory-mcp": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent int…",
     "WhaleChao/voice-pro": "Gradio WebUI for creators and developers, featuring key TTS (Edge-TTS, kokoro) and zero-shot Voice Cloning (E2 & F5-TTS, CosyVoice), with Whisper audi…",
@@ -73,8 +73,8 @@
     "WhaleChao/linguist": "Translate web pages, highlighted text, Netflix subtitles, private messages, speak the translated text, and save important translations to your persona…",
     "WhaleChao/transcribe.cpp": "ggml speech-to-text inference for 16+ model families",
     "WhaleChao/Auto-Synced-Translated-Dubs": "Automatically translates the text of a video based on a subtitle file, and then uses AI voice services to create a new dubbed & translated audio track…",
-    "WhaleChao/Edge0": "Run 35B MoE models in ~2.5 GB of RAM. Weights stream from SSD; a trained router predicts loads a step ahead. Mac, iPhone, Android, Windows supported",
-    "WhaleChao/claude-code-local": "Hit your Claude Code usage limit? Keep going free and offline on a local model. Claude Code Local runs on Apple Silicon Macs (MLX), Linux and Windows …",
+    "WhaleChao/Edge0": "Device-native foundation models: 145B on a laptop, 35B on a phone. Latent MoE, SSD-streamed weights, a router that predicts loads a step ahead. Mac, i…",
+    "WhaleChao/claude-code-local": "Hit your Claude Code usage limit? Keep going free and offline on a local model: Qwen 3.8, Gemma 4, and Qwen 4 the day it ships. Runs on Apple Silicon …",
     "WhaleChao/typewhisper-mac": "Local speech-to-text for macOS on-device AI, fully private, optional cloud",
     "WhaleChao/ghidra-mcp": "Ghidra MCP Server — 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch …",
     "WhaleChao/spiceai": "Add a real-time analytics node to your operational database. Spice is a portable, accelerated SQL query, search, and LLM-inference engine in Rust for …",
@@ -85,7 +85,7 @@
     "WhaleChao/overlay-translator": "无需 ROOT 的开源 Android 屏幕实时翻译工具，适合游戏、视觉小说和漫画。支持端侧与云端 OCR、离线 LLM、多种翻译服务和文字朗读（TTS），译文可直接显示在画面上。Open-source no-root Android real-time screen translator for …",
     "WhaleChao/minutes": "Open-source, local-first Granola/Otter alternative that Claude Code, Codex, Cursor, and any MCP client can query. Meetings, calls, and voice memos tra…",
     "WhaleChao/tradingview-mcp": "MCP server for market analysis in AI assistants: screeners, multi-timeframe technical analysis, backtests and sentiment for crypto, stocks, forex and …",
-    "WhaleChao/inference": "Swap GPT for any LLM by changing a single line of code. Xinference lets you run open-source, speech, and multimodal models on cloud, on-prem, or your …",
+    "WhaleChao/inference": "Open-source inference platform for language, vision, embedding, reranking, image, audio, and video models. Deploy with multiple engines across heterog…",
     "WhaleChao/radar": "The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event time…",
     "WhaleChao/buildwithclaude": "A single hub to find Claude Skills, Agents, Commands, Hooks, Plugins, and Marketplace collections to extend Claude Code, Claude Desktop, Agent SDK and…",
     "WhaleChao/hyprwhspr": "Native speech-to-text for Linux - Fast, accurate, private, and hackable system-wide dictation",
@@ -102,16 +102,19 @@
     "WhaleChao/learn-claude-code": "Bash is all you need - A nano claude code–like 「agent harness」, built from 0 to 1",
     "WhaleChao/ffmpeg-skill": "Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, capt…",
     "WhaleChao/geti": "Build, train, optimize, and run computer vision models locally, from raw images to live inference. Open source, optimized for Intel® XPU (CUDA also su…",
-    "WhaleChao/kordoc": "한국 문서를 읽고·고치고·새로 쓰는 AI 문서 도구 — HWP·HWPX·PDF·오피스·스캔(OCR)을 Markdown으로, 신구대조·서식 보존 편집·Markdown→HWPX 작성·HWP→HWPX 변환·양식 채우기·공문서 검수까지. 라이브러리·CLI·MCP ／ Read,…",
+    "WhaleChao/kordoc": "📄 한국 공문서를 AI가 읽고 쓰게 합니다. HWP·HWPX·PDF·오피스·스캔 이미지를 Markdown으로, Markdown을 HWPX 공문서로 바꾸고 양식 채우기·신구대조·서식 보존 편집까지. 라이브러리·CLI·MCP 서버 ／ Korean documents for …",
     "WhaleChao/whisper-flow": "Whisper-Flow is a framework designed to enable real-time transcription of audio content using OpenAI’s Whisper model. Rather than processing entire fi…",
-    "WhaleChao/korean-law-mcp": "법령·판례를 AI가 찾고 인용까지 검증하는 MCP 서버 — 법제처 API 42개를 도구 10개로: 법령·조문·별표, 판례·헌재·해석례 23개 도메인, 조례 정비 레이더, 신구조문대비표 ／ MCP server for Korean law — statutes, precede…",
+    "WhaleChao/korean-law-mcp": "⚖️ 법령·판례를 AI가 법제처 원문에서 찾고 인용까지 검증하는 MCP 서버. 법제처 API 42개를 도구 10개로: 법령·조문·별표, 판례류 23개 도메인, 조례 정비 레이더, 신구조문대비표 ／ MCP server for Korean law: statutes, pre…",
     "WhaleChao/mlx-engine": "LM Studio Apple MLX engine",
     "WhaleChao/mobile-mcp": "Mobile MCP: let AI agents drive your iOS and Android apps. MCP server for simulators, emulators and real devices. Works with Claude Code, Codex, Curso…",
     "WhaleChao/VidBee": "Download video and audio from 1000+ sites, transcribe locally with speaker labels, and summarize, translate, or chat with your media using your prefer…",
-    "WhaleChao/ripwire": "The ripgrep of AI context: a zero-dependency C++23 CLI + MCP server for coding agents. Find what you want without reading the repo, then check you bui…",
+    "WhaleChao/ripwire": "The ripgrep of AI context: a zero-dependency C++23 CLI + MCP server for coding agents. Cut agent token costs by finding code without reading the repo,…",
     "WhaleChao/AssetOpsBench": "AssetOpsBench - Industry 4.0: A unified benchmark and framework for building, orchestrating, and evaluating domain-specific AI agents for Industry 4.0…",
     "WhaleChao/mlx-tune": "Fine-tune LLMs on your Mac with Apple Silicon. SFT, DPO, GRPO, Vision, TTS, STT, Embedding, and OCR fine-tuning — natively on MLX. Unsloth-compatible …",
-    "WhaleChao/cicada": "知了 Cicada · 任何会议和直播的实时字幕、同声传译、AI 会议纪要，Mac、Windows、Linux、Android 免费开源。Live subtitles, interpreting and meeting notes for any call or stream, on Mac, Wi…"
+    "WhaleChao/cicada": "知了 Cicada · 任何会议和直播的实时字幕、同声传译、AI 会议纪要，Mac、Windows、Linux、Android 免费开源。Live subtitles, interpreting and meeting notes for any call or stream, on Mac, Wi…",
+    "WhaleChao/omniget": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media conversion, …",
+    "WhaleChao/OpenOats": "A beautiful, minimal meeting recorder for Mac. Press Start, and after Stop you get Notes and a transcript in one markdown file. On-device, free and op…",
+    "WhaleChao/Rapid-MLX": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable to…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -157,8 +160,10 @@
     "WhaleChao/LazyLLM",
     "WhaleChao/MOSS-Transcribe-Diarize",
     "WhaleChao/MobileBuildMCP",
+    "WhaleChao/OpenOats",
     "WhaleChao/PI-Desktop",
     "WhaleChao/Portable-Local-Studio",
+    "WhaleChao/Rapid-MLX",
     "WhaleChao/StartLux-Decision",
     "WhaleChao/TensorFold",
     "WhaleChao/TradingAgents-astock",
@@ -208,6 +213,7 @@
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
     "WhaleChao/nncf",
+    "WhaleChao/omniget",
     "WhaleChao/open-multi-agent",
     "WhaleChao/open-seo-mcp-skills",
     "WhaleChao/optimum-quanto",
@@ -242,27 +248,25 @@
   },
   "conflict_recovery": {
     "WhaleChao/shimmy": {
-      "checked_at": "2026-10-30T08:42:24.210742+00:00",
-      "original_sha": "d64d0c8e6f5656b83e8d28201541b0f544afe4f3",
-      "upstream_sha": "239bb7457b0af8233f9411446abe062c3e5df453",
+      "checked_at": "2026-11-19T04:04:15.250768+00:00",
+      "original_sha": "099738c02af66f2db7535e8f026b8f5950e06391",
+      "upstream_sha": "9f6d996ec038a9cc1a41b70e79feee4d7c7e349e",
       "upstream": "Michael-A-Kuykendall/shimmy",
       "branch": "main",
-      "backup_branch": "backup/auto-sync/d64d0c8e6f5656b83e8d28201541b0f544afe4f3",
-      "backup_url": "https://github.com/WhaleChao/shimmy/tree/backup/auto-sync/d64d0c8e6f5656b83e8d28201541b0f544afe4f3",
+      "backup_branch": "backup/auto-sync/099738c02af66f2db7535e8f026b8f5950e06391",
+      "backup_url": "https://github.com/WhaleChao/shimmy/tree/backup/auto-sync/099738c02af66f2db7535e8f026b8f5950e06391",
       "conflict_files": [
-        "CHANGELOG.md",
-        "src/cache/response_cache.rs"
+        "CHANGELOG.md"
       ],
-      "merge_commit": "d3c89a81ac6f7c38710e16e648208cdda38ac145",
+      "merge_commit": "51cf2967c2b3e02487e198aab20d4646e6cc3932",
       "resolved_files": [
-        "CHANGELOG.md",
-        "src/cache/response_cache.rs"
+        "CHANGELOG.md"
       ],
       "status": "merged",
-      "commit_url": "https://github.com/WhaleChao/shimmy/commit/d3c89a81ac6f7c38710e16e648208cdda38ac145"
+      "commit_url": "https://github.com/WhaleChao/shimmy/commit/51cf2967c2b3e02487e198aab20d4646e6cc3932"
     },
     "WhaleChao/beyondtranslate-ce": {
-      "checked_at": "2026-11-06T09:24:39.517238+00:00",
+      "checked_at": "2026-11-19T04:00:46.033934+00:00",
       "original_sha": "bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
       "upstream_sha": "0c274b91b55c6601876dfd39d7b282f83a46712d",
       "upstream": "beyondtranslate/beyondtranslate-ce",
