@@ -1,20 +1,16 @@
 {
-  "checked_at": "2026-11-19T04:05:31+00:00",
-  "mode": "daily",
+  "checked_at": "2026-11-19T04:23:05+00:00",
+  "mode": "refresh",
   "owned_public_forks": 235,
   "owned_public_projects": 12,
   "owned_public_repositories": 247,
-  "created": 3,
-  "created_repositories": [
-    "WhaleChao/omniget",
-    "WhaleChao/Rapid-MLX",
-    "WhaleChao/OpenOats"
-  ],
+  "created": 0,
+  "created_repositories": [],
   "bootstrap_created_total": 30,
-  "sync_issues": 3,
-  "sync_conflicts": 1,
-  "sync_errors": 2,
-  "sync_skipped": 0,
+  "sync_issues": 0,
+  "sync_conflicts": 0,
+  "sync_errors": 0,
+  "sync_skipped": 3,
   "token_permission_issues": [],
   "reference_actions": {
     "WhaleChao/adk-python": "已停用繼承的 Actions",
@@ -35,7 +31,6 @@
     "WhaleChao/ax": "已停用繼承的 Actions",
     "WhaleChao/BentoML": "已停用繼承的 Actions",
     "WhaleChao/beta9": "已停用繼承的 Actions",
-    "WhaleChao/beyondtranslate-ce": "已停用繼承的 Actions",
     "WhaleChao/BG_record": "已停用繼承的 Actions",
     "WhaleChao/bitsandbytes": "已停用繼承的 Actions",
     "WhaleChao/BotSharp": "已停用繼承的 Actions",
@@ -203,7 +198,7 @@
     "WhaleChao/SenseVoice": "已停用繼承的 Actions",
     "WhaleChao/sglang": "已停用繼承的 Actions",
     "WhaleChao/sherpa-onnx": "已停用繼承的 Actions",
-    "WhaleChao/shimmy": "保留 Actions：含 13 個獨立提交",
+    "WhaleChao/shimmy": "保留 Actions：含 14 個獨立提交",
     "WhaleChao/skills": "已停用繼承的 Actions",
     "WhaleChao/speech-swift": "已停用繼承的 Actions",
     "WhaleChao/spiceai": "已停用繼承的 Actions",
@@ -235,7 +230,6 @@
     "WhaleChao/voice-pro": "已停用繼承的 Actions",
     "WhaleChao/waku-agent": "已停用繼承的 Actions",
     "WhaleChao/webclaw": "已停用繼承的 Actions",
-    "WhaleChao/whishper": "需處理：Actions 分類失敗，未同步：HTTP 404 No common ancestor between pluja:main and main.",
     "WhaleChao/whisper-asr-webservice": "已停用繼承的 Actions",
     "WhaleChao/whisper-ctranslate2": "已停用繼承的 Actions",
     "WhaleChao/whisper-diarization": "已停用繼承的 Actions",
@@ -247,49 +241,11 @@
     "WhaleChao/xerj": "已停用繼承的 Actions",
     "WhaleChao/xllm": "已停用繼承的 Actions",
     "WhaleChao/Yuedu-reader": "已停用繼承的 Actions",
-    "WhaleChao/zed-globalization": "需處理：Actions 分類失敗，未同步：HTTP 404 Not Found",
     "WhaleChao/ziwei-doushu": "已停用繼承的 Actions",
     "WhaleChao/zotero-pdf-translate": "已停用繼承的 Actions"
   },
-  "conflict_recovery": {
-    "WhaleChao/beyondtranslate-ce": {
-      "checked_at": "2026-11-19T04:00:46.033934+00:00",
-      "original_sha": "bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
-      "upstream_sha": "0c274b91b55c6601876dfd39d7b282f83a46712d",
-      "upstream": "beyondtranslate/beyondtranslate-ce",
-      "branch": "main",
-      "backup_branch": "backup/auto-sync/bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
-      "backup_url": "https://github.com/WhaleChao/beyondtranslate-ce/tree/backup/auto-sync/bc928cccbb38f9b9a19bfc56efbacdbd19a5bf09",
-      "unchanged_conflict": true,
-      "conflict_files": [],
-      "status": "deferred",
-      "reason": "沒有單一共同祖先，保留原分支供人工檢查",
-      "retryable": false
-    },
-    "WhaleChao/shimmy": {
-      "checked_at": "2026-11-19T04:04:15.250768+00:00",
-      "original_sha": "099738c02af66f2db7535e8f026b8f5950e06391",
-      "upstream_sha": "9f6d996ec038a9cc1a41b70e79feee4d7c7e349e",
-      "upstream": "Michael-A-Kuykendall/shimmy",
-      "branch": "main",
-      "backup_branch": "backup/auto-sync/099738c02af66f2db7535e8f026b8f5950e06391",
-      "backup_url": "https://github.com/WhaleChao/shimmy/tree/backup/auto-sync/099738c02af66f2db7535e8f026b8f5950e06391",
-      "conflict_files": [
-        "CHANGELOG.md"
-      ],
-      "merge_commit": "51cf2967c2b3e02487e198aab20d4646e6cc3932",
-      "resolved_files": [
-        "CHANGELOG.md"
-      ],
-      "status": "merged",
-      "commit_url": "https://github.com/WhaleChao/shimmy/commit/51cf2967c2b3e02487e198aab20d4646e6cc3932"
-    }
-  },
-  "auto_merged_conflicts": 1,
-  "issues": [
-    "同步 WhaleChao/beyondtranslate-ce：需處理：合併衝突（保留原分支；沒有單一共同祖先，保留原分支供人工檢查）",
-    "同步 WhaleChao/whishper：需處理：Actions 分類失敗，未同步：HTTP 404 No common ancestor between pluja:main and main.",
-    "同步 WhaleChao/zed-globalization：需處理：Actions 分類失敗，未同步：HTTP 404 Not Found"
-  ],
-  "ok": false
+  "conflict_recovery": {},
+  "auto_merged_conflicts": 0,
+  "issues": [],
+  "ok": true
 }
