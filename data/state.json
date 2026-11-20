@@ -114,7 +114,8 @@
     "WhaleChao/cicada": "知了 Cicada · 任何会议和直播的实时字幕、同声传译、AI 会议纪要，Mac、Windows、Linux、Android 免费开源。Live subtitles, interpreting and meeting notes for any call or stream, on Mac, Wi…",
     "WhaleChao/omniget": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media conversion, …",
     "WhaleChao/OpenOats": "A beautiful, minimal meeting recorder for Mac. Press Start, and after Stop you get Notes and a transcript in one markdown file. On-device, free and op…",
-    "WhaleChao/Rapid-MLX": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable to…"
+    "WhaleChao/Rapid-MLX": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable to…",
+    "WhaleChao/osaurus": "Own your AI. The open-source agent harness for macOS. Run local or cloud models with persistent memory, skills, tools, and autonomous execution. Built…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -168,6 +169,7 @@
     "WhaleChao/TensorFold",
     "WhaleChao/TradingAgents-astock",
     "WhaleChao/VidBee",
+    "WhaleChao/amical",
     "WhaleChao/audapolis",
     "WhaleChao/beta9",
     "WhaleChao/brightdata-mcp",
@@ -217,6 +219,7 @@
     "WhaleChao/open-multi-agent",
     "WhaleChao/open-seo-mcp-skills",
     "WhaleChao/optimum-quanto",
+    "WhaleChao/osaurus",
     "WhaleChao/ouroboros",
     "WhaleChao/overlay-translator",
     "WhaleChao/parallax",
@@ -231,6 +234,7 @@
     "WhaleChao/toolhive",
     "WhaleChao/tradingview-mcp",
     "WhaleChao/transcribe-anything",
+    "WhaleChao/trnrt",
     "WhaleChao/typewhisper-mac",
     "WhaleChao/vllm-mlx",
     "WhaleChao/waku-agent",
