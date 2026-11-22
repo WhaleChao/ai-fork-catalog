@@ -118,7 +118,9 @@
     "WhaleChao/osaurus": "Own your AI. The open-source agent harness for macOS. Run local or cloud models with persistent memory, skills, tools, and autonomous execution. Built…",
     "WhaleChao/bla": "🛡️ BLA (bla-agents / Blind LLM Agents) — Open-source Blue Defense MCP server & CLI protecting JS/TS, Electron ASAR, WASM, Python, Native Binaries, SQL…",
     "WhaleChao/llama-modchip": "Zero-GPU CPU inference for 30B-284B MoE models (Qwen3.8 176.5B cold-cache certified in 28.26/48.35 GiB Cgroup v2, DeepSeek-V4 284B, Nemotron-30B) + Ro…",
-    "WhaleChao/vocalinux": "Free, open-source, 100% offline voice dictation for Linux. Speak and type anywhere via whisper.cpp, Whisper & VOSK engines, GPU-accelerated, works on …"
+    "WhaleChao/vocalinux": "Free, open-source, 100% offline voice dictation for Linux. Speak and type anywhere via whisper.cpp, Whisper & VOSK engines, GPU-accelerated, works on …",
+    "WhaleChao/KiCAD-MCP-Server": "KiCAD MCP is a Model Context Protocol (MCP) implementation that enables Large Language Models (LLMs) like Claude to directly interact with KiCAD for p…",
+    "WhaleChao/x64dbg-mcp-server": "x64dbg-MCP Server is a native MCP (Model Context Protocol) plugin for x64dbg that exposes the debugger's full functionality over HTTP. Connect any MCP…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -161,6 +163,7 @@
     "WhaleChao/GPA",
     "WhaleChao/Index-Translate",
     "WhaleChao/KVCache-Factory",
+    "WhaleChao/KiCAD-MCP-Server",
     "WhaleChao/LazyLLM",
     "WhaleChao/MOSS-Transcribe-Diarize",
     "WhaleChao/MobileBuildMCP",
@@ -173,6 +176,7 @@
     "WhaleChao/TradingAgents-astock",
     "WhaleChao/VidBee",
     "WhaleChao/amical",
+    "WhaleChao/argent",
     "WhaleChao/audapolis",
     "WhaleChao/beta9",
     "WhaleChao/bla",
@@ -247,6 +251,7 @@
     "WhaleChao/webclaw",
     "WhaleChao/whisper-ctranslate2",
     "WhaleChao/whisper-flow",
+    "WhaleChao/x64dbg-mcp-server",
     "WhaleChao/xerj",
     "WhaleChao/xllm"
   ],
