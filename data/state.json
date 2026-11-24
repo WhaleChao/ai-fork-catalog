@@ -123,7 +123,8 @@
     "WhaleChao/x64dbg-mcp-server": "x64dbg-MCP Server is a native MCP (Model Context Protocol) plugin for x64dbg that exposes the debugger's full functionality over HTTP. Connect any MCP…",
     "WhaleChao/blender-ai-mcp-addon": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Bl…",
     "WhaleChao/gortex": "High-performance code-intelligence engine for AI agents and IDE, supports 257 languages, multi repositories, based on graph, with access via CLI, MCP …",
-    "WhaleChao/MROffice": "MR Office — the open-source editors of the AI office suite closest to Microsoft Office: documents, spreadsheets, presentations, PDF and code in the br…"
+    "WhaleChao/MROffice": "MR Office — the open-source editors of the AI office suite closest to Microsoft Office: documents, spreadsheets, presentations, PDF and code in the br…",
+    "WhaleChao/OpenOSINT": "Open-source OSINT agent: 21 public-source tools behind natural-language chat, an MCP server and a Claude Code plugin. Passive by default, no keys to s…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -171,6 +172,8 @@
     "WhaleChao/MOSS-Transcribe-Diarize",
     "WhaleChao/MROffice",
     "WhaleChao/MobileBuildMCP",
+    "WhaleChao/Observer",
+    "WhaleChao/OpenOSINT",
     "WhaleChao/OpenOats",
     "WhaleChao/PI-Desktop",
     "WhaleChao/Portable-Local-Studio",
@@ -209,6 +212,7 @@
     "WhaleChao/inference",
     "WhaleChao/jadx-ai-mcp",
     "WhaleChao/java-sdk",
+    "WhaleChao/jido",
     "WhaleChao/jshookmcp",
     "WhaleChao/kordoc",
     "WhaleChao/korean-law-mcp",
