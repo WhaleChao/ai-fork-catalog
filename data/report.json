@@ -1,19 +1,19 @@
 {
-  "checked_at": "2026-11-25T11:24:08+00:00",
+  "checked_at": "2026-11-26T11:00:18+00:00",
   "mode": "daily",
-  "owned_public_forks": 253,
+  "owned_public_forks": 256,
   "owned_public_projects": 12,
-  "owned_public_repositories": 265,
+  "owned_public_repositories": 268,
   "created": 3,
   "created_repositories": [
-    "WhaleChao/Codewhale",
-    "WhaleChao/mirobody",
-    "WhaleChao/solomd"
+    "WhaleChao/n8n-mcp",
+    "WhaleChao/openset-llm",
+    "WhaleChao/openshorts"
   ],
   "bootstrap_created_total": 30,
-  "sync_issues": 1,
+  "sync_issues": 0,
   "sync_conflicts": 0,
-  "sync_errors": 1,
+  "sync_errors": 0,
   "sync_skipped": 3,
   "token_permission_issues": [],
   "reference_actions": {
@@ -135,7 +135,7 @@
     "WhaleChao/local-llm": "已停用繼承的 Actions",
     "WhaleChao/markdownify-mcp": "已停用繼承的 Actions",
     "WhaleChao/math": "已停用繼承的 Actions",
-    "WhaleChao/mcp-for-beginners": "需處理：Actions 分類失敗，未同步：HTTP 500 Server Error: Sorry, this diff is temporarily unavailable due to heavy server load.",
+    "WhaleChao/mcp-for-beginners": "已停用繼承的 Actions",
     "WhaleChao/meetily": "已停用繼承的 Actions",
     "WhaleChao/mflux": "已停用繼承的 Actions",
     "WhaleChao/mike": "已停用繼承的 Actions",
@@ -160,6 +160,7 @@
     "WhaleChao/MROffice": "已停用繼承的 Actions",
     "WhaleChao/muesli": "已停用繼承的 Actions",
     "WhaleChao/murmure": "已停用繼承的 Actions",
+    "WhaleChao/n8n-mcp": "已停用繼承的 Actions",
     "WhaleChao/nanobot": "已停用繼承的 Actions",
     "WhaleChao/neural-compressor": "已停用繼承的 Actions",
     "WhaleChao/nightingale": "已停用繼承的 Actions",
@@ -177,6 +178,8 @@
     "WhaleChao/openmed": "已停用繼承的 Actions",
     "WhaleChao/OpenOats": "已停用繼承的 Actions",
     "WhaleChao/OpenOSINT": "已停用繼承的 Actions",
+    "WhaleChao/openset-llm": "已停用繼承的 Actions",
+    "WhaleChao/openshorts": "已停用繼承的 Actions",
     "WhaleChao/openvino": "已停用繼承的 Actions",
     "WhaleChao/openwhispr": "已停用繼承的 Actions",
     "WhaleChao/optillm": "已停用繼承的 Actions",
@@ -268,8 +271,6 @@
   },
   "conflict_recovery": {},
   "auto_merged_conflicts": 0,
-  "issues": [
-    "同步 WhaleChao/mcp-for-beginners：需處理：Actions 分類失敗，未同步：HTTP 500 Server Error: Sorry, this diff is temporarily unavailable due to heavy server load."
-  ],
-  "ok": false
+  "issues": [],
+  "ok": true
 }

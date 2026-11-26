@@ -126,7 +126,8 @@
     "WhaleChao/MROffice": "MR Office — the open-source editors of the AI office suite closest to Microsoft Office: documents, spreadsheets, presentations, PDF and code in the br…",
     "WhaleChao/OpenOSINT": "Open-source OSINT agent: 21 public-source tools behind natural-language chat, an MCP server and a Claude Code plugin. Passive by default, no keys to s…",
     "WhaleChao/mirobody": "Mirror your body in data. One standard, every source, one complete picture of you: a self-hosted health record built from lab reports, wearables and g…",
-    "WhaleChao/solomd": "A markdown editor — and the bridge to your LLM. Local-first, MIT, ~15 MB. Bundled MCP server lets Claude Code / Codex / Cursor drive your vault direct…"
+    "WhaleChao/solomd": "A markdown editor — and the bridge to your LLM. Local-first, MIT, ~15 MB. Bundled MCP server lets Claude Code / Codex / Cursor drive your vault direct…",
+    "WhaleChao/openshorts": "Open source AI clip generator: turns long videos into viral 9:16 shorts with AI moment detection, face tracking, subtitles and dubbing. Self-host free…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -235,12 +236,15 @@
     "WhaleChao/model-optimization",
     "WhaleChao/muesli",
     "WhaleChao/murmure",
+    "WhaleChao/n8n-mcp",
     "WhaleChao/neural-compressor",
     "WhaleChao/nightingale",
     "WhaleChao/nncf",
     "WhaleChao/omniget",
     "WhaleChao/open-multi-agent",
     "WhaleChao/open-seo-mcp-skills",
+    "WhaleChao/openset-llm",
+    "WhaleChao/openshorts",
     "WhaleChao/optimum-quanto",
     "WhaleChao/osaurus",
     "WhaleChao/ouroboros",
