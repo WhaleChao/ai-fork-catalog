@@ -127,7 +127,9 @@
     "WhaleChao/OpenOSINT": "Open-source OSINT agent: 21 public-source tools behind natural-language chat, an MCP server and a Claude Code plugin. Passive by default, no keys to s…",
     "WhaleChao/mirobody": "Mirror your body in data. One standard, every source, one complete picture of you: a self-hosted health record built from lab reports, wearables and g…",
     "WhaleChao/solomd": "A markdown editor — and the bridge to your LLM. Local-first, MIT, ~15 MB. Bundled MCP server lets Claude Code / Codex / Cursor drive your vault direct…",
-    "WhaleChao/openshorts": "Open source AI clip generator: turns long videos into viral 9:16 shorts with AI moment detection, face tracking, subtitles and dubbing. Self-host free…"
+    "WhaleChao/openshorts": "Open source AI clip generator: turns long videos into viral 9:16 shorts with AI moment detection, face tracking, subtitles and dubbing. Self-host free…",
+    "WhaleChao/autoclip": "AutoClip｜The open-source OpusClip alternative — local-first AI clipping & MCP server, zero subscriptions. 一个链接，一键出片。开源 AI 视频剪辑桌面工具，将播客、访谈、课程等长视频自动剪成短视…",
+    "WhaleChao/pluely": "Pluely is the AI assistant that stays on top of everything you do. Live transcription, instant answers, meeting recaps and screen understanding in one…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -189,10 +191,12 @@
     "WhaleChao/amical",
     "WhaleChao/argent",
     "WhaleChao/audapolis",
+    "WhaleChao/autoclip",
     "WhaleChao/beta9",
     "WhaleChao/bla",
     "WhaleChao/blender-ai-mcp-addon",
     "WhaleChao/brightdata-mcp",
+    "WhaleChao/bub",
     "WhaleChao/buildwithclaude",
     "WhaleChao/chitu",
     "WhaleChao/cicada",
@@ -250,6 +254,7 @@
     "WhaleChao/ouroboros",
     "WhaleChao/overlay-translator",
     "WhaleChao/parallax",
+    "WhaleChao/pluely",
     "WhaleChao/radar",
     "WhaleChao/ripwire",
     "WhaleChao/rtp-llm",
