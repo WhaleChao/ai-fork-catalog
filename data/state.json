@@ -117,7 +117,7 @@
     "WhaleChao/Rapid-MLX": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable to…",
     "WhaleChao/osaurus": "Own your AI. The open-source agent harness for macOS. Run local or cloud models with persistent memory, skills, tools, and autonomous execution. Built…",
     "WhaleChao/bla": "🛡️ BLA (bla-agents / Blind LLM Agents) — Open-source Blue Defense MCP server & CLI protecting JS/TS, Electron ASAR, WASM, Python, Native Binaries, SQL…",
-    "WhaleChao/llama-modchip": "Zero-GPU CPU inference for 30B-284B MoE models (Qwen3.8 176.5B cold-cache certified in 28.26/48.35 GiB Cgroup v2, DeepSeek-V4 284B, Nemotron-30B) + Ro…",
+    "WhaleChao/llama-modchip": "Zero-GPU CPU inference for 26B-284B MoE models (Inkling-2-Mini Monza-RS v3, Qwen3.8 176.5B, DeepSeek-V4 284B, Nemotron-30B) + AVX-512 Fusion & RouteCr…",
     "WhaleChao/vocalinux": "Free, open-source, 100% offline voice dictation for Linux. Speak and type anywhere via whisper.cpp, Whisper & VOSK engines, GPU-accelerated, works on …",
     "WhaleChao/KiCAD-MCP-Server": "KiCAD MCP is a Model Context Protocol (MCP) implementation that enables Large Language Models (LLMs) like Claude to directly interact with KiCAD for p…",
     "WhaleChao/x64dbg-mcp-server": "x64dbg-MCP Server is a native MCP (Model Context Protocol) plugin for x64dbg that exposes the debugger's full functionality over HTTP. Connect any MCP…",
@@ -129,7 +129,9 @@
     "WhaleChao/solomd": "A markdown editor — and the bridge to your LLM. Local-first, MIT, ~15 MB. Bundled MCP server lets Claude Code / Codex / Cursor drive your vault direct…",
     "WhaleChao/openshorts": "Open source AI clip generator: turns long videos into viral 9:16 shorts with AI moment detection, face tracking, subtitles and dubbing. Self-host free…",
     "WhaleChao/autoclip": "AutoClip｜The open-source OpusClip alternative — local-first AI clipping & MCP server, zero subscriptions. 一个链接，一键出片。开源 AI 视频剪辑桌面工具，将播客、访谈、课程等长视频自动剪成短视…",
-    "WhaleChao/pluely": "Pluely is the AI assistant that stays on top of everything you do. Live transcription, instant answers, meeting recaps and screen understanding in one…"
+    "WhaleChao/pluely": "Pluely is the AI assistant that stays on top of everything you do. Live transcription, instant answers, meeting recaps and screen understanding in one…",
+    "WhaleChao/figwright": "Free, two-way Figma MCP server. Turn designs into framework-aware code, and push code back to the canvas. Works with Claude Code, Cursor, Codex, and a…",
+    "WhaleChao/innovation-lab-examples": "80+ production-ready AI agent examples in Python — build autonomous agents, multi-agent systems and agentic AI with uAgents, ASI:One, MCP, A2A, LangCh…"
   },
   "bootstrap_created": [
     "WhaleChao/mlx",
@@ -201,6 +203,7 @@
     "WhaleChao/chitu",
     "WhaleChao/cicada",
     "WhaleChao/claude-code-local",
+    "WhaleChao/cli-agent-orchestrator",
     "WhaleChao/crosspaste-desktop",
     "WhaleChao/dashboard-icons",
     "WhaleChao/davinci-resolve-mcp",
@@ -209,6 +212,7 @@
     "WhaleChao/dsnote",
     "WhaleChao/excel-mcp-server",
     "WhaleChao/ffmpeg-skill",
+    "WhaleChao/figwright",
     "WhaleChao/finn",
     "WhaleChao/geti",
     "WhaleChao/ghidra-mcp",
@@ -218,6 +222,7 @@
     "WhaleChao/harnessrouter",
     "WhaleChao/hyprwhspr",
     "WhaleChao/inference",
+    "WhaleChao/innovation-lab-examples",
     "WhaleChao/jadx-ai-mcp",
     "WhaleChao/java-sdk",
     "WhaleChao/jido",
